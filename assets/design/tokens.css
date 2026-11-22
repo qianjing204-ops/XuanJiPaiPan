@@ -1,0 +1,11 @@
+:root{
+  --ds-paper:#F7F3EA; --ds-paper-2:#FCF9F2; --ds-ink:#1F2420; --ds-ink-2:#6E746E; --ds-ink-3:#9A9F99;
+  --ds-jade:#2F6F5B; --ds-jade-2:#245746; --ds-gold:#B08A4F; --ds-cinnabar:#B5432F;
+  --ds-line:rgba(176,138,79,.24); --ds-line-soft:rgba(176,138,79,.14);
+  --ds-shadow:0 10px 28px rgba(40,52,40,.07),0 1px 2px rgba(40,52,40,.04);
+  --ds-serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --ds-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;
+  --ds-r-card:16px; --ds-r-input:10px; --ds-r-pill:999px;
+  --ds-space-1:4px; --ds-space-2:8px; --ds-space-3:12px; --ds-space-4:16px; --ds-space-5:24px; --ds-space-6:32px;
+  --ds-text-display:32px; --ds-text-title:20px; --ds-text-body:15px; --ds-text-caption:12px;
+}

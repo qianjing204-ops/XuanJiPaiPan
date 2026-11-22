@@ -1,0 +1,443 @@
+/* v20 姓名真太阳时单独占行，勾选框不再被挤出卡片。 */
+/* === 新 UI：内部页面 === */
+/* embed.css v5 —— 外壳同款浅底白卡片。仅在 <html class="embed"> 时生效。不改盘面文字。嵌入态模块标题 32px。 */
+html.embed{color-scheme:light dark}
+html.embed body{
+  --paper:#F2F2F7!important;--paper2:#FFFFFF!important;--card:#FFFFFF!important;--gold-bg:#F2F2F7!important;
+  --ink:#1C1C1E!important;--ink2:#6B7280!important;--line:rgba(28,40,48,.08)!important;
+  --gold:#2F6F5B!important;--gold2:#1F4F40!important;--title:#1C1C1E!important;
+  --red:#2F6F5B!important;--red2:#1F4F40!important;--green:#2E7D4F!important;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04)!important;
+  --tk-ink:#1C1C1E!important;--tk-line:rgba(28,40,48,.08)!important;--tk-tint:#F2F2F7!important;
+  /* 各页专属主题变量统一收口 */
+  --bz-deep:#1C1C1E!important;--bz-ink:#1C1C1E!important;--bz-ink2:#6B7280!important;--bz-line:rgba(28,40,48,.10)!important;--bz-tint:#F2F2F7!important;--bz-tint2:#FFFFFF!important;--cz-deep:#1C1C1E!important;--cz-ink:#1C1C1E!important;--cz-ink2:#6B7280!important;--cz-line:rgba(28,40,48,.10)!important;--cz-tint:#F2F2F7!important;--cz-tint2:#FFFFFF!important;--dao-deep:#1C1C1E!important;--dao-ink:#1C1C1E!important;--dao-ink2:#6B7280!important;--dao-line:rgba(28,40,48,.10)!important;--dao-tint:#F2F2F7!important;--dao-tint2:#FFFFFF!important;--dlr-deep:#1C1C1E!important;--dlr-ink:#1C1C1E!important;--dlr-ink2:#6B7280!important;--dlr-line:rgba(28,40,48,.10)!important;--dlr-tint:#F2F2F7!important;--dlr-tint2:#FFFFFF!important;--fs-deep:#1C1C1E!important;--fs-ink:#1C1C1E!important;--fs-ink2:#6B7280!important;--fs-line:rgba(28,40,48,.10)!important;--fs-tint:#F2F2F7!important;--fs-tint2:#FFFFFF!important;--fy-deep:#1C1C1E!important;--fy-ink:#1C1C1E!important;--fy-ink2:#6B7280!important;--fy-line:rgba(28,40,48,.10)!important;--fy-tint:#F2F2F7!important;--fy-tint2:#FFFFFF!important;--hh-deep:#1C1C1E!important;--hh-ink:#1C1C1E!important;--hh-ink2:#6B7280!important;--hh-line:rgba(28,40,48,.10)!important;--hh-tint:#F2F2F7!important;--hh-tint2:#FFFFFF!important;--hj-deep:#1C1C1E!important;--hj-ink:#1C1C1E!important;--hj-ink2:#6B7280!important;--hj-line:rgba(28,40,48,.10)!important;--hj-tint:#F2F2F7!important;--hj-tint2:#FFFFFF!important;--hl-deep:#1C1C1E!important;--hl-ink:#1C1C1E!important;--hl-ink2:#6B7280!important;--hl-line:rgba(28,40,48,.10)!important;--hl-tint:#F2F2F7!important;--hl-tint2:#FFFFFF!important;--lhl-deep:#1C1C1E!important;--lhl-ink:#1C1C1E!important;--lhl-ink2:#6B7280!important;--lhl-line:rgba(28,40,48,.10)!important;--lhl-tint:#F2F2F7!important;--lhl-tint2:#FFFFFF!important;--ln-deep:#1C1C1E!important;--ln-ink:#1C1C1E!important;--ln-ink2:#6B7280!important;--ln-line:rgba(28,40,48,.10)!important;--ln-tint:#F2F2F7!important;--ln-tint2:#FFFFFF!important;--lp-deep:#1C1C1E!important;--lp-ink:#1C1C1E!important;--lp-ink2:#6B7280!important;--lp-line:rgba(28,40,48,.10)!important;--lp-tint:#F2F2F7!important;--lp-tint2:#FFFFFF!important;--lq-deep:#1C1C1E!important;--lq-ink:#1C1C1E!important;--lq-ink2:#6B7280!important;--lq-line:rgba(28,40,48,.10)!important;--lq-tint:#F2F2F7!important;--lq-tint2:#FFFFFF!important;--ly-deep:#1C1C1E!important;--ly-ink:#1C1C1E!important;--ly-ink2:#6B7280!important;--ly-line:rgba(28,40,48,.10)!important;--ly-tint:#F2F2F7!important;--ly-tint2:#FFFFFF!important;--mh-deep:#1C1C1E!important;--mh-ink:#1C1C1E!important;--mh-ink2:#6B7280!important;--mh-line:rgba(28,40,48,.10)!important;--mh-tint:#F2F2F7!important;--mh-tint2:#FFFFFF!important;--ms-deep:#1C1C1E!important;--ms-ink:#1C1C1E!important;--ms-ink2:#6B7280!important;--ms-line:rgba(28,40,48,.10)!important;--ms-tint:#F2F2F7!important;--ms-tint2:#FFFFFF!important;--nm-deep:#1C1C1E!important;--nm-ink:#1C1C1E!important;--nm-ink2:#6B7280!important;--nm-line:rgba(28,40,48,.10)!important;--nm-tint:#F2F2F7!important;--nm-tint2:#FFFFFF!important;--qm-deep:#1C1C1E!important;--qm-ink:#1C1C1E!important;--qm-ink2:#6B7280!important;--qm-line:rgba(28,40,48,.10)!important;--qm-tint:#F2F2F7!important;--qm-tint2:#FFFFFF!important;--qz-deep:#1C1C1E!important;--qz-ink:#1C1C1E!important;--qz-ink2:#6B7280!important;--qz-line:rgba(28,40,48,.10)!important;--qz-tint:#F2F2F7!important;--qz-tint2:#FFFFFF!important;--sx-deep:#1C1C1E!important;--sx-ink:#1C1C1E!important;--sx-ink2:#6B7280!important;--sx-line:rgba(28,40,48,.10)!important;--sx-tint:#F2F2F7!important;--sx-tint2:#FFFFFF!important;--tie-deep:#1C1C1E!important;--tie-ink:#1C1C1E!important;--tie-ink2:#6B7280!important;--tie-line:rgba(28,40,48,.10)!important;--tie-tint:#F2F2F7!important;--tie-tint2:#FFFFFF!important;--tr-deep:#1C1C1E!important;--tr-ink:#1C1C1E!important;--tr-ink2:#6B7280!important;--tr-line:rgba(28,40,48,.10)!important;--tr-tint:#F2F2F7!important;--tr-tint2:#FFFFFF!important;--ts-deep:#1C1C1E!important;--ts-ink:#1C1C1E!important;--ts-ink2:#6B7280!important;--ts-line:rgba(28,40,48,.10)!important;--ts-tint:#F2F2F7!important;--ts-tint2:#FFFFFF!important;--ty-deep:#1C1C1E!important;--ty-ink:#1C1C1E!important;--ty-ink2:#6B7280!important;--ty-line:rgba(28,40,48,.10)!important;--ty-tint:#F2F2F7!important;--ty-tint2:#FFFFFF!important;--wnl-deep:#1C1C1E!important;--wnl-ink:#1C1C1E!important;--wnl-ink2:#6B7280!important;--wnl-line:rgba(28,40,48,.10)!important;--wnl-tint:#F2F2F7!important;--wnl-tint2:#FFFFFF!important;--xlr-deep:#1C1C1E!important;--xlr-ink:#1C1C1E!important;--xlr-ink2:#6B7280!important;--xlr-line:rgba(28,40,48,.10)!important;--xlr-tint:#F2F2F7!important;--xlr-tint2:#FFFFFF!important;--xx-deep:#1C1C1E!important;--xx-ink:#1C1C1E!important;--xx-ink2:#6B7280!important;--xx-line:rgba(28,40,48,.10)!important;--xx-tint:#F2F2F7!important;--xx-tint2:#FFFFFF!important;--xz-deep:#1C1C1E!important;--xz-ink:#1C1C1E!important;--xz-ink2:#6B7280!important;--xz-line:rgba(28,40,48,.10)!important;--xz-tint:#F2F2F7!important;--xz-tint2:#FFFFFF!important;--yq-deep:#1C1C1E!important;--yq-ink:#1C1C1E!important;--yq-ink2:#6B7280!important;--yq-line:rgba(28,40,48,.10)!important;--yq-tint:#F2F2F7!important;--yq-tint2:#FFFFFF!important;--zg-deep:#1C1C1E!important;--zg-ink:#1C1C1E!important;--zg-ink2:#6B7280!important;--zg-line:rgba(28,40,48,.10)!important;--zg-tint:#F2F2F7!important;--zg-tint2:#FFFFFF!important;--zl-deep:#1C1C1E!important;--zl-ink:#1C1C1E!important;--zl-ink2:#6B7280!important;--zl-line:rgba(28,40,48,.10)!important;--zl-tint:#F2F2F7!important;--zl-tint2:#FFFFFF!important;--zr-deep:#1C1C1E!important;--zr-ink:#1C1C1E!important;--zr-ink2:#6B7280!important;--zr-line:rgba(28,40,48,.10)!important;--zr-tint:#F2F2F7!important;--zr-tint2:#FFFFFF!important;--zw-deep:#1C1C1E!important;--zw-ink:#1C1C1E!important;--zw-ink2:#6B7280!important;--zw-line:rgba(28,40,48,.10)!important;--zw-tint:#F2F2F7!important;--zw-tint2:#FFFFFF!important;
+ 
+  background:#F2F2F7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom,0px)}
+/* 顶部水墨远山 + 朱日 */
+html.embed body::before{content:none;display:none!important;position:fixed;left:0;right:0;top:0;height:190px;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 190' preserveAspectRatio='xMidYMin slice'%3E%3Ccircle cx='318' cy='70' r='28' fill='%23B5382B' opacity='.75'/%3E%3Cpath d='M0 110Q60 55 120 95T240 85T390 105V190H0Z' fill='%232F4A5A' opacity='.10'/%3E%3Cpath d='M0 140Q80 90 150 125T300 115T390 130V190H0Z' fill='%232F4A5A' opacity='.15'/%3E%3Cpath d='M0 165Q100 130 200 158T390 152V190H0Z' fill='%234F7C78' opacity='.20'/%3E%3C/svg%3E") top/100% auto no-repeat;
+  -webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
+html.embed #topbar{display:none!important}
+html.embed,html.embed body{overscroll-behavior-x:none}
+html.embed .ios-back,html.embed .back-btn,html.embed .bazi-back,html.embed .zw-back,html.embed .hl-back{display:none!important}
+html.embed .wrap{position:relative;z-index:1;max-width:560px;padding:20px 16px 40px}
+/* 页面标题 */
+html.embed .page h1,html.embed .page h1.ios-module-title{font-size:32px;font-weight:700;letter-spacing:0;color:var(--title);text-align:left;margin:4px 0 6px;border:0;line-height:1.15}
+html.embed .page h1::before{content:none;display:none}
+html.embed .page h1::after{display:none}
+html.embed .page .lead{font-size:15px;letter-spacing:0;color:var(--ink2);text-align:left;line-height:1.45;margin:0 0 16px;padding-bottom:0}
+html.embed .page .lead::after{display:none}
+html.embed .page .lead::before{background:linear-gradient(90deg,var(--line),transparent)}
+/* 表单卡片化 */
+html.embed .form-row,html.embed .birth-group,html.embed .ly-time-row{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);gap:12px;margin-bottom:14px;align-items:flex-end}
+html.embed .form-row .field,html.embed .ly-time-row .field,html.embed .birth-group .field{flex:1 1 calc(50% - 6px)!important;width:auto!important;min-width:0}
+html.embed .field:has(input[type=text]:not(.dt-input)),html.embed .field:has(.dt-input){flex-basis:100%!important}
+html.embed .field label{font-size:12px;letter-spacing:.1em;color:var(--ink2)}
+html.embed .field input,html.embed .field select,html.embed .form-row input,html.embed .form-row select,html.embed textarea{
+  height:44px;max-width:100%;box-sizing:border-box;border:1px solid transparent;border-radius:12px;background-color:#F2F2F7;
+  padding:0 14px;font:inherit;font-size:16px;color:var(--ink);-webkit-appearance:none;appearance:none;outline:none}
+html.embed .field select,html.embed .form-row select{width:100%;padding-right:34px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B7280' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center}
+html.embed .field input:not(.dt-input):not([type=checkbox]){width:100%}
+html.embed .field input:focus,html.embed .field select:focus,html.embed textarea:focus{border-color:#2F6F5B;box-shadow:0 0 0 3px rgba(47,111,91,.16)}
+html.embed .field.chk input,html.embed .field input[type=checkbox]{width:22px;height:22px;min-height:0;padding:0;accent-color:#2F6F5B}
+html.embed .field button:not(.btn){min-width:44px;height:44px;border-radius:12px;background:#F2F2F7;border:1px solid transparent;color:#1C1C1E}
+textarea{height:auto!important;min-height:88px;padding:12px 14px!important}
+/* 按钮 */
+html.embed .btn{height:50px;border:0;border-radius:14px;font-size:17px;font-weight:600;letter-spacing:0;color:#fff!important;
+  background:#2F6F5B!important;box-shadow:none}
+html.embed .form-row>.btn{flex:1 1 calc(50% - 6px)}
+html.embed .btn.soft,html.embed .btn-ghost{background:#F2F2F7!important;color:#1C1C1E!important;box-shadow:none;border:0;letter-spacing:0}
+/* 结果区通用 */
+html.embed .info-box,html.embed .card,html.embed .panel{border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}
+html.embed table{display:block;max-width:100%;overflow-x:auto}
+html.embed img,html.embed svg{max-width:100%}
+
+html.embed .birth-group,html.embed .ly-time-row{display:flex;flex-wrap:wrap;border-style:solid}
+html.embed .group-label{flex-basis:100%;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--title)}
+html.embed .ly-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 14px}
+html.embed .ly-actions .btn{flex:1 1 calc(50% - 5px)}
+html.embed .ly-actions .btn:first-child{flex-basis:100%}
+html.embed input[type=checkbox],html.embed input[type=radio]{-webkit-appearance:auto!important;appearance:auto!important;width:20px!important;height:20px!important;min-height:0;padding:0;accent-color:#2F6F5B;vertical-align:middle}
+html.embed .field.chk,html.embed .mh-multi-label,html.embed label:has(>input[type=checkbox]){display:inline-flex;flex-direction:row;align-items:center;gap:8px;font-size:14px;color:var(--ink);letter-spacing:0}
+html.embed select,html.embed .sel-face{font-size:15px;text-overflow:clip;white-space:normal;overflow:visible}
+html.embed .ly-tf-btn{align-self:flex-end}
+html.embed #footer,html.embed footer{font-size:12px;color:var(--ink2);text-align:center;opacity:.8}
+
+/* —— v2.1：网格强制对齐，不受各页自带布局规则影响 —— */
+html.embed .form-row,html.embed .birth-group,html.embed .ly-time-row,html.embed .form-row.r2,html.embed .form-row.r3{
+  display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;align-items:end;
+  background:var(--card)!important;border:1px solid var(--line)!important;border-radius:20px!important;padding:16px!important;box-shadow:var(--shadow)!important}
+html.embed .form-row .field,html.embed .birth-group .field,html.embed .ly-time-row .field{width:auto!important;max-width:none!important;min-width:0!important;flex:none!important}
+html.embed .field:has(input[type=text]),html.embed .field:has(.dt-input),html.embed .group-label,html.embed .form-row>.span-group,html.embed .form-row>.span-years{grid-column:1/-1!important}
+html.embed .form-row>.btn{flex:none!important;grid-column:auto}
+html.embed .field input[type=time],html.embed .field input[type=number]{width:100%}
+/* 按钮层级：只有主按钮是朱红，其余为浅色 */
+html.embed .btn.soft,html.embed .btn-ghost,html.embed .btn.btn-ghost,
+html.embed .ly-actions .btn:not(:first-child),html.embed .ly-tf-btn .btn,html.embed .field button.btn:not(.gold){
+  background:#F2F2F7!important;color:#1C1C1E!important;box-shadow:none!important;border:0!important;letter-spacing:0}
+
+/* —— v2.2：修复 hidden 被覆盖、控件撑满、柱选择器 —— */
+html.embed [hidden]:not(#_){display:none!important}
+html.embed .field select,html.embed .field input:not([type=checkbox]):not([type=radio]){width:100%!important}
+html.embed .celeb-row{display:flex;gap:8px;width:100%}
+html.embed .celeb-row input{flex:1}
+html.embed .gz-mini{display:flex;gap:8px}
+html.embed .gz-mini select{flex:1;width:auto!important;padding:0 26px 0 10px;background-position:right 8px center}
+html.embed .ly-actions .btn{flex:1 1 calc(50% - 5px)!important}
+html.embed .ly-actions .btn:first-child{flex-basis:100%!important}
+html.embed .mh-multi-label{flex-basis:100%}
+html.embed .dt-wrap{height:44px!important;gap:8px}
+html.embed .dt-wrap input,html.embed .dt-wrap input[type=text].dt-input,html.embed .dt-wrap input[type=time]{flex:1 1 auto!important;width:auto!important;min-width:0;height:44px!important}
+html.embed .dt-wrap button{flex:none}
+
+/* v2.3 公共自绘下拉：浅米色、盖过表单。只改 .sel-list，不改各页排版。 */
+html.embed .sel-list{z-index:100000!important;background:#FFFFFF!important;color:#1C1C1E!important;border:1px solid rgba(28,40,48,.10)!important;border-radius:12px!important;box-shadow:0 4px 12px rgba(139,69,19,.12)!important;overflow:auto!important}
+html.embed .sel-opt:hover{background:#F2F2F7!important}
+html.embed .form-row,html.embed .birth-group,html.embed .ly-time-row,html.embed .field,html.embed .wrap,html.embed .page{overflow:visible!important}
+html.embed .modal-mask{z-index:100001!important}
+html.embed .dt-modal,html.embed .modal.dt-modal{background:#FFFFFF!important;color:#1C1C1E!important;border-radius:16px!important}
+
+/* v2.4 换肤页下拉改按钮。原 select 移出点击区，系统列表出不来。 */
+html.embed .sel-face{background:#F2F2F7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B5F52' stroke-width='1.6'/%3E%3C/svg%3E") right 14px center no-repeat!important;color:#1C1C1E!important;font-size:16px!important;letter-spacing:0!important;box-shadow:none!important}
+html.embed .sel-list{background:#FFFFFF!important;opacity:1!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html.embed .sel-opt{background:transparent;color:#1C1C1E}
+html.embed .sel-opt.on{background:#F2F2F7}
+
+/* v2.5 外壳已有测字标题和三个入口，嵌入时只留字、所问之事和一个动作。 */
+html.embed.cz-slim .cz-own,html.embed.cz-slim #topbar,html.embed.cz-slim footer,html.embed.cz-slim #footer,html.embed.cz-slim .sub-note{display:none!important}
+html.embed.cz-slim body{background:transparent!important;padding:0}
+html.embed.cz-slim body::before{display:none}
+html.embed.cz-slim .wrap{padding:8px 4px 16px;max-width:none}
+html.embed.cz-slim .form-row{box-shadow:none!important;border:0!important;background:transparent!important;padding:0!important;margin:0!important}
+
+/* v2.6 嵌进外壳时去掉玄机页自己的底和卡片，避免页里套页。 */
+html.embed.cz-slim body,html.embed.cz-slim .wrap,html.embed.cz-slim .page{background:transparent!important}
+html.embed.cz-slim body::before{display:none!important}
+html.embed.cz-slim .form-row{background:#FCF8EF!important;border:1px solid rgba(28,40,48,.10)!important;border-radius:16px!important;padding:16px!important;box-shadow:none!important}
+
+/* v3 结果盘面：只换底和卡片。干支、宫位、卦象仍由原脚本写入。 */
+html.embed .info-box,html.embed .card,html.embed .panel,html.embed .pillar,html.embed .palace,html.embed .qm-cell,html.embed .zw-gong{
+  background:#fff!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04)!important;color:#1C1C1E}
+html.embed .page h2,html.embed .page h3,html.embed .card-title{letter-spacing:0;font-weight:650;color:#1C1C1E}
+html.embed.embed-dark,html.embed.embed-dark body{background:#000!important;color:#E8E8ED!important;color-scheme:dark}
+html.embed.embed-dark .form-row,html.embed.embed-dark .birth-group,html.embed.embed-dark .ly-time-row,
+html.embed.embed-dark .card,html.embed.embed-dark .panel,html.embed.embed-dark .pillar,html.embed.embed-dark .sel-list{
+  background:#1C1C1E!important;color:#E8E8ED!important}
+html.embed.embed-dark .field input,html.embed.embed-dark .field select,html.embed.embed-dark .sel-face,html.embed.embed-dark textarea,
+html.embed.embed-dark .btn.soft,html.embed.embed-dark .btn-ghost{background:#2C2C2E!important;color:#E8E8ED!important}
+html.embed.embed-dark .btn:not(.soft):not(.btn-ghost){background:#3D8F76!important;color:#fff!important}
+html.embed.embed-dark .page h1,html.embed.embed-dark .page .lead{color:#F2F2F7!important}
+
+/* v4 全模块：压过各页 pages/*.css 的宣纸、顶栏、朱砂和宽字距。格子结构不改。 */
+html.embed{
+  --paper:#F2F2F7;--paper2:#fff;--card:#fff;--ink:#1C1C1E;--ink2:#6B7280;
+  --line:rgba(28,40,48,.10);--gold:#2F6F5B;--gold2:#2F6F5B;--red:#2F6F5B;--red2:#245C4B;
+  --title:#1C1C1E;--gold-bg:#F2F2F7;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;
+  --font-serif:var(--font);
+  --nav:#F2F2F7;--nav-text:#1C1C1E;
+  --cal-hover:#E5E5EA;--cal-selected:#D8E6E1;--cal-zhai:#D8E6E1;
+}
+html.embed,html.embed body{
+  background:#F2F2F7!important;color:#1C1C1E!important;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif!important;
+  letter-spacing:0!important;
+}
+html.embed .topbar,html.embed .site-foot,html.embed footer,html.embed .hero,html.embed .brand,html.embed .nav{display:none!important}
+html.embed #aiMount,html.embed #aiBlock{display:none!important}
+html.embed #xjMask,html.embed #xjMask .xj-sheet,html.embed #xjMask button{display:block!important}
+html.embed #xjChat.xj-on{display:flex!important;flex-direction:column!important}
+html.embed #xjChat .xj-bar,html.embed #xjChat .xj-bar button{display:flex!important}
+html.embed #xjAiDock{display:none!important}
+html.embed #xjCastTip{display:block!important;position:relative;z-index:90}
+html.embed #xjAiDock.xj-show{display:block!important}
+html.embed #xjAiDock button.xjAiBtn{display:block!important;width:100%!important;height:50px!important;border:0!important;border-radius:16px!important;background:#2F6F5B!important;color:#fff!important}
+html.embed .wrap{max-width:720px;padding:0 16px}
+html.embed .page{padding:8px 0 24px!important;background:transparent!important}
+html.embed .page h1,html.embed .page h1.ios-module-title{
+  font-size:32px!important;font-weight:700!important;letter-spacing:0!important;color:#1C1C1E!important;line-height:1.15!important;
+}
+html.embed .mod-title,html.embed .page h2{
+  font-size:22px!important;font-weight:700!important;letter-spacing:0!important;color:#1C1C1E!important;line-height:1.2!important;
+}
+html.embed .page .lead{font-size:15px!important;color:#6B7280!important;letter-spacing:0!important;line-height:1.45!important}
+html.embed .page .lead::before,html.embed .page .lead::after,html.embed .page h1::before{content:none!important;display:none!important}
+html.embed .form-row,html.embed .info-box,html.embed .card,html.embed .panel,html.embed .overview-card,
+html.embed .mod,html.embed section.mod,html.embed .ai-block,html.embed .detail,html.embed #dayDetail,html.embed #out{
+  background:#fff!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04)!important;
+}
+html.embed .form-row,html.embed .opts-row,html.embed .birth-group,html.embed .ly-time-row{
+  display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;align-items:end!important;
+}
+html.embed .opts-row .field,html.embed .birth-group .field,html.embed .ly-time-row .field{
+  grid-column:auto!important;width:100%!important;min-width:0!important;max-width:100%!important;
+}
+html.embed .opts-row>.group-label,html.embed .birth-group>.group-label,html.embed .field.chk,html.embed .ly-bo{
+  grid-column:1/-1!important;width:100%!important;
+}
+html.embed .opts-row .field select,html.embed .opts-row select,html.embed .birth-group select,html.embed .field select{
+  display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;
+  height:44px!important;min-height:44px!important;white-space:nowrap!important;text-overflow:ellipsis!important;overflow:hidden!important;
+  padding:0 32px 0 12px!important;line-height:44px!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B5F52' stroke-width='1.6'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 12px center!important;background-size:12px 8px!important;
+}
+html.embed .page{padding-top:56px!important}
+html.embed .zg-search{display:flex!important;flex-direction:column!important;gap:12px!important;width:100%!important}
+html.embed .zg-search input{flex:none!important;width:100%!important;min-width:0!important;height:44px!important}
+html.embed .zg-search .btn{width:100%!important;margin:0!important}
+html.embed .birth-group>.group-label,html.embed .group-label{white-space:normal!important;line-height:1.45!important;overflow:visible!important}
+html.embed .birth-group .field.chk,html.embed .hh-true,html.embed .ly-zi-field,html.embed .ly-tf-btn{grid-column:1/-1!important}
+html.embed .ly-time-row{grid-template-columns:1fr!important}
+html.embed .ly-time-row .field,html.embed .ly-time-row .ly-tf-btn .btn{width:100%!important;max-width:100%!important}
+html.embed .nm-go-row,html.embed .nm-go-row .btn{width:100%!important;max-width:100%!important}
+
+html.embed .btn,html.embed button.btn{position:relative!important;z-index:1!important}
+html.embed .field label{font-size:13px!important;font-weight:600!important;color:#6B7280!important;letter-spacing:0!important}
+html.embed .field input:not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]),html.embed .sel-face,html.embed textarea,html.embed input[type="text"],html.embed input[type="number"]{
+  height:44px!important;border:0!important;border-radius:10px!important;background:#F2F2F7!important;color:#1C1C1E!important;
+  font-size:16px!important;letter-spacing:0!important;padding:0 12px!important;width:100%!important;max-width:100%!important;
+}
+html.embed input[type="date"],html.embed input[type="time"]{
+  height:44px!important;min-height:44px!important;border:0!important;border-radius:10px!important;background-color:#F2F2F7!important;color:#1C1C1E!important;
+  font-size:16px!important;letter-spacing:0!important;padding:0 12px!important;width:100%!important;max-width:100%!important;
+  -webkit-appearance:auto!important;appearance:auto!important;
+}
+html.embed .field select{
+  height:44px!important;border:0!important;border-radius:10px!important;background-color:#F2F2F7!important;color:#1C1C1E!important;
+  font-size:16px!important;letter-spacing:0!important;padding:0 32px 0 12px!important;width:100%!important;max-width:100%!important;
+}
+html.embed input[type=checkbox],html.embed input[type=radio]{
+  -webkit-appearance:auto!important;appearance:auto!important;width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;
+  max-width:22px!important;padding:0!important;margin:0!important;accent-color:#2F6F5B!important;flex:none!important;background:transparent!important;border-radius:4px!important;
+}
+html.embed .field.chk,html.embed label:has(>input[type=checkbox]),html.embed label:has(>input[type=radio]){
+  display:flex!important;flex-direction:row!important;align-items:center!important;gap:8px!important;width:auto!important;max-width:100%!important;
+  writing-mode:horizontal-tb!important;white-space:normal!important;font-size:14px!important;letter-spacing:0!important;min-height:0!important;
+}
+html.embed .sub-note,html.embed .opts-note{
+  position:static!important;clear:both;margin:8px 0 16px!important;z-index:1;
+}
+html.embed textarea{height:auto!important;min-height:88px!important;padding:12px!important}
+html.embed .btn,html.embed button.btn,html.embed .btn.gold,html.embed .cal-page .btn.gold{
+  height:50px!important;border:0!important;border-radius:14px!important;background:#2F6F5B!important;color:#fff!important;
+  font-size:17px!important;font-weight:600!important;letter-spacing:0!important;box-shadow:none!important;width:100%!important;
+}
+html.embed .btn.soft,html.embed .btn-ghost,html.embed .btn.ghost{
+  background:#F2F2F7!important;color:#1C1C1E!important;width:auto!important;
+}
+html.embed .cal-grid{gap:6px!important;background:transparent!important;border:0!important}
+html.embed .cal-cell{
+  background:#fff!important;border:0!important;border-radius:12px!important;min-height:56px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)!important;
+}
+html.embed .cal-cell.on,html.embed .cal-cell.selected,html.embed .cal-cell.active{outline:2px solid #2F6F5B!important}
+html.embed .pillar,html.embed .palace,html.embed .qm-cell,html.embed .zw-gong,html.embed .hex,html.embed .yao{
+  background:#fff!important;border-radius:12px!important;color:#1C1C1E!important;
+}
+html.embed .wordmark,html.embed .slogan,html.embed .rel-title,html.embed .det-h,html.embed .nayin-h,html.embed summary{
+  letter-spacing:0!important;
+}
+html.embed.embed-dark,html.embed.embed-dark body{background:#000!important;color:#E8E8ED!important;color-scheme:dark}
+html.embed.embed-dark{--paper:#000;--card:#1C1C1E;--ink:#E8E8ED;--ink2:#8E8E93;--title:#F2F2F7;--red:#3D8F76}
+html.embed.embed-dark .form-row,html.embed.embed-dark .info-box,html.embed.embed-dark .card,html.embed.embed-dark .panel,
+html.embed.embed-dark .overview-card,html.embed.embed-dark .cal-cell,html.embed.embed-dark .pillar,html.embed.embed-dark #dayDetail,html.embed.embed-dark #out{
+  background:#1C1C1E!important;color:#E8E8ED!important;
+}
+html.embed.embed-dark .field input,html.embed.embed-dark .field select,html.embed.embed-dark textarea,html.embed.embed-dark input{
+  background:#2C2C2E!important;color:#E8E8ED!important;
+}
+html.embed.embed-dark .btn:not(.soft):not(.btn-ghost):not(.ghost){background:#3D8F76!important;color:#fff!important}
+html.embed.embed-dark .page h1,html.embed.embed-dark .page .lead,html.embed.embed-dark .mod-title{color:#F2F2F7!important}
+
+
+html.embed .fs-base,html.embed .fs-row,html.embed .cz-form,html.embed .birth-group,html.embed .mod,html.embed .mod-body{
+  background:#fff!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04)!important;
+  padding:16px!important;margin:0 0 16px!important;
+}
+html.embed .cz-go,html.embed .cz-fold-btn{border-radius:14px!important;letter-spacing:0!important}
+html.embed .cz-go{background:#2F6F5B!important;color:#fff!important;border:0!important;height:50px!important;width:100%!important}
+html.embed.embed-dark .fs-base,html.embed.embed-dark .cz-form,html.embed.embed-dark .mod,html.embed.embed-dark .mod-body{background:#1C1C1E!important;color:#E8E8ED!important}
+
+/* v19 微交互。不用 :is()，按下由 embed.js 加 .xj-press。只动 transform / opacity / 边框色。鬼谷不走本文件。 */
+html.embed{
+  --motion-duration-fast:150ms;
+  --motion-duration-base:250ms;
+  --motion-duration-slow:350ms;
+  --motion-ease-out:ease-out;
+  --motion-ease-enter:cubic-bezier(0.32,0.72,0,1);
+  --motion-ease-exit:cubic-bezier(0.4,0,1,1);
+  -webkit-tap-highlight-color:rgba(47,111,91,.15);
+}
+html.embed button,
+html.embed .btn,
+html.embed a.btn,
+html.embed .sel-face,
+html.embed .cal-cell,
+html.embed .card,
+html.embed .info-box,
+html.embed .panel,
+html.embed .overview-card,
+html.embed .mod{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(47,111,91,.15);
+}
+html.embed button,
+html.embed .btn,
+html.embed a.btn{
+  cursor:pointer;
+  transition:transform 150ms ease-out, opacity 150ms ease-out;
+}
+html.embed button.xj-press,
+html.embed .btn.xj-press,
+html.embed a.btn.xj-press,
+html.embed button:active,
+html.embed .btn:active,
+html.embed a.btn:active{
+  transform:scale(0.96)!important;
+}
+html.embed button:disabled,
+html.embed .btn:disabled,
+html.embed button.is-disabled,
+html.embed .btn.is-disabled,
+html.embed button:disabled.xj-press,
+html.embed .btn:disabled.xj-press{
+  opacity:.5!important;
+  cursor:not-allowed!important;
+  transform:none!important;
+  animation:none!important;
+}
+html.embed .card,
+html.embed .info-box,
+html.embed .panel,
+html.embed .overview-card,
+html.embed .mod,
+html.embed .cal-cell{
+  transition:background-color 150ms ease-out, opacity 150ms ease-out;
+}
+html.embed .card.xj-press,
+html.embed .info-box.xj-press,
+html.embed .panel.xj-press,
+html.embed .overview-card.xj-press,
+html.embed .mod.xj-press,
+html.embed .cal-cell.xj-press,
+html.embed .card:active,
+html.embed .info-box:active,
+html.embed .panel:active,
+html.embed .overview-card:active,
+html.embed .mod:active,
+html.embed .cal-cell:active{
+  background-color:rgba(47,111,91,.08)!important;
+}
+html.embed input,
+html.embed select,
+html.embed textarea,
+html.embed .sel-face{
+  border:1px solid transparent!important;
+  transition:border-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+html.embed input:focus,
+html.embed select:focus,
+html.embed textarea:focus,
+html.embed .sel-face:focus{
+  border-color:#2F6F5B!important;
+  box-shadow:0 0 0 3px rgba(47,111,91,.16)!important;
+}
+html.embed #result-shell.xj-in{
+  animation:xj-shell-in 250ms cubic-bezier(0.32,0.72,0,1) both;
+}
+@keyframes xj-shell-in{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+html.embed body.xj-computing .btn,
+html.embed body.xj-computing button.btn{
+  animation:xj-pulse 1200ms linear infinite;
+}
+@keyframes xj-pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.4}
+}
+@media (prefers-reduced-motion:reduce){
+  html.embed button.xj-press,
+  html.embed .btn.xj-press,
+  html.embed a.btn.xj-press,
+  html.embed button:active,
+  html.embed .btn:active,
+  html.embed a.btn:active{
+    transform:none!important;
+  }
+  html.embed #result-shell.xj-in{animation:none!important;transform:none!important;opacity:1!important}
+  html.embed body.xj-computing .btn,
+  html.embed body.xj-computing button.btn{animation:none!important}
+}
+
+/* === 原有逻辑 === */
+#fff!important}
+html.embed.embed-dark .page h1,html.embed.embed-dark .page .lead,html.embed.embed-dark .mod-title{color:#F2F2F7!important}
+
+
+html.embed .fs-base,html.embed .fs-row,html.embed .cz-form,html.embed .birth-group,html.embed .mod,html.embed .mod-body{
+  background:#fff!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(28,40,48,.04)!important;
+  padding:16px!important;margin:0 0 16px!important;
+}
+html.embed .cz-go,html.embed .cz-fold-btn{border-radius:14px!important;letter-spacing:0!important}
+html.embed .cz-go{background:#2F6F5B!important;color:#fff!important;border:0!important;height:50px!important;width:100%!important}
+html.embed.embed-dark .fs-base,html.embed.embed-dark .cz-form,html.embed.embed-dark .mod,html.embed.embed-dark .mod-body{background:#1C1C1E!important;color:#E8E8ED!important}
+
+/* === 原有逻辑 === */
+
+/* v18 三页显示覆盖，必须放在两列和按钮规则之后。 */
+html.embed .page-zg .zg-search{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;width:100%!important}
+html.embed .page-zg .zg-search input{display:block!important;flex:none!important;width:100%!important;min-width:0!important;height:44px!important;box-sizing:border-box!important}
+html.embed .page-zg .zg-search .btn{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;flex:none!important}
+html.embed .page-nm .group-label,html.embed .page-ly .group-label{display:block!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.45!important;height:auto!important;grid-column:1/-1!important}
+html.embed .page-nm .birth-group,html.embed .page-ly .birth-group,html.embed .page-ly .ly-time-row{display:grid!important;grid-template-columns:1fr!important}
+html.embed .page-ly .birth-group,html.embed .page-ly .ly-time-row{grid-column:1/-1!important;width:100%!important;max-width:100%!important;min-width:0!important}
+html.embed .page-nm .birth-group .field,html.embed .page-ly .birth-group .field,html.embed .page-nm .birth-group .field.chk,html.embed .page-ly .field.chk,html.embed .page-ly .ly-time-row .field,html.embed .page-ly .ly-zi-field,html.embed .page-ly .ly-tf-btn{grid-column:1/-1!important;width:100%!important;max-width:100%!important}
+html.embed .page-nm .form-row>.field.chk.hh-true{display:flex!important;flex-direction:row!important;align-items:center!important;gap:8px!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;overflow:hidden!important;margin:0 0 14px!important;padding:14px 16px!important}
+html.embed .page-nm .form-row>.field.chk.hh-true>input[type=checkbox]{width:22px!important;min-width:22px!important;max-width:22px!important;height:22px!important;flex:none!important;margin:0!important}
+html.embed .page-nm .form-row>.field.chk.hh-true>label{flex:1 1 auto!important;min-width:0!important;white-space:normal!important}
+html.embed .page-ly .ly-tf-btn .btn,html.embed .page-nm .nm-go-row,html.embed .page-nm .nm-go-row .btn{display:block!important;width:100%!important;max-width:100%!important}
+
+/* v19 七政四余 .qz-row-inputs 与 .opts-row 同构（flex+flex:0 0 auto），
+   嵌入态下 select 被强制 width:100% 会与之互相塌缩，故并入两列网格。 */
+html.embed .qz-row-inputs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;align-items:end!important;width:100%!important}
+html.embed .qz-row-inputs>.group-label{grid-column:1/-1!important;width:100%!important;white-space:normal!important;line-height:1.45!important}
+html.embed .qz-row-inputs .field{grid-column:auto!important;width:100%!important;min-width:0!important;max-width:100%!important}
+html.embed .qz-row-inputs .field.chk,html.embed .qz-row-inputs .f-tz{grid-column:1/-1!important;width:100%!important}
+html.embed .page-qm .opts-row .field,html.embed .page-qm .opts-row .group-label{grid-column:auto!important}
+html.embed .page-qm .opts-row>.group-label{grid-column:1/-1!important}
+
+html.embed #aiCfgMask.modal-mask.show{display:flex!important;position:absolute!important;inset:0!important;z-index:30!important}
+
+/* v21 结果层：点排盘后藏输入，只留结果。再测一次去掉 shell-result 后恢复。不改算法。 */
+html.embed body.shell-result #input-area,
+html.embed body.shell-result #hlFormPage,
+html.embed body.shell-result #zwFormPage,
+html.embed body.shell-result #baziFormPage,
+html.embed body.shell-result .page > h1,
+html.embed body.shell-result .page > .lead,
+html.embed body.shell-result .page > .ios-module-title,
+html.embed body.shell-result .xj-result{display:none!important}
+html.embed body.shell-result #result-shell,
+html.embed body.shell-result #hlResultPage,
+html.embed body.shell-result #baziResultPage{display:block!important}
+html.embed #baziResultPage[hidden],
+html.embed #result-shell[hidden]{display:none!important}
+html.embed #baziFormPage[hidden]{display:none!important}
+
+html.embed body.bazi-on-result .page > h1,
+html.embed body.bazi-on-result .page > .lead,
+html.embed body.bazi-on-result .bazi-flow,
+html.embed body.bazi-on-result #savedPanel,
+html.embed body.bazi-on-result #formErr,
+html.embed body.bazi-on-result #baziLinkage{display:none!important}
+html.embed body.bazi-on-result #baziResultPage{display:block!important}

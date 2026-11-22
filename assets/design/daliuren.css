@@ -1,0 +1,7 @@
+html.embed .page-dlr{background:var(--ds-paper)!important}
+html.embed .page-dlr #result-shell{background:transparent!important}
+html.embed .page-dlr .mod{background:transparent!important;border:0!important;border-top:1px solid var(--ds-line-soft)!important;border-radius:0!important;box-shadow:none!important;padding:14px 0!important;margin:0!important}
+html.embed .page-dlr .mod-title{font-family:var(--ds-sans)!important;font-size:15px!important;font-weight:600!important}
+html.embed .page-dlr table{font-size:13px!important}
+html.embed .page-dlr table th{font-size:12px!important;color:var(--ds-ink-3)!important;font-weight:500!important}
+html.embed .page-dlr .shell-again{display:block!important;width:auto!important;height:34px!important;line-height:34px!important;padding:0 14px!important;margin:0 0 10px auto!important;font-size:13px!important;border:1px solid var(--ds-line)!important;background:#FFFDF8!important;color:var(--ds-jade)!important;border-radius:17px!important}

@@ -1,0 +1,39 @@
+/* 结果页公共：高对比正文、细线分节、去卡中卡 */
+html.embed body .ds-page .mod{
+  background:transparent!important;border:0!important;border-top:1px solid var(--ds-line-soft)!important;
+  border-radius:0!important;box-shadow:none!important;margin:0!important;padding:12px 0!important;
+  min-height:0!important;height:auto!important
+}
+html.embed body .ds-page .mod:first-of-type{border-top:0!important}
+html.embed body .ds-page .mod-head{
+  margin:0!important;padding:6px 0!important;border:0!important;min-height:0!important
+}
+html.embed body .ds-page .mod-body{
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  padding:8px 0 0!important;color:#1F2420!important
+}
+html.embed body .ds-page .mod-body p,
+html.embed body .ds-page .mod-body li,
+html.embed body .ds-page .mod-body td,
+html.embed body .ds-page .mod-body dd,
+html.embed body .ds-page .mod-body div{
+  color:#1F2420!important;font-size:14px!important;line-height:1.7!important
+}
+html.embed body .ds-page .mod-body b,
+html.embed body .ds-page .mod-body strong{color:#14201B!important}
+html.embed body .ds-page .mod-body table th{color:#5E665E!important;font-weight:500!important;font-size:12px!important}
+html.embed body .ds-page .mod-body table th,
+html.embed body .ds-page .mod-body table td{
+  border:0!important;border-bottom:1px solid var(--ds-line-soft)!important;padding:6px 4px!important;background:transparent!important
+}
+html.embed body .ds-page .mod.collapsed{padding:8px 0!important}
+html.embed body .ds-page .mod.collapsed .mod-body{display:none!important}
+/* 卦象卡内的正文同样加深 */
+html.embed body .ds-page .xj-card,html.embed body .ds-page .xj-card *{color:#1F2420!important}
+/* 表格内的二级文字也压回墨色，避免灰字 */
+html.embed body .ds-page .mod-body table td span,
+html.embed body .ds-page .mod-body table td em,
+html.embed body .ds-page .mod-body table td i,
+html.embed body .ds-page .mod-body table td a{color:#1F2420!important}
+html.embed body .ds-page .mod-body table td b,
+html.embed body .ds-page .mod-body table td strong{color:#14201B!important}

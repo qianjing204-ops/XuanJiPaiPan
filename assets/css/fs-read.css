@@ -1,0 +1,69 @@
+/* 阳宅页可读性修复
+   1) 深色模式下页面底色被强制为纸色，但 fengshui.css 的 dark 媒体查询把文字换成浅色 → 浅字配浅底。
+      这里在深色模式下也锁定深色文字，与全站纸色底保持一致。
+   2) 表单标签、占位字、结果表格（宫位/山星/向星/旺衰/丁财断/说明）提高对比度与字号。 */
+
+@media (prefers-color-scheme: dark){
+  html .page-fs{
+    --fs-ink:#3a4450!important;
+    --fs-ink2:#4f626d!important;
+    --fs-line:#d5cfc4!important;
+    --fs-tint:#eef4f6!important;
+    --ink:#3a4450!important;
+    --ink2:#4f626d!important;
+    --line:#d5cfc4!important;
+    --card:#FCF9F2!important;
+  }
+}
+
+/* 表单可读性 */
+.page-fs .field label{color:#3f4a55!important;font-weight:500!important;font-size:13.5px!important}
+.page-fs .field input::placeholder,
+.page-fs .field textarea::placeholder{color:#8a939b!important;opacity:1!important}
+.page-fs .field input,
+.page-fs .field select{color:#22282e!important}
+.page-fs .sub-note{color:#5a636b!important;font-size:12.5px!important;line-height:1.6!important}
+.page-fs .mod-title{color:#2f6f5b!important;font-weight:600!important}
+.page-fs .fs-board-title{color:#3f4a55!important;font-size:13px!important;font-weight:600!important}
+
+/* 结果表格 */
+.page-fs .fs-mean-tbl th{color:#7a5c12!important;font-weight:600!important;font-size:12.5px!important;padding:8px 8px!important}
+.page-fs .fs-mean-tbl td{color:#2b333a!important;font-size:12.5px!important;padding:8px 8px!important;line-height:1.5!important}
+.page-fs .fs-mean-tbl td.lbl-1{color:#7a5c12!important;font-weight:600!important}
+.page-fs .fs-mean-tbl th,
+.page-fs .fs-mean-tbl td{border-color:#e0d8ca!important}
+/* 说明列允许换行，不再被截成半截 */
+.page-fs .fs-mean-tbl td:last-child{white-space:normal!important;word-break:break-word;min-width:10em}
+
+/* 布局：.fs-row 里字段宽度写死（如 fs-inp-w130=130px），日期被截断、长标签压住输入框。
+   改为可伸缩的 flex 栅格，字段随屏宽自适应、控件填满字段。 */
+.page-fs .fs-row{display:flex!important;flex-wrap:wrap!important;gap:10px 12px!important;align-items:flex-end!important}
+.page-fs .fs-row > .field{flex:1 1 140px!important;min-width:0!important;max-width:100%!important}
+.page-fs .fs-row .field input,
+.page-fs .fs-row .field select,
+.page-fs .fs-row .field .dt-wrap{
+  width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+.page-fs .fs-row > .btn{flex:0 0 auto!important;padding-left:16px!important;padding-right:16px!important}
+.page-fs .field label{display:block!important;white-space:normal!important;line-height:1.35!important;margin-bottom:4px!important}
+/* iOS 原生日期/时间控件有内在最小宽度，关掉外观后才受字段宽度约束 */
+.page-fs input[type="date"],
+.page-fs input[type="time"]{-webkit-appearance:none!important;appearance:none!important;text-align:left!important}
+
+/* 图表下方的说明文字 */
+.page-fs .fs-note,
+.page-fs .fs-hint,
+.page-fs .fs-legend,
+.page-fs .fs-cap{color:#4a545c!important}
+
+/* 输入页 / 结果页 两视图 */
+.page-fs .page.fs-input-mode section.fs-mod,
+.page-fs .page.fs-input-mode #aiMount{display:none!important}
+.page-fs .page.fs-result-mode .fs-base{display:none!important}
+
+.fs-float{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));z-index:96;border:0;border-radius:22px;height:44px;padding:0 18px;font-size:15px;line-height:44px;font-weight:500;box-shadow:0 8px 22px rgba(47,111,91,.25)}
+.fs-float.fs-ai{right:14px;background:#2F6F5B;color:#FFFDF8}
+.fs-float.fs-back{left:14px;background:#FFFDF8;color:#2F6F5B;border:1px solid rgba(47,111,91,.35)}
+
+/* AI 解析改走微信式对话，隐藏内联解读面板 */
+.page-fs #aiMount{display:none!important}

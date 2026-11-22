@@ -1,0 +1,33 @@
+html.embed .page-hh{background:var(--ds-paper)!important}
+html.embed .page-hh .hh-card{background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important;padding:16px!important}
+html.embed .page-hh .hh-card .form-row,html.embed .page-hh .hh-card .birth-group{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;border-radius:0!important}
+html.embed .page-hh .hh-card .group-label{font-size:12px!important;color:var(--ds-ink-3)!important;margin:12px 0 8px!important}
+html.embed .page-hh .hh-btn{background:var(--ds-jade)!important;color:#FFFDF8!important;border:0!important;border-radius:var(--ds-r-input)!important;height:44px!important;line-height:44px!important;font-weight:600}
+html.embed .page-hh .btn-ghost{background:#FFFDF8!important;color:var(--ds-jade)!important;border:1px solid var(--ds-line)!important}
+html.embed .page-hh .hh-card .field select{background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;height:44px!important;min-height:44px!important;padding:0 12px!important;color:var(--ds-ink)!important;box-shadow:none!important}
+html.embed .page-hh .hh-card .field input[type="number"]{background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;height:44px!important;min-height:44px!important;padding:0 12px!important;color:var(--ds-ink)!important;box-shadow:none!important}
+
+/* 底部时间折算与主按钮 */
+html.embed .page-hh .opts.hh-opts{
+  background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;
+  border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important;
+  padding:16px!important;margin:12px 0 0!important
+}
+html.embed .page-hh .opts.hh-opts .group-label{font-size:12px!important;color:var(--ds-ink-3)!important;margin:0 0 10px!important;font-weight:400!important}
+html.embed .page-hh .opts.hh-opts .field select,
+html.embed .page-hh .opts.hh-opts .field input{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;
+  height:44px!important;min-height:44px!important;padding:0 12px!important;color:var(--ds-ink)!important;box-shadow:none!important
+}
+html.embed .page-hh .form-row.hh-actions{background:transparent!important;border:0!important;box-shadow:none!important;padding:12px 0 0!important;margin:0!important}
+html.embed .page-hh .form-row.hh-actions .btn.hh-btn{
+  background:var(--ds-jade)!important;color:#FFFDF8!important;border:0!important;
+  border-radius:var(--ds-r-input)!important;height:44px!important;line-height:44px!important;font-weight:600!important
+}
+html body #mLng,html body #fLng,html body #mResLng,html body #fResLng{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;
+  height:44px!important;min-height:44px!important;padding:0 12px!important;color:var(--ds-ink)!important;box-shadow:none!important
+}
+html.embed .page-hh .form-row.hh-actions .hh-btn{width:100%!important;display:block!important}
+html.embed body .page-hh #input-area .form-row.hh-actions .btn.hh-btn{width:100%!important;max-width:none!important;display:block!important}
+html.embed body .page-hh #input-area .form-row.hh-actions .btn.hh-btn{justify-self:stretch!important;grid-column:1/-1!important;width:100%!important;max-width:none!important}

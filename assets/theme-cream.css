@@ -1,0 +1,27 @@
+/* 奶油纸墨：只改首页/推演的底色与卡片，不动深色头图 */
+html{background:#F6F2E9!important}
+body{background:transparent!important;color:#1C211E;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  radial-gradient(58% 36% at 10% -4%,rgba(176,138,79,.14),transparent 60%),
+  radial-gradient(50% 32% at 96% 4%,rgba(47,74,62,.10),transparent 62%),
+  linear-gradient(165deg,#F9F5EC 0%,#F2ECE0 52%,#F6F2E9 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.28;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E")}
+#pages,.panel{background:transparent!important}
+h1,h2,h3,.card-title{font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif!important;letter-spacing:.01em}
+/* 首页标题区 */
+.page-inner > h1,.hl-page h1{color:#22352B}
+/* 搜索框 */
+.page-inner input[type="search"],.tool-search input,#toolSearch{background:rgba(255,253,248,.92)!important;border:1px solid rgba(176,138,79,.22)!important;box-shadow:0 6px 20px rgba(30,40,32,.06)!important}
+/* 筛选胶囊：未选深色，选中墨绿 */
+.tool-chips button{background:#1F2420!important;color:#F6F2E9!important;border:0!important;box-shadow:none!important}
+.tool-chips button.on{background:#2F6F5B!important;color:#FFFFFF!important}
+/* 最近使用胶囊 */
+.page-inner .recent button,.recent-chips button{background:rgba(255,253,248,.9)!important;border:1px solid rgba(176,138,79,.20)!important;color:#2A332C!important}
+/* 工具卡：纸面 + 金线 */
+#toolCatalog button.tool-card{background:rgba(251,248,241,.94)!important;border:1px solid rgba(176,138,79,.16)!important;box-shadow:0 10px 28px rgba(40,52,40,.08),0 1px 2px rgba(40,52,40,.04)!important;border-radius:16px!important}
+#toolCatalog button.tool-card h3{font-family:"Noto Serif SC","Songti SC",serif!important;font-weight:600!important;color:#22352B!important}
+#toolCatalog .well{background:rgba(47,111,91,.10)!important;color:#2F6F5B!important;border-radius:10px!important}
+#toolCatalog .tag{color:#8A6A38!important}
+#toolCatalog .arrow{color:#9A8B6E!important}
+/* 底部导航保持原有绿色胶囊，只把底玻璃调暖 */
+.tabbar.ios-tabbar{background:rgba(251,248,241,.72)!important;border:1px solid rgba(176,138,79,.26)!important;box-shadow:0 12px 30px rgba(30,40,32,.10),inset 0 1px 0 rgba(255,255,255,.55)!important}

@@ -1,0 +1,36 @@
+/* Apple 质感交互内核 v1 */
+:root{
+  --xj-ease-out:cubic-bezier(.22,1,.36,1);
+  --xj-ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --xj-dur-press:110ms;
+  --xj-dur-fast:220ms;
+  --xj-dur-base:320ms;
+}
+/* 按压：按下即反馈，抬起恢复 */
+.xj-pressed{transform:scale(.97)!important;transition:transform var(--xj-dur-press) ease-out!important}
+button,.btn,.tab,.card[data-press]{-webkit-tap-highlight-color:transparent}
+/* 大标题字距与行高 */
+h1,.page-title,.hero-title{letter-spacing:-.022em!important;line-height:1.12!important;font-optical-sizing:auto}
+h2,h3{letter-spacing:-.012em}
+body{font-optical-sizing:auto;text-rendering:optimizeLegibility}
+/* 面板切换：轻推入，不整屏横飞 */
+.panel.active{animation:xjPanelIn var(--xj-dur-fast) var(--xj-ease-out) both}
+@keyframes xjPanelIn{from{opacity:1;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 底栏/顶栏材质：内容从下面滚过 */
+.tabbar-inner{background:rgba(250,247,240,.72)!important;-webkit-backdrop-filter:blur(22px) saturate(180%)!important;backdrop-filter:blur(22px) saturate(180%)!important}
+.header{background:rgba(250,247,240,.62)!important;-webkit-backdrop-filter:blur(20px) saturate(170%)!important;backdrop-filter:blur(20px) saturate(170%)!important}
+/* 滚动边缘：底栏上方渐隐，不用硬线 */
+body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:96px;pointer-events:none;z-index:40;background:linear-gradient(to top,rgba(247,243,234,.92),rgba(247,243,234,0))}
+/* 无障碍三态 */
+@media (prefers-reduced-motion:reduce){
+  .xj-pressed{transform:none!important}
+  .panel.active{animation:none!important}
+}
+@media (prefers-reduced-transparency:reduce){
+  .tabbar-inner,.header{background:#FCF9F2!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  body::after{background:linear-gradient(to top,#F7F3EA,#F7F3EA00)}
+}
+@media (prefers-contrast:more){
+  .tabbar-inner,.header{background:#FFFDF8!important;border:1px solid #1F2420!important}
+  body{color:#111!important}
+}

@@ -1,0 +1,75 @@
+/* 批次 1 样板：八字 / 紫微 / 合婚 / 奇门 —— 纸面内容，不做全站一刀切 */
+html.embed body{background:#F7F3EA!important;color:#1F2420}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(56% 34% at 8% -4%,rgba(176,138,79,.10),transparent 60%),
+  radial-gradient(48% 30% at 98% 4%,rgba(47,111,91,.08),transparent 62%)}
+html.embed .page-zw,html.embed .page-hh,html.embed .page-qm,html.embed .bz-root,html.embed .wrap{background:transparent!important}
+/* 只给页面大标题用宋体 */
+html.embed h1{font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif!important;font-size:30px!important;line-height:1.2!important;font-weight:600!important;letter-spacing:.02em;color:#1F2420}
+/* 卡片：一屏最多一层浮卡 */
+html.embed .card,html.embed .hh-card{background:#FCF9F2!important;border:1px solid rgba(176,138,79,.22)!important;border-radius:14px!important;box-shadow:0 8px 24px rgba(40,52,40,.06)!important}
+html.embed .card .card,html.embed .card .mod,html.embed .mod .card,html.embed .hh-card .card{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+/* 输入：白底细线，压过 embed/ios-skin 的灰底 */
+html.embed .card .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+html.embed .card .field select,
+html.embed .hh-card .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+html.embed .hh-card .field select{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:10px!important;
+  height:44px!important;min-height:44px!important;padding:0 12px!important;color:#1F2420!important;
+  box-shadow:none!important;font-size:15px!important
+}
+html.embed .card .field input[type="date"],html.embed .card .field input[type="time"],
+html.embed .hh-card .field input[type="date"],html.embed .hh-card .field input[type="time"]{padding:0 10px!important}
+/* 按钮 */
+html.embed .btn,html.embed .hh-card .btn{background:#2F6F5B!important;color:#FFFDF8!important;border:0!important;border-radius:10px!important;height:44px!important;line-height:44px!important}
+html.embed .btn.soft,html.embed .btn.gold{background:#FFFDF8!important;color:#2F6F5B!important;border:1px solid rgba(176,138,79,.28)!important}
+/* 结果表：去外框，只留细线 */
+html.embed table{border:0!important;box-shadow:none!important}
+html.embed th,html.embed td{border-color:rgba(176,138,79,.16)!important}
+html.embed th{color:#6E746E!important;font-weight:500!important}
+/* 紫微盘面 */
+html.embed .page-zw .zw-pal{background:#FCF9F2!important;border-color:rgba(176,138,79,.16)!important}
+html.embed .page-zw .zw-center{background:#FCF9F2!important;border-color:rgba(176,138,79,.24)!important}
+/* AI 解析：右下角胶囊，不再通栏遮挡 */
+html body #xjAiDock{left:auto!important;right:14px!important;bottom:calc(16px + env(safe-area-inset-bottom))!important;width:auto!important}
+html body #xjAiDock #xjAiBtn{width:auto!important;min-width:0!important;max-width:none!important;padding:0 18px!important;height:44px!important;line-height:44px!important;border-radius:22px!important;font-size:15px!important;box-shadow:0 10px 24px rgba(47,111,91,.24)!important}
+
+/* 修正：表单卡是 .form-row，不是 .card */
+html.embed{background:#F7F3EA!important}
+html.embed .form-row{background:#FCF9F2!important;border:1px solid rgba(176,138,79,.22)!important;border-radius:14px!important;box-shadow:0 8px 24px rgba(40,52,40,.06)!important}
+html.embed .form-row .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+html.embed .form-row .field select,
+html.embed .hh-card .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+html.embed .hh-card .field select{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:10px!important;
+  height:44px!important;min-height:44px!important;padding:0 12px!important;color:#1F2420!important;
+  box-shadow:none!important;font-size:15px!important
+}
+html.embed .form-row .field input[type="date"],html.embed .form-row .field input[type="time"],
+html.embed .hh-card .field input[type="date"],html.embed .hh-card .field input[type="time"]{padding:0 10px!important}
+
+/* 动态注入的 embed.css 会再压一层灰底，用 :not 提高优先级 */
+html.embed body:not([data-x]){background:#F7F3EA!important}
+html.embed .wrap:not([data-x]),html.embed .page:not([data-x]){background:transparent!important}
+/* 结果表只留横线 */
+html.embed .page table th,html.embed .page table td{border-color:rgba(176,138,79,.18)!important;border-width:0 0 1px 0!important;background:transparent!important}
+html.embed .page table{border:0!important}
+
+/* 批次 1 收尾 */
+/* 合婚：去掉卡中卡，日期/出生地并进同一张卡 */
+html.embed .hh-card .form-row,
+html.embed .hh-card .birth-group{
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  border-radius:0!important;padding:0!important;margin:0!important
+}
+/* 奇门：再测一次改右上角小按钮 */
+html.embed .page-qm .shell-again{
+  display:block!important;width:auto!important;min-width:0!important;height:34px!important;
+  line-height:34px!important;padding:0 14px!important;margin:0 0 10px auto!important;
+  font-size:13px!important;border:1px solid rgba(47,111,91,.35)!important;
+  background:#FFFDF8!important;color:#2F6F5B!important;border-radius:17px!important;
+  box-shadow:none!important
+}
+/* 表格字号统一 */
+html.embed .page table{font-size:13px!important}
+html.embed .page table th{font-size:12px!important;font-weight:500!important}

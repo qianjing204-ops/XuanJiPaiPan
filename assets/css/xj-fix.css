@@ -1,0 +1,66 @@
+/* 玄机排盘 · 新模块 + 太岁页的栅格/控件修正
+   仅在显式引入本文件的页面生效；不改变其他线上页面的既有排版。 */
+
+/* 1. 表单行改为两列栅格，窄屏不再互相挤压 */
+body.ds-page .form-row{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px 12px!important;
+  align-items:end!important;
+}
+body.ds-page .form-row>.field{min-width:0!important;width:auto!important;flex:none!important}
+body.ds-page .form-row>.field>*{max-width:100%!important;box-sizing:border-box!important}
+body.ds-page .form-row .field input,
+body.ds-page .form-row .field select,
+body.ds-page .form-row .field .dt-wrap{
+  width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+body.ds-page .form-row>.btn{width:100%!important}
+
+/* 2. 原生日期/时间控件有内在最小宽度（约 352px），关掉原生外观后才受栅格约束 */
+body.ds-page .form-row .field input[type="date"],
+body.ds-page .form-row .field input[type="time"],
+body.ds-page .form-row .field input[type="datetime-local"]{
+  -webkit-appearance:none!important;appearance:none!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  padding-left:12px!important;padding-right:12px!important;
+}
+
+/* 3. iOS 使用原生下拉外观：去掉 ios-skin 的自绘箭头，避免双层箭头；安卓/桌面保留站点自绘样式 */
+html.is-ios.ios-skin.ios-skin .field select,
+html.is-ios.ios-skin.ios-skin .form-row select{
+  background-image:none!important;
+  -webkit-appearance:auto!important;
+  appearance:auto!important;
+}
+
+/* 4. 非 iOS（安卓/桌面）：隐藏原生箭头，只留站点自绘的箭头，保证单层 */
+html.is-web.ios-skin.ios-skin .field select,
+html.is-web.ios-skin.ios-skin .form-row select{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+}
+
+/* 脚本生成的下拉（不在 .field 内，如精油页风险排查/指定单方）统一灰底圆角；
+   不动 appearance，iOS 保留原生箭头 */
+body.ds-page .page select{
+  background-color:#F5F5F5!important;
+  border:1px solid transparent!important;
+  border-radius:8px!important;
+  color:#1A1A1A!important;
+  padding:8px 10px!important;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+/* 修正：上面的 100% 宽度规则误伤了复选/单选（勾选框被拉成大块、文字竖排）。
+   这里排除 checkbox/radio，并让复选项横排。 */
+body.ds-page .form-row .field input[type="checkbox"],
+body.ds-page .form-row .field input[type="radio"]{
+  width:18px!important;height:18px!important;min-width:18px!important;max-width:18px!important;
+  flex:0 0 auto!important;margin:0!important;
+}
+body.ds-page .field.chk{display:flex!important;align-items:center!important;gap:8px!important;min-width:0}
+body.ds-page .field.chk label{display:inline!important;margin:0!important;white-space:normal!important;line-height:1.4}
+body.ds-page .jy-pick-list{min-width:240px;max-height:46vh;overflow:auto}
+body.ds-page .jy-pick-list .field.chk{width:auto!important}

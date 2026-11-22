@@ -1,0 +1,18 @@
+html.embed .page-hl,html.embed .page-tieban,html.embed .page-nm,html.embed .page-zeri{background:var(--ds-paper)!important}
+html.embed .page-hl .hl-form{background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important;padding:16px!important}
+html.embed .page-tieban .ds-form-card,html.embed .page-nm .ds-form-card,html.embed .page-zeri .zr-mod{background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important;padding:16px!important;margin:12px 0!important}
+html.embed .page-hl .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+html.embed .page-hl .field select,
+html.embed .page-tieban .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+html.embed .page-tieban .field select,
+html.embed .page-nm .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+html.embed .page-nm .field select,
+html.embed .page-zeri .field input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+html.embed .page-zeri .field select{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;
+  height:44px!important;min-height:44px!important;padding:0 12px!important;color:var(--ds-ink)!important;box-shadow:none!important
+}
+html.embed .page-hl .btn,html.embed .page-tieban .btn,html.embed .page-nm .btn,html.embed .page-zeri .btn{background:var(--ds-jade)!important;color:#FFFDF8!important;border:0!important;border-radius:var(--ds-r-input)!important;height:44px!important;line-height:44px!important}
+html.embed .page-hl .mod,html.embed .page-tieban .mod,html.embed .page-nm .mod,html.embed .page-zeri .mod{background:transparent!important;border:0!important;border-top:1px solid var(--ds-line-soft)!important;border-radius:0!important;box-shadow:none!important;padding:14px 0!important;margin:0!important}
+html.embed .page-hl .mod-title,html.embed .page-tieban .mod-title,html.embed .page-nm .mod-title,html.embed .page-zeri .mod-title{font-family:var(--ds-sans)!important;font-size:15px!important;font-weight:600!important}
+html.embed .page-hl table,html.embed .page-tieban table,html.embed .page-nm table,html.embed .page-zeri table{font-size:13px!important}

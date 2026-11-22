@@ -1,0 +1,30 @@
+/* 基础组件：只作用于带 ds-page 的页面 */
+.ds-page{background:var(--ds-paper)!important;color:var(--ds-ink)!important;font-family:var(--ds-sans)}
+.ds-page::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(56% 34% at 8% -4%,rgba(176,138,79,.10),transparent 60%),
+  radial-gradient(48% 30% at 98% 4%,rgba(47,111,91,.08),transparent 62%)}
+.ds-page h1{font-family:var(--ds-serif)!important;font-size:var(--ds-text-display)!important;line-height:1.2!important;font-weight:600!important;letter-spacing:.01em!important;color:var(--ds-ink)!important;margin:0 0 6px!important}
+.ds-page .ds-lead{margin:0 0 16px;color:var(--ds-ink-2);font-size:var(--ds-text-body);line-height:1.65}
+.ds-card{background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important}
+.ds-section{border-top:1px solid var(--ds-line-soft);padding:14px 0}
+.ds-section:first-child{border-top:0;padding-top:0}
+.ds-section:last-child{padding-bottom:0}
+.ds-label{display:block;font-size:var(--ds-text-caption);color:var(--ds-ink-3);margin:0 0 6px}
+.ds-input{width:100%;height:44px;background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;color:var(--ds-ink)!important;font-size:var(--ds-text-body)!important;padding:0 12px!important;box-sizing:border-box!important;box-shadow:none!important}
+.ds-input:focus{outline:none;border-color:var(--ds-jade)!important}
+.ds-btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:var(--ds-r-input);border:0;background:var(--ds-jade);color:#FFFDF8;font-size:var(--ds-text-body);font-weight:600;line-height:1}
+.ds-btn:active{background:var(--ds-jade-2)}
+.ds-btn--ghost{background:#FFFDF8;color:var(--ds-jade);border:1px solid var(--ds-line)}
+.ds-btn--block{display:flex;width:100%}
+.ds-divider{height:1px;background:var(--ds-line-soft);border:0;margin:14px 0}
+.ds-page table{font-size:13px!important}
+.ds-page table th{font-size:12px!important;color:var(--ds-ink-3)!important;font-weight:500!important}
+.ds-page table th,.ds-page table td{border-color:var(--ds-line-soft)!important;border-width:0 0 1px 0!important;background:transparent!important}
+@media (prefers-reduced-motion:reduce){
+  .ds-page *{animation:none!important;transition:none!important}
+}
+html.embed body:not([data-x]){background:var(--ds-paper)!important}
+html.embed .wrap:not([data-x]),html.embed .page:not([data-x]){background:transparent!important}
+/* AI 解析统一为右下胶囊 */
+html body #xjAiDock{left:auto!important;right:14px!important;bottom:calc(16px + env(safe-area-inset-bottom))!important;width:auto!important}
+html body #xjAiDock #xjAiBtn{width:auto!important;min-width:0!important;max-width:none!important;padding:0 18px!important;height:44px!important;line-height:44px!important;border-radius:22px!important;font-size:15px!important}

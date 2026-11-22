@@ -1,7 +1,7 @@
 /* 玄机排盘 日历日期表：法定节假日、调休补班与纪念日（浏览器端直取，无需密钥）
  *
- * 为什么需要：lunar.js 的 isWork() 依赖 HolidayUtil 内置硬编码表，表有截止日，
- * 届期之后的日期查不到记录就回落成“周六周日才算休”，调休补班全部判错。故另取外部数据源补足。
+ * 为什么需要：lunar.js 的 isWork() 依赖 HolidayUtil 内置硬编码表，实测仅覆盖 2001-12-29 至 2026-10-10，
+ * 其后的日期查不到记录就回落成“周六周日才算休”，调休补班全部判错。故另取外部数据源补足。
  *
  * 主源 holiday-cn（GitHub 社区库，CI 每日抓取国务院公告自动生成，jsDelivr 分发，无配额无密钥）：
  *   https://cdn.jsdelivr.net/gh/NateScarlet/holiday-cn@master/<年>.json
@@ -73,17 +73,14 @@
     return out;
   }
 
-  /* 本模块自足的取数实现：超时真中止，不依赖页脚定位脚本。 */
-  function fetchJson(url, timeout) {
+  function fetchJson(url) {
     return new Promise(function (res, rej) {
       if (typeof fetch !== 'function') { rej(new Error('no fetch')); return; }
       let done = false;
+      /* 超时须真中止连接：只弃结果不断连接，慢源上挂起的请求会积在页面上不放 */
       const ctl = (typeof AbortController === 'function') ? new AbortController() : null;
       const fin = function (fn, v) { if (done) return; done = true; clearTimeout(timer); fn(v); };
-      const timer = setTimeout(function () {
-        if (ctl) { try { ctl.abort(); } catch (e) {} }
-        fin(rej, new Error('timeout'));
-      }, timeout || 6000);
+      const timer = setTimeout(function () { if (ctl) { try { ctl.abort(); } catch (e) {} } fin(rej, new Error('timeout')); }, 6000);
       try {
         fetch(url, { method: 'GET', cache: 'no-store', credentials: 'omit', signal: ctl ? ctl.signal : undefined })
           .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status)); })
@@ -98,10 +95,10 @@
     const cached = readCache(y);
     const p = cached
       ? Promise.resolve(cached)
-      : fetchJson(CN_URL + y + '.json', 6000)
+      : fetchJson(CN_URL + y + '.json')
           .then(function (d) { const g = parseCn(d); if (!g) throw new Error('bad cn'); return g; })
           .catch(function () {
-            return fetchJson(TM_URL + y + '/', 6000).then(function (d) {
+            return fetchJson(TM_URL + y + '/').then(function (d) {
               const g = parseTm(d);
               if (!g) throw new Error('bad timor');
               return g;

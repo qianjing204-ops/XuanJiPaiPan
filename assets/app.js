@@ -50,12 +50,9 @@ const NAV_GROUPS = [
     {href:'taiyi.html', name:'太乙神数'},
   ]},
   {type:'group', name:'占卜', items:[
-    {href:'dayan.html', name:'大衍筮法'},
     {href:'liuyao.html', name:'六爻'},
     {href:'meihua.html', name:'梅花易数'},
     {href:'xiaoliuren.html', name:'小六壬'},
-    {href:'jinkoujue.html', name:'六壬金口诀'},
-    {href:'lingqijing.html', name:'灵棋经'},
     {href:'lingqian.html', name:'灵签'},
     {href:'tarot.html', name:'塔罗牌'},
     {href:'lenormand.html', name:'雷诺曼'},
@@ -80,9 +77,9 @@ const NAV_GROUPS = [
   {type:'group', name:'相术', items:[
     {href:'shouxiang.html', name:'手相'},
     {href:'mianxiang.html', name:'面相'},
-    {href:'luopan.html', name:'罗经仪'},
     {href:'fengshui.html', name:'阳宅风水'},
     {href:'fengshui-yin.html', name:'阴宅风水'},
+    {href:'luopan.html', name:'罗经仪'},
   ]},
   {type:'group', name:'附录', items:[
     {href:'dianji.html', name:'典籍参考'},
@@ -315,8 +312,6 @@ const XJ_SHENSHA = {
   TIANDE:{寅:'丁',卯:'申',辰:'壬',巳:'辛',午:'亥',未:'甲',申:'癸',酉:'寅',戌:'丙',亥:'乙',子:'巳',丑:'庚'},
   YUEDE_TG:{寅:'丙',午:'丙',戌:'丙',申:'壬',子:'壬',辰:'壬',巳:'庚',酉:'庚',丑:'庚',亥:'甲',卯:'甲',未:'甲'},
   YUEYAN:['戌','酉','申','未','午','巳','辰','卯','寅','丑','子','亥'],
-  /* 飞魂：'飞魂，正月起亥顺行十二辰'《大六壬指南》 */
-  FEIHUN:{寅:'亥',卯:'子',辰:'丑',巳:'寅',午:'卯',未:'辰',申:'巳',酉:'午',戌:'未',亥:'申',子:'酉',丑:'戌'},
   XUEZHI:{寅:'丑',卯:'寅',辰:'卯',巳:'辰',午:'巳',未:'午',申:'未',酉:'申',戌:'酉',亥:'戌',子:'亥',丑:'子'}
 };
 window.XJ_SHENSHA = XJ_SHENSHA;
@@ -371,26 +366,22 @@ function xjShareRecast(recast){
   window.__xjAnchor = null;
 }
 
-/* ===== 日期与时辰默认当下（解析期件 now.js 的 defer 兜底与分钟续算） =====
-   本件以 defer 装载，载入时按当下写一遍，此后每分钟边界复算一次。
+/* ===== 日期与时辰默认当下（全站唯一初始值真源） =====
+   本件以 defer 装载，解析完成即执行，早于首次绘制，故本段在顶层直接调用。
+   只在载入时写一次：不绑 input 与 change，不设定时器，用户改值后不再回写。
    日期：type=date、dt-input 文本框，以及占位、id 或无障碍标签语义为日期的文本框。
    时辰：type=time 与十二时辰下拉，下拉按选项文字首字定位，兼容各页取值口径。
    带 data-keep 的字段是派生值，例如择日结束日期等于起始加六十日，一律跳过，
-   其取值由所在页按各自规则在载入时派生。
-   带 data-user-set 的字段是用户改过的值，任何一次复算都跳过。 */
-/* 手选标记只在值真被用户改动时落下：input 与 change 且事件可信。
-   指针按下与按键不参与标记；点开选择器而未改值，自动当下值照常随分钟校正。
-   本件自建的日期与时刻弹层写值后显式调用 xjMarkUserSet，合成事件不参与 isTrusted 判定。 */
+   其取值由所在页按各自规则在载入时派生。 */
 function xjBindUserSet(el){
   if(el.__xjUserBound) return;
   el.__xjUserBound = true;
-  ['input','change'].forEach(function(name){
+  ['pointerdown','keydown','input','change'].forEach(function(name){
     el.addEventListener(name,function(e){
       if(e && e.isTrusted) el.setAttribute('data-user-set','1');
     });
   });
 }
-function xjMarkUserSet(el){ if(el) el.setAttribute('data-user-set','1'); }
 function xjMarkAuto(el){
   xjBindUserSet(el);
   el.setAttribute('data-autonow','1');
@@ -404,7 +395,6 @@ function xjApplyNowDefaults(){
   function userSet(el){ return el.hasAttribute('data-user-set'); }
   function isDateBox(el){
     if(el.tagName!=='INPUT' || kept(el)) return false;
-    if(el.hasAttribute('data-time')) return false;
     if(el.type==='date') return true;
     if(el.type!=='text' || !el.classList.contains('dt-input')) return false;
     if(/^\d{4}-\d{1,2}-\d{1,2}$/.test(el.value||'')) return true;
@@ -416,7 +406,7 @@ function xjApplyNowDefaults(){
     xjBindUserSet(el);
     if(userSet(el)) return;
     if(isDateBox(el)){ el.value = ymd; xjMarkAuto(el); return; }
-    if((el.type==='time' || el.hasAttribute('data-time')) && !kept(el)){ el.value = hm; xjMarkAuto(el); }
+    if(el.type==='time' && !kept(el)){ el.value = hm; xjMarkAuto(el); }
   });
   /* 十二时辰下拉：选项文字以地支领起且带时段说明，按当下地支选中 */
   document.querySelectorAll('select').forEach(function(sel){
@@ -447,7 +437,7 @@ xjScheduleNowDefaults();
 
   /* 当前页面的主题后缀（wnl 等）：日期图标与日期弹框共用同一份，免两处各写一份页面清单 */
   function pageThemeSuffix(){
-    const el=document.querySelector('.page-wnl,.page-lhl,.page-foli,.page-daoli,.page-zeri,.page-hj,.page-hh,.page-bazi,.page-zw,.page-tieban,.page-nm,.page-xz,.page-qz,.page-qm,.page-dlr,.page-ty,.page-ly,.page-mh,.page-dayan,.page-xlr,.page-jinkoujue,.page-lingqijing,.page-lq,.page-tr,.page-ln,.page-ms,.page-xx,.page-ts,.page-fs,.page-fy,.page-hl,.page-zl,.page-yq,.page-ziwu,.page-sx,.page-mian,.page-lp');
+    const el=document.querySelector('.page-wnl,.page-lhl,.page-foli,.page-daoli,.page-zeri,.page-hj,.page-hh,.page-bazi,.page-zw,.page-tieban,.page-nm,.page-xz,.page-qz,.page-qm,.page-dlr,.page-ty,.page-ly,.page-mh,.page-xlr,.page-lq,.page-tr,.page-ln,.page-ms,.page-xx,.page-ts,.page-fs,.page-fy,.page-hl,.page-zl,.page-yq,.page-ziwu,.page-sx,.page-mian,.page-lp');
     const c=el ? [...el.classList].find(x=>/^page-/.test(x)) : '';
     return c ? c.slice(5) : '';
   }
@@ -580,7 +570,6 @@ xjScheduleNowDefaults();
     body.querySelectorAll('.dt-cell[data-d]').forEach(c=>{
       c.addEventListener('click', ()=>{
         input.value = c.getAttribute('data-d');
-        xjMarkUserSet(input);
         input.dispatchEvent(new Event('change',{bubbles:true}));
         closePicker();
       });
@@ -606,14 +595,12 @@ xjScheduleNowDefaults();
       h = Number(o.getAttribute('data-h'));
       hc.querySelectorAll('.dt-opt').forEach(x=>x.classList.remove('on')); o.classList.add('on');
       input.value = `${pad2(h)}:${pad2(mi)}`;
-      xjMarkUserSet(input);
       input.dispatchEvent(new Event('change',{bubbles:true}));
     }));
     mc.querySelectorAll('.dt-opt').forEach(o=>o.addEventListener('click',()=>{
       mi = Number(o.getAttribute('data-mi'));
       mc.querySelectorAll('.dt-opt').forEach(x=>x.classList.remove('on')); o.classList.add('on');
       input.value = `${pad2(h)}:${pad2(mi)}`;
-      xjMarkUserSet(input);
       input.dispatchEvent(new Event('change',{bubbles:true}));
     }));
   }
@@ -624,29 +611,26 @@ xjScheduleNowDefaults();
   /* 为每个日期与时间输入挂上自建弹层：点输入框即开，页内不设图标。
      绑定态记在元素属性之外（静态页会把 data-* 一并写进 HTML），每次加载都重新挂事件。 */
   window.initPickers = function(){
-    document.querySelectorAll('input[type="text"].dt-input,input[type="time"],input[data-time]').forEach(inp=>{
-      if(inp.__pkBound) return;
-      inp.__pkBound = true;
-      /* 扫描态只存元素 expando，静态页不会把它序列化进 HTML */
-      inp.removeAttribute('data-dt-swept');
-      /* 时刻框是文本件，靠 data-time 认；日期框靠 dt-input 认，两者各走一套宽度规则 */
-      const isTime = inp.type==='time' || inp.hasAttribute('data-time');
-      if(!isTime) inp.classList.add('dt-input');
-      inp.readOnly = true;
-      let wrap = inp.parentElement;
-      if(!wrap || !wrap.classList.contains('dt-wrap')){
-        wrap = document.createElement('span');
-        const t = pageThemeSuffix();
-        wrap.className = 'dt-wrap' + (t ? ' dtm-'+t : '');
-        inp.parentNode.insertBefore(wrap, inp);
-        wrap.appendChild(inp);
+    /* 全站日期/时间统一交给系统原生控件：拆掉自绘 dt-wrap，文本日期框改 type=date。
+       旧版会加 readOnly 与自绘弹层，导致 iOS 上出现“原生 + 自绘”两层。 */
+    document.querySelectorAll('input.dt-input, input[type="time"], input[type="date"]').forEach(function(inp){
+      if(inp.__nativePicker) return;
+      inp.__nativePicker = true;
+      inp.readOnly = false;
+      inp.removeAttribute('readonly');
+      var wrap = inp.parentElement;
+      if(wrap && wrap.classList && wrap.classList.contains('dt-wrap')){
+        wrap.parentNode.insertBefore(inp, wrap);
+        wrap.remove();
       }
-      const open = ()=>{ if(isTime) openTimePicker(inp); else openDatePicker(inp); };
-      inp.addEventListener('click', e=>{ e.preventDefault(); open(); });
-      /* 日期框落盘前先过合法性判据：非法串（URL 参数或旧存档带来的 2 月 31 日一类）
-         归位到今日，并派发 change 令本页按合法值重排。挂在初始化这一层，则各页无需各写一遍，
-         也不会出现某页忘了判而静默折算出一张错日之盘。时辰框不判。 */
-      if(!isTime && !inp.hasAttribute('data-keep') && !xjValidDate(inp.value)) inp.value = todayStr();
+      inp.classList.remove('dt-input');
+      if(inp.type !== 'date' && inp.type !== 'time'){
+        var v = inp.value || '';
+        var label = (inp.getAttribute('aria-label')||'') + (inp.id||'');
+        if(/^\d{4}-\d{1,2}-\d{1,2}/.test(v) || /日期|生日|date/i.test(label)) inp.type = 'date';
+        else if(/^\d{1,2}:\d{2}/.test(v) || /时间|time/i.test(label)) inp.type = 'time';
+      }
+      inp.setAttribute('autocomplete','off');
     });
   };
 
@@ -671,6 +655,143 @@ xjScheduleNowDefaults();
 
 })();
 
+/* ===== 折叠块状态读取（全站共用） =====
+   先取 localStorage，再退 sessionStorage；解析失败或非对象一律回空对象。
+   存储键由页给，各页键名保持不变，本件不认任何页的键。 */
+function xjReadFold(key){
+  try{
+    let raw = localStorage.getItem(key);
+    if(!raw) raw = sessionStorage.getItem(key);
+    const o = JSON.parse(raw || '{}');
+    return (o && typeof o === 'object') ? o : {};
+  }catch(e){ return {}; }
+}
+window.xjReadFold = xjReadFold;
+
+/* ===== 折叠块状态保存（全站共用） =====
+   以已存为底、只覆盖此刻在场的件：复位本身会触发 toggle 回调，整份重写会把此刻
+   未渲染的件的键一并抹掉，下次刷新读不回来。选择器由页给，本件不认页内结构。 */
+function xjSaveFold(key, selector){
+  try{
+    const o = xjReadFold(key);
+    document.querySelectorAll(selector).forEach(function(d){ o[d.id] = d.open; });
+    const v = JSON.stringify(o);
+    try{ localStorage.setItem(key, v); }catch(e){}
+    try{ sessionStorage.setItem(key, v); }catch(e){}
+  }catch(e){}
+}
+window.xjSaveFold = xjSaveFold;
+
+/* ===== 单块折叠态保存（历法两页共用） =====
+   只记一个折叠块的开关，键值为 fei；选择器由页给。 */
+function xjSaveOneFold(key, selector){
+  const dv = document.querySelector(selector); if(!dv) return;
+  const v = JSON.stringify({fei: dv.open});
+  try{ localStorage.setItem(key, v); }catch(e){}
+  try{ sessionStorage.setItem(key, v); }catch(e){}
+}
+window.xjSaveOneFold = xjSaveOneFold;
+
+/* ===== 模块与折叠态保存（排盘页共用） =====
+   模块段记收起与否，折叠块记开关；以已存为底、只覆盖此刻在场的件。
+   初始化完成前不写，避免首屏渲染过程覆盖已存状态；标志名由页给。 */
+function xjSaveModState(key, detailsSelector, initFlag){
+  if(!window[initFlag]) return;
+  try{
+    const o = xjReadFold(key);
+    document.querySelectorAll('#out section.mod[id]').forEach(function(m){ o[m.id] = !m.classList.contains('collapsed'); });
+    document.querySelectorAll(detailsSelector).forEach(function(d){ o[d.id] = d.open; });
+    const v = JSON.stringify(o);
+    try{ localStorage.setItem(key, v); }catch(e){}
+    try{ sessionStorage.setItem(key, v); }catch(e){}
+  }catch(e){}
+}
+window.xjSaveModState = xjSaveModState;
+
+/* ===== 折叠块状态应用（全站共用） =====
+   读已存状态，逐块还原开关；只认已存里有的件，未存的块保持页内默认。 */
+function xjApplyFold(key, selector){
+  const o = xjReadFold(key);
+  document.querySelectorAll(selector).forEach(function(d){ if(d.id in o) d.open = !!o[d.id]; });
+}
+window.xjApplyFold = xjApplyFold;
+
+/* ===== 单块折叠态应用（历法两页共用） =====
+   只还原一个折叠块，键值为 fei；选择器由页给。 */
+function xjApplyOneFold(key, selector){
+  let s = null;
+  try{ s = JSON.parse(localStorage.getItem(key) || sessionStorage.getItem(key) || 'null'); }catch(e){}
+  const dv = document.querySelector(selector);
+  if(dv && s && typeof s.fei === 'boolean') dv.open = s.fei;
+}
+window.xjApplyOneFold = xjApplyOneFold;
+
+/* ===== 模块与折叠态应用（排盘页共用） =====
+   读已存状态，模块段还原收起与否，折叠块还原开关；只认已存里有的件。 */
+function xjApplyModState(key, detailsSelector){
+  const s = xjReadFold(key);
+  document.querySelectorAll('#out section.mod[id]').forEach(function(m){ if(m.id in s) m.classList.toggle('collapsed', !s[m.id]); });
+  document.querySelectorAll(detailsSelector).forEach(function(d){ if(d.id in s) d.open = !!s[d.id]; });
+}
+window.xjApplyModState = xjApplyModState;
+
+/* ===== 模块折叠态保存与应用（相术两页） =====
+   守卫由页传 getter：守卫变量可能落在页内闭包里，本件不按 window 名硬取。 */
+function xjSaveModCollapsed(key, ready, selector){
+  if(ready && !ready()) return;
+  try{
+    const o = xjReadFold(key);
+    document.querySelectorAll(selector).forEach(function(e){ o[e.id] = e.classList.contains('collapsed'); });
+    const v = JSON.stringify(o);
+    try{ localStorage.setItem(key, v); }catch(e){}
+    try{ sessionStorage.setItem(key, v); }catch(e){}
+  }catch(e){}
+}
+window.xjSaveModCollapsed = xjSaveModCollapsed;
+
+function xjApplyModCollapsed(key, selector){
+  const o = xjReadFold(key);
+  try{
+    document.querySelectorAll(selector).forEach(function(e){
+      if(o[e.id] === true) e.classList.add('collapsed');
+      else if(o[e.id] === false) e.classList.remove('collapsed');
+    });
+  }catch(e){}
+}
+window.xjApplyModCollapsed = xjApplyModCollapsed;
+
+/* ===== 模块折叠态保存与应用（引擎件：含内部折叠块 _zr） ===== */
+function xjSaveEngineModState(key, ready, idsFn){
+  if(ready && !ready()) return;
+  try{
+    const o = xjReadFold(key);
+    idsFn().forEach(function(id){ const e = document.getElementById(id); if(e) o[id] = e.classList.contains('collapsed'); });
+    try{
+      const zr = (o._zr && typeof o._zr === 'object') ? o._zr : {};
+      document.querySelectorAll('details[id]').forEach(function(d){ zr[d.id] = d.open; });
+      if(Object.keys(zr).length) o._zr = zr;
+    }catch(e){}
+    const v = JSON.stringify(o);
+    try{ localStorage.setItem(key, v); }catch(e){}
+    try{ sessionStorage.setItem(key, v); }catch(e){}
+  }catch(e){}
+}
+window.xjSaveEngineModState = xjSaveEngineModState;
+
+function xjApplyEngineModState(key, idsFn){
+  const o = xjReadFold(key);
+  try{
+    idsFn().forEach(function(id){
+      const e = document.getElementById(id); if(!e) return;
+      if(o[id] === true) e.classList.add('collapsed');
+      else if(o[id] === false) e.classList.remove('collapsed');
+    });
+    if(o._zr && typeof o._zr === 'object'){
+      Object.keys(o._zr).forEach(function(id){ const d = document.getElementById(id); if(d && d.tagName === 'DETAILS') d.open = (o._zr[id] === true); });
+    }
+  }catch(e){}
+}
+window.xjApplyEngineModState = xjApplyEngineModState;
 /* ===== 五行关系码（全站共用） =====
    同我、我生、生我、我克、克我五态；称谓由页映射。五行生克两表在此存全站定本一份，
    调用缺省即用定本；个别体系另有生克取法时仍可显式传入，不传即取定本。 */
@@ -736,11 +857,8 @@ window.xjShuffle = xjShuffle;
        与下面的位置回填抢位置。刷新且有已存位置时先摘掉 hash，只由回填定位；
        新开链接仍保留 hash，深链照常。 */
     var navEntry=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;
-    var navType=navEntry?navEntry.type:'';
     var isReload=navEntry?navEntry.type==='reload':!!(performance.navigation&&performance.navigation.type===1);
-    /* 旧滚动位置只服务刷新与前进后退；从别的页新进入一律回顶，免得带入本页旧位置。 */
-    var isHistory=isReload||navType==='back_forward';
-    if(isHistory&&rd(K_S)&&location.hash){
+    if(isReload&&rd(K_S)&&location.hash){
       try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
     }
 
@@ -830,13 +948,13 @@ window.xjShuffle = xjShuffle;
       /* 结果由结果快照恢复，首屏不在加载时重算。 */
       /* 深链优先：非刷新导航带 hash 时，以 hash 目标为准；本页旧滚动位置与旧锚点只服务刷新回填。 */
       var hashId='';
-      if(!isHistory&&location.hash){
+      if(!isReload&&location.hash){
         try{ hashId=decodeURIComponent(location.hash.slice(1)); }catch(e){ hashId=location.hash.slice(1); }
       }
       var hashEl=hashId?document.getElementById(hashId):null;
-      var sy=hashEl?0:(isHistory?parseInt(rd(K_S)||'0',10):0);
+      var sy=hashEl?0:parseInt(rd(K_S)||'0',10);
       var anchor=null;
-      if(isHistory&&!hashEl&&typeof window.xjRefreshAnchor==='function'){
+      if(!hashEl&&typeof window.xjRefreshAnchor==='function'){
         try{ anchor=JSON.parse(rd(K_A)||'null'); }catch(e){ anchor=null; }
       }
       var anchorEl=hashEl||(anchor&&anchor.id?document.getElementById(anchor.id):null);
@@ -893,8 +1011,6 @@ window.xjShuffle = xjShuffle;
    一律在表格外补一层只装该表的 .tbl-hs，横滑范围即表格本身，不牵动标题与正文。
    列宽契约的 CSS 因此只认 .tbl-hs 一层，通用样式区不写任何页级类名。
    宽屏一律除名或解包还原；仅窄屏包裹一层，页面脚本取到的仍是原 table 元素本身。
-   表标 data-keep-tc 者宽屏保留 .xj-tc 包装层：预渲染在宽屏取 DOM，首屏表若解包，
-   移动端加载后再补会重排首屏；此标记只给首屏可见的表。
    甲型键值表另加 .tbl-kv 标记（表取满容器、值列折行），与数据表的按内容定宽契约分道。
    🔴 处理状态挂在 table 元素自身，重复 fit 对已处理的表不再动结构：
    本机制自身改 DOM 会触发 MutationObserver，若每轮都解包重包，滚动容器被反复重建，
@@ -997,7 +1113,6 @@ window.xjShuffle = xjShuffle;
      长文列取 max-content 会整段一行（实测 444px 超屏宽），故把上限落在内容块上，
      列宽即内容块宽：短语列就是短语宽、长文列撞上限后换行。 */
   function cells(tb, on){
-    if(!on && tb.hasAttribute('data-keep-tc')) return;
     var list = tb.querySelectorAll('th,td');
     for(var i = 0; i < list.length; i++){
       var c = list[i], d = c.firstElementChild;

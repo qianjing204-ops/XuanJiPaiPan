@@ -8,7 +8,10 @@ function fsGeoCoord(){
   if(isFinite(lo)&&isFinite(la)) return {lng:lo, lat:la};
   const sp=document.getElementById('fsProv'); if(!sp||!sp.value) return null;
   const sc=document.getElementById('fsCity'), sd=document.getElementById('fsDist');
-  return declCoord(sp.value, sc&&sc.value, sd&&sd.value);
+  const lng=findLng(sp.value, sc&&sc.value, sd&&sd.value);
+  const lat=findLat(sp.value, sc&&sc.value, sd&&sd.value);
+  if(lng==null||lat==null) return null;
+  return {lng, lat};
 }
 
 function fsMagTrue(deg){
@@ -160,7 +163,7 @@ function fsShDetailCommon(){
     +`<span class="wd-br"></span>`
     +`${d.ju}：${d.zs}起长生、帝旺在${d.miao}、墓库在${d.mu} 收山出煞：${d.shou}`
     +`<span class="wd-br"></span>`
-    +`来水宜长生、冠带、临官、帝旺四宫，去水宜衰、病、死、墓、绝、胎六宫；养来去皆可，沐浴宜去不宜来。`
+    +`来水宜长生、冠带、临官、帝旺四宫，去水宜衰、墓、绝、胎四宫；沐浴来水不吉而宜去。`
     +`<span class="wd-br"></span>`
     +FS.SH_QUJIAO);
 }

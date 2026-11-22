@@ -1,0 +1,8 @@
+/* 新接入模块（大衍/金口诀/灵棋经/祭祀/子午流注/精油/食疗/推拿）统一皮肤补充
+   与线上 assets/design/tokens.css 的变量对齐，避免各页自带的旧配色溢出 */
+html.ios-skin body.ds-page{font-family:var(--ds-serif,"Noto Serif SC",serif);background:var(--ds-paper,#F7F3EA)!important;color:var(--ds-ink,#1F2420)}
+html.ios-skin .page h1.ios-module-title{font-family:var(--ds-serif,"Noto Serif SC",serif)!important;color:var(--ds-jade,#2F6F5B)!important}
+html.ios-skin .page .lead{font-family:var(--ds-serif,"Noto Serif SC",serif);color:var(--ds-ink-2,#6E746E)}
+html.ios-skin .btn.gold{background:var(--ds-jade,#2F6F5B)!important;color:#fff!important;border:1px solid var(--ds-jade,#2F6F5B)!important}
+html.ios-skin .btn.soft{background:transparent!important;color:var(--ds-jade,#2F6F5B)!important;border:1px solid var(--ds-line,rgba(176,138,79,.24))!important}
+html.ios-skin .card,html.ios-skin .panel,html.ios-skin .box{background:var(--ds-paper-2,#FCF9F2)!important;border-radius:var(--ds-r-card,16px)!important;box-shadow:var(--ds-shadow)!important}

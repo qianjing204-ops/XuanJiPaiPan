@@ -1,0 +1,40 @@
+/* 玄机工具页统一：嵌入式隐藏品牌头，白输入，墨绿按钮，深色日历 */
+html.embed body[data-xj-page] header,
+html.embed body[data-xj-page] .site-header,
+html.embed body[data-xj-page] .topbar{display:none!important}
+html.embed body[data-xj-page]{background:var(--ds-paper)!important}
+html.embed body[data-xj-page] .wrap,html.embed body[data-xj-page] .page{background:transparent!important}
+html.embed body[data-xj-page] h1{font-family:var(--ds-serif)!important;font-size:30px!important;font-weight:600!important;letter-spacing:.02em!important;color:#1F2420!important}
+html.embed body[data-xj-page] .lead,html.embed body[data-xj-page] .sub{color:var(--ds-ink-2)!important}
+html.embed body[data-xj-page] .card,html.embed body[data-xj-page] .mod,html.embed body[data-xj-page] .box{
+  background:var(--ds-paper-2)!important;border:1px solid var(--ds-line-soft)!important;
+  border-radius:var(--ds-r-card)!important;box-shadow:var(--ds-shadow)!important
+}
+html.embed body[data-xj-page] input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+html.embed body[data-xj-page] select,html.embed body[data-xj-page] textarea{
+  background:#FFFDF8!important;border:1px solid #E3E0D8!important;border-radius:var(--ds-r-input)!important;
+  min-height:40px!important;padding:0 10px!important;color:var(--ds-ink)!important;box-shadow:none!important
+}
+html.embed body[data-xj-page] .btn,html.embed body[data-xj-page] button.btn{
+  background:var(--ds-jade)!important;color:#FFFDF8!important;border:0!important;border-radius:var(--ds-r-input)!important
+}
+html.embed body[data-xj-page] .btn.soft,html.embed body[data-xj-page] .btn.gold{
+  background:#FFFDF8!important;color:var(--ds-jade)!important;border:1px solid var(--ds-line)!important
+}
+/* 日历与表格文字 */
+html.embed body[data-xj-page] table,html.embed body[data-xj-page] td,html.embed body[data-xj-page] th,
+html.embed body[data-xj-page] .cal,html.embed body[data-xj-page] .cal *{color:#1F2420!important}
+html.embed body[data-xj-page] th{color:#5E665E!important;font-weight:500!important}
+html.embed body[data-xj-page] td,html.embed body[data-xj-page] th{border-color:var(--ds-line-soft)!important}
+/* 日历灰色数字压深 */
+html.embed body[data-xj-page] .dim,html.embed body[data-xj-page] .other-month,
+html.embed body[data-xj-page] .muted,html.embed body[data-xj-page] .gray{color:#7A8078!important}
+/* 罗盘/工具页按钮统一 */
+html.embed body[data-xj-page] .btn,
+html.embed body[data-xj-page] .lp-cat-btn,
+html.embed body[data-xj-page] .lp-tool{background:#2F6F5B!important;color:#FFFDF8!important;border:0!important;border-radius:10px!important}
+html.embed body[data-xj-page] .lp-cat-btn:not(.active),
+html.embed body[data-xj-page] .lp-tool:not(.active){background:#FFFDF8!important;color:#2F6F5B!important;border:1px solid rgba(176,138,79,.28)!important}
+/* 日历数字压实 */
+html.embed body[data-xj-page] .sd-num{color:#1F2420!important;font-weight:600!important}
+html.embed body[data-xj-page] .cal-cell.other .sd-num{color:#9A9F99!important;font-weight:400!important}

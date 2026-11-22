@@ -103,22 +103,11 @@
         '<div class="xx-card-h"><span class="xx-xname">' + r.su + o.yao + o.qin + '</span>' +
           '<span class="xx-tag xx-tag-xiang xx-' + o.xiang + '">' + o.xiang + '</span>' +
           '<span class="xx-tag ' + luckCls + '">' + (o.luck === '吉' ? '吉' : '凶') + '</span>' +
-          '<span class="xx-tag xx-tag-yao">出生' + r.yao + '曜</span></div>' +
+          '<span class="xx-tag xx-tag-yao">' + r.yao + '曜</span></div>' +
         '<div class="xx-card-row"><span>本命宿</span><b>' + r.su + '宿（农历 ' + (r.leap ? '闰' : '') + gzCn(r.lm) + '月' + gzCn(r.ld) + '日推算）</b></div>' +
         '<div class="xx-card-row"><span>宿直生人</span><b>' + r.ming + '</b></div>' +
         baiRow +
       '</div>';
-  }
-
-  /* 二十七宿判语总表：与单宿卡同读 XX_MING 与 XX_MING_BAI，不另立副本 */
-  function renderMingAll() {
-    var host = $('xxMingAllTbl'); if (!host) return;
-    var rows = XX_SU27.map(function (su, i) {
-      var o = xiuObj(su);
-      return '<tr><td class="xx-c0">' + (i + 1) + '</td><td class="xx-c0">' + su + o.yao + o.qin + '</td>' +
-        '<td>' + XX_MING[su] + '</td><td class="xx-note-cell">' + (XX_MING_BAI[su] || '') + '</td></tr>';
-    }).join('');
-    host.innerHTML = '<div class="xx-tbl-wrap"><table class="xx-tbl"><thead><tr><th>序</th><th>宿</th><th>宿直所生判语</th><th>白话提要</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
   }
 
   /* ===== 五、演禽查询 ===== */
@@ -134,36 +123,23 @@
     var bi = XX_ORDER.indexOf(base);
     return XX_ORDER[(bi + shiIdx) % 28];
   }
-  /* 年禽正法：《演禽通纂》卷上三元旬头起手例。三元甲子头各依底本表（上元箕、中元鬼、下元角），
-   * 旬内每旬进十宿，年支顺数，均去牛；三元一百八十年一周。
-   * 旬内序：甲子 0、乙丑 1，至癸亥 59；历元底本无载，1504 锚为推定，待核。 */
+  /* 年禽正法：《演禽通纂》三元旬头起手例。生年干支定所属旬（六旬配三元，两旬一元），
+   * 取该旬旬头甲日所值之宿，再按生年干支在旬内之序顺数去牛二十八宿得年禽。
+   * 旬内序：甲子 0、乙丑 1，至癸亥 59。 */
   function xunOfIndex(i) { return Math.floor(i / 10); } // 六旬：甲子、甲戌、甲申、甲午、甲辰、甲寅
-  function ganZhiIndex(gz) {
-    var gan = '甲乙丙丁戊己庚辛壬癸', zhi = '子丑寅卯辰巳午未申酉戌亥';
-    var gi = gan.indexOf(gz.charAt(0)), zi = zhi.indexOf(gz.charAt(1));
-    for (var i = 0; i < 60; i++) if (i % 10 === gi && i % 12 === zi) return i;
-    return 0;
-  }
-  function nianQinOf(gzIndex, liChunYear) {
+  function nianQinOf(gzIndex) {
     var xun = xunOfIndex(gzIndex);
     var pos = gzIndex % 10; // 旬内干支序（0=甲某）
-    var cycle = Math.floor((liChunYear - XX_NIAN_QIN_ANCHOR.year) / 60);
-    var yuan = ((cycle % 3) + 3) % 3 + 1; // 1 上元、2 中元、3 下元
-    var steps = 10 * xun;
-    var cur = XX_ORDER.indexOf(XX_NIAN_QIN.yuan[yuan].jiazi);
-    var k;
-    for (k = 0; k < steps; k++) {
+    var yuan = XX_NIAN_QIN.xunYuan[xun];
+    var xunKey = ['jiazi', 'jiaxu', 'jiashen', 'jiawu', 'jiachen', 'jiayin'][xun];
+    var head = XX_NIAN_QIN.yuan[yuan][xunKey];
+    var hi = XX_ORDER.indexOf(head);
+    /* 旬内顺数：甲起旬头宿，每进一支顺进一宿，去牛不用 */
+    var cnt = 0, cur = hi;
+    for (var k = 0; k < pos; k++) {
       cur = (cur + 1) % 28;
       if (XX_ORDER[cur] === '牛') { cur = (cur + 1) % 28; }
-    }
-    for (k = 0; k < -steps; k++) {
-      cur = (cur - 1 + 28) % 28;
-      if (XX_ORDER[cur] === '牛') { cur = (cur - 1 + 28) % 28; }
-    }
-    var head = XX_ORDER[cur];
-    for (k = 0; k < pos; k++) {
-      cur = (cur + 1) % 28;
-      if (XX_ORDER[cur] === '牛') { cur = (cur + 1) % 28; }
+      cnt++;
     }
     return { xiu: XX_ORDER[cur], yuan: yuan, xun: xun, head: head };
   }
@@ -178,22 +154,8 @@
     var mi = ((lunarMonth - 1) % 28 + 28) % 28;
     return XX_ORDER[(bi + mi) % 28];
   }
-  /* 锁泊宫：据《禽星易见 演禽锁泊》，山水田园井刀天草岸风火月十二宫，
-   自本禽长生位起山顺数，至用时所在之位，即该禽锁泊之宫。
-   七曜长生位：日午、月未、水土申、木亥、火寅、金巳。 */
-function suoGongOf(xiuName, shiIdx) {
-  var o = xiuObj(xiuName);
-  if (!o) return '';
-  var CHANG = { 日: '午', 月: '未', 水: '申', 土: '申', 木: '亥', 火: '寅', 金: '巳' };
-  var GONG = ['山', '水', '田', '园', '井', '刀', '天', '草', '岸', '风', '火', '月'];
-  var ZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-  var c = CHANG[o.yao];
-  if (!c) return '';
-  var from = ZHI.indexOf(c), to = (shiIdx + 12) % 12;
-  var step = ((to - from) % 12 + 12) % 12;
-  return GONG[step] + '宫（自' + c + '位起山顺数至' + ZHI[to] + '位）';
-}
-function renderYan() {    var p = parseYmd($('xxYanDate').value);
+  function renderYan() {
+    var p = parseYmd($('xxYanDate').value);
     var out = $('xxYanOut');
     if (!p) { out.innerHTML = '<div class="xx-empty">请选择公历日期。</div>'; return; }
     var y = p[0], m = p[1], d = p[2];
@@ -211,11 +173,8 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
     var suo = XX_SUOPO[ri];
     var ySX = l.getYearShengXiao();
     var benQin = XX_SHENGXIAO_XIU[ySX] || '';
-    var gzYear = l.getYearInGanZhiByLiChun();
-    var gzIdx = ganZhiIndex(gzYear);
-    var liChunYear = y;
-    if (Solar.fromYmd(y, 6, 1).getLunar().getYearInGanZhiByLiChun() !== gzYear) liChunYear = y - 1;
-    var nq = nianQinOf(gzIdx, liChunYear);
+    var gzIdx = ((y - 4) % 60 + 60) % 60;
+    var nq = nianQinOf(gzIdx);
     var nqObj = xiuObj(nq.xiu);
     var nqFull = nq.xiu + nqObj.yao + nqObj.qin;
     var yuanName = ['', '上元', '中元', '下元'][nq.yuan];
@@ -228,20 +187,14 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
       '<div class="xx-card-h"><span class="xx-xname">' + full + '</span>' +
         '<span class="xx-tag xx-tag-qiyuan">第' + gzCn(q) + '元</span>' +
         '<span class="xx-tag ' + (o.luck === '吉' ? 'xx-luck-j' : 'xx-luck-x') + '">' + (o.luck === '吉' ? '吉' : '凶') + '</span></div>' +
-      '<div class="xx-card-row"><span>属相禽</span><b>' + (benQin ? ySX + '年生属相禽为 ' + benQin : '生年地支未配，余俟补') + '</b></div>' +
-      '<div class="xx-card-row"><span>年禽（本命禽）</span><b>' + nqFull + '（' + gzYear + '，' + yuanName + xunName + '旬，旬头' + nq.head + '宿，三元历元待核）</b></div>' +
+      '<div class="xx-card-row"><span>本命禽</span><b>' + (benQin ? ySX + '年生本命禽为 ' + benQin : '生年地支未配，余俟补') + '</b></div>' +
+      '<div class="xx-card-row"><span>年禽</span><b>' + nqFull + '（' + l.getYearInGanZhi() + '，' + yuanName + xunName + '旬，旬头' + nq.head + '宿）</b></div>' +
       '<div class="xx-card-row"><span>月禽</span><b>' + yqFull + '（农历' + (l.getMonth() < 0 ? '闰' : '') + gzCn(lmAbs) + '月，年禽' + nqObj.yao + '曜正月起' + XX_YUE_QIN[nqObj.yao] + '，顺数' + gzCn(lmAbs) + '月）</b></div>' +
       '<div class="xx-card-row"><span>日禽（值宿）</span><b>' + ri + o.yao + o.qin + '（' + o.xiang + '，' + o.gong + '方）</b></div>' +
-      '<div class="xx-card-row"><span>七元</span><b>第' + gzCn(q) + '元（将头' + Object.keys(XX_QIYUAN).filter(function (k) { return XX_QIYUAN[k] === q; })[0] + '宿）</b></div>' +
+      '<div class="xx-card-row"><span>七元</span><b>第' + gzCn(q) + '元（甲子日值' + Object.keys(XX_QIYUAN).filter(function (k) { return XX_QIYUAN[k] === q; })[0] + '宿）</b></div>' +
       '<div class="xx-card-row"><span>时禽</span><b>' + shiNames[shiIdx] + '时 → ' + shiName + (xiuObj(shiName) ? xiuObj(shiName).yao + xiuObj(shiName).qin : '') + '</b></div>';
-    var tanGe = XX_TUNDAN_GE[full];
-    var tanTxt = [];
-    if (tan) tanTxt.push('选择纪要 食 ' + (tan.shi.length ? tan.shi.join('、') : '无') + '，畏 ' + (tan.wei.length ? tan.wei.join('、') : '无'));
-    if (tanGe) tanTxt.push('吞啖歌 食 ' + (tanGe.shi.length ? tanGe.shi.join('、') : '无') + '，畏 ' + (tanGe.wei.length ? tanGe.wei.join('、') : '无'));
-    html += '<div class="xx-card-row"><span>吞啖</span><b>' + (tanTxt.length ? tanTxt.join('；') : '未辑录') + '</b></div>';
-    var suoGe = suoGongOf(ri, shiIdx);
-    html += '<div class="xx-card-row"><span>锁泊</span><b>' + (suo || '未辑录') + '</b></div>';
-    if (suoGe) html += '<div class="xx-card-row"><span>锁泊宫</span><b>' + suoGe + '</b></div>';
+    if (tan) html += '<div class="xx-card-row"><span>吞啖</span><b>食 ' + tan.shi.join('、') + '；畏 ' + tan.wei.join('、') + '</b></div>';
+    if (suo) html += '<div class="xx-card-row"><span>锁泊</span><b>' + suo + '</b></div>';
     if (td) html += '<div class="xx-card-row"><span>值宿宜忌</span><b>宜 ' + td.yi.join('、') + '；忌 ' + td.ji.join('、') + '；伏断 ' + td.fu + '时</b></div>';
     html += '</div>';
     out.innerHTML = html;
@@ -339,7 +292,7 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
     var si = sunInXiu(now.getYear(), now.getMonth(), now.getDay());
     var siObj = xiuObj(si.xiu);
     var siName = siObj ? si.xiu + siObj.yao + siObj.qin : (si.xiu || '未定');
-    var html = '<div class="xx-card-row xx-sun-row"><span>今日太阳</span><b>视黄经 ' + si.lon.toFixed(2) + ' 度，入 ' + siName + '（J2000 宿界口径，觜参段随距星黄经，与通行觜前参后相反，观象参考）</b></div>';
+    var html = '<div class="xx-card-row xx-sun-row"><span>今日太阳</span><b>视黄经 ' + si.lon.toFixed(2) + ' 度，入 ' + siName + '（J2000 宿界口径，观象参考）</b></div>';
     var duText = XX_DU_TEXT.replace(/。/g, '。 ');
     html += '<div class="xx-quote">' + duText + '</div>';
     html += '<div class="xx-tbl-wrap"><table class="xx-tbl"><thead><tr>' +
@@ -372,8 +325,8 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
   }
 
   /* ===== 十b、二十八宿示意星图（玄夜鎏金，圆形图版） =====
-   * 骨架与站内圆盘通用件同制式（440 见方、盘心 220）：外圈线 182、内界圈 108、盘心圈 60、
-   * 刻度 168 至 160、宿名环 144（一字沿圆周环布 WHEEL.ring）。夜幕底色以圆形图版嵌入纸页，
+   * 骨架与站内圆盘通用件同制式（440 见方、盘心 220）：外圈线 182、内界圈 100、盘心圈 60、
+   * 刻度 168–176、宿名环 148（一字沿圆周环布 WHEEL.ring）。夜幕底色以圆形图版嵌入纸页，
    * 圆形（半径 182）内为玄夜鎏金，圆外留纸本白底，鎏金细圈收束图版外缘，外圈鎏金刻线环与
    * 四象柔光弧贴在盘缘内侧；二十八宿按通行宿序环天一周（屏幕角逆时针递减、起点 135°），
    * 宿点带四象色柔光晕，连成细金环；今日值宿以十芒金星加虚线光环高亮，宿名以 .w-lab-cur
@@ -382,7 +335,6 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
     var box = $('xxSky');
     if (!box) return;
     var todayName = Solar.fromDate(new Date()).getLunar().getXiu();
-    /* 星图按访问日重绘，页面不记构建日。 */
     /* 半径：盘心 220、外圈线 182（鎏金图版外缘）、刻度 168–176、内界圈 108（柔光圈，让出盘心区）、
        盘心圈 60；宿名 144（最外圈一字环布）、宿点 130、四象弧 180（盘缘内侧贴）、四象名 198。
        二十八项每项 12.86° 太窄，省略 28 段弧带（与经络盘 12 段不同），盘面以刻线、宿点、骨架圆为主，更克制 */
@@ -505,9 +457,7 @@ function renderYan() {    var p = parseYmd($('xxYanDate').value);
 
   /* ===== 初始化 ===== */
   function init() {
-    /* 本日值宿按访问日重算，页面不记构建日。 */
-    renderToday();
-    renderTable(); renderGong(); renderYiJi(); renderShan(); renderZhanci(); renderZhanci3Jia(); renderDu(); renderSan36(); renderSky(); renderMingAll();
+    renderToday(); renderTable(); renderGong(); renderYiJi(); renderShan(); renderZhanci(); renderZhanci3Jia(); renderDu(); renderSan36(); renderSky();
     $('xxMingBtn').addEventListener('click', renderMing);
     $('xxYanBtn').addEventListener('click', renderYan);
     if (window.mountAI) window.mountAI(xxAiContext, '星宿', {

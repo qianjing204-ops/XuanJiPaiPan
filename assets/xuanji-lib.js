@@ -426,21 +426,15 @@ const xjNav = (function(){
   function fire(v){
     if (typeof xjNav.onQuery === 'function') xjNav.onQuery(v);
   }
-  /* 手选标记：点格、翻月、跳日与分享还原都给日期框置 data-user-set，
-     跨午夜续算件据此保留所选；今天按钮反过来清标记，回到自动跟随本机当天。 */
-  function markUser(el){ if (el) el.setAttribute('data-user-set', '1'); }
   function today(){
     const el = inputOf(); if (!el) return;
     const n = new Date();
     const v = ymd(n.getFullYear(), n.getMonth() + 1, n.getDate());
     el.value = v;
-    el.removeAttribute('data-user-set');
     /* 时辰类页（太乙、铁板）另有 hInput/kInput：today 后由页内 xjNavAfter 回填当辰，
        本件只认 dInput 这一公共面，不越页去认各页私有输入。 */
     if (typeof xjNav.onToday === 'function') xjNav.onToday(v);
     fire(v);
-    /* 页内 jumpToDate 会在 fire 里再置手选标记；今天按钮的终态是自动跟随，故 fire 后再清一次。 */
-    el.removeAttribute('data-user-set');
   }
   function shift(dm, dy){
     const el = inputOf(); if (!el) return;
@@ -453,13 +447,11 @@ const xjNav = (function(){
     if (d > dim) d = dim;
     const nv = ymd(y, m, d);
     el.value = nv;
-    markUser(el);
     fire(nv);
   }
   function pick(key){
     const el = inputOf(); if (!el) return;
     el.value = key;
-    markUser(el);
     fire(key);
   }
   /* 直达某日：只把日期串归一为补零的分日形状并写入输入框，刷新交由页内做。
@@ -469,7 +461,7 @@ const xjNav = (function(){
     const p = String(v).split('-').map(Number);
     if (!p[0] || !p[1]) return '';
     const key = ymd(p[0], p[1], p[2] || 1);
-    const el = inputOf(); if (el) { el.value = key; markUser(el); }
+    const el = inputOf(); if (el) el.value = key;
     return key;
   }
   return { onQuery: null, onToday: null, today: today, shift: shift, pick: pick, jump: jump };
@@ -526,10 +518,7 @@ const xjGrid = (function(){
   }
   return { slots: slots, render: render };
 })();
-/* 解析期渲染件 build/site/cal-boot.js 已在页内装上 window.xjCal 时，xjCalGrid 只作别名，
-   不再另起一套格渲染；其余四页尚未迁移，无 xjCal 时仍用旧实现，迁移后删除旧实现。 */
-window.xjCalSlots = xjGrid.slots;
-window.xjCalGrid = window.xjCal || xjGrid;
+window.xjCalGrid = xjGrid;
 
 /* ===== 日历页检索与筛选（五历页共用） =====
    页给三样：逐日检索词、筛选项、逐日筛选判据；本件只管建查询行、跑前后三年、列命中与隐藏未命中格。
@@ -545,9 +534,9 @@ const xjCalQuery = (function(){
     const label = o.label || '内容检索';
     const ph = o.placeholder || '神名或节日名';
     const filterLabel = o.filterLabel || '筛选';
-    mount.innerHTML = '<div class="xj-query-row">'
+    mount.innerHTML = '<div class="form-row xj-query-row">'
       + '<div class="field"><label for="xjSearch">' + esc(label) + '</label><input type="text" id="xjSearch" class="xj-search-input" placeholder="' + esc(ph) + '" autocomplete="off"></div>'
-      + '<button class="btn gold" type="button" id="xjSearchBtn">检索</button></div>'
+      + '<button class="btn soft" type="button" id="xjSearchBtn">检索</button></div>'
       + '<div class="xj-filter-row" id="xjFilterRow"></div>'
       + '<div class="xj-search-out" id="xjSearchOut"></div>';
     const input = document.getElementById('xjSearch');
@@ -876,30 +865,21 @@ function xjFsXkWheelSvg(opts){
     +`<text id="fsXkC2" x="${g.c}" y="${g.c+14}" class="w-c2">${ct[1]}</text>`
     +`<text id="fsXkC3" x="${g.c}" y="${g.c+34}" class="w-c3" style="fill:${ct[3]}">${ct[2]}</text>`;
   return `<svg class="wheel" id="fsXkWheel" viewBox="0 0 440 440" role="img" aria-label="玄空飞星山向盘：外圈八宫方位，内两圈为运星与山向星，点选一宫看该宫山向旺衰与断事">${s}</svg>`;
-}function xjFsXkDetail(kind){
+}function xjFsXkDetail(){
   const d=FS_XK_DATA; if(!d) return;
   const b=getBase(), r=fsXkRow(FS_XK_SEL), yun=d.yun.yun;
   const sw=FS.starWangShuai(r.sit,yun), fw=FS.starWangShuai(r.face,yun);
   const dc=FS.gongDingCai(r.sit,r.face,yun), cj=FS.comboJx(r.sit,r.face);
   const jxCls=jx=>jx.indexOf('凶')>=0?'wd-x':(jx.indexOf('吉')>=0?'wd-g':'');
-  const GUA_NUM={坎:1,坤:2,震:3,巽:4,乾:6,兑:7,艮:8,离:9};
-  const tag=(r.palace===GUA_NUM[FS.SHAN_BAGUA[b.faceShan]]?'向首宫 ':'')+(r.palace===GUA_NUM[FS.SHAN_BAGUA[b.sitShan]]?'坐山宫 ':'');
-  const yin=kind==='yin';
-  const dirTxt=yin?window.fyDir(FS.NINE_BAGUA[r.palace]):FS.NINE_DIR[r.palace];
-  const yt=s=>FS.yuanOf(s)+'元'+(FS.shanYang(s)?'阳':'阴');
-  const tail=yin
-    ?`<span class="wd-br"></span>三元龙 坐${b.sitShan}${yt(b.sitShan)}、向${b.faceShan}${yt(b.faceShan)}`
-      +`<span class="wd-br"></span>顺逆之由 山${window.fsXkYuanTxt(d.sitIn,b.sitShan,d.sitShun)}；向${window.fsXkYuanTxt(d.faceIn,b.faceShan,d.faceShun)}`
-      +`<span class="wd-br"></span>中宫入中：运星${d.yun.yun}、山星${d.sitIn}、向星${d.faceIn} 山星主人丁子孙、向星主荫资产业，旺山旺向为葬地之上格。`
-      +`<span class="wd-br"></span>坐向轴 盘上加重的那两根刻度即坐山宫与向首宫。`
-    :`<span class="wd-br"></span>中宫入中：运星${d.yun.yun}、山星${d.sitIn}、向星${d.faceIn} 旺山旺向为阳宅大吉之局，双星到向须向首有水、双星到山须坐后有山。`;
+  const tag=(r.palace===FS_GUA_NUM[b.faceShan]?'向首宫 ':'')+(r.palace===FS_GUA_NUM[b.sitShan]?'坐山宫 ':'');
   fwDetail('fsXkDetail',
-    `${FS.NINE_BAGUA[r.palace]}宫（${dirTxt}方） ${tag}运星${r.yun} 山星${r.sit}（${sw}） 向星${r.face}（${fw}）`
+    `${FS.NINE_BAGUA[r.palace]}宫（${FS.NINE_DIR[r.palace]}方） ${tag}运星${r.yun} 山星${r.sit}（${sw}） 向星${r.face}（${fw}）`
     +`<span class="wd-br"></span>`
     +`丁财断 <span class="${jxCls(dc.jx)}">${dc.jx}</span> ${dc.mean}`
     +`<span class="wd-br"></span>`
     +`山向相会 <span class="${jxCls(cj.jx)}">${cj.jx}</span> ${cj.mean||'比和，随当令断'}`
-    +tail);
+    +`<span class="wd-br"></span>`
+    +`中宫入中：运星${d.yun.yun}、山星${d.sitIn}、向星${d.faceIn} 旺山旺向为阳宅之上格，双星到向须向首有水、双星到山须坐后有山。`);
 }
 
 window.xjFeiText = xjFeiText;

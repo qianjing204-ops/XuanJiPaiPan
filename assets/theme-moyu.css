@@ -1,0 +1,130 @@
+/* 墨玉·鎏金 — 玻璃只做器，纸面做内容 */
+:root{
+  --my-paper:#F6F2E9; --my-paper-2:#FBF8F1; --my-ink:#1C211E; --my-muted:#6E746E;
+  --my-jade:#2F4A3E; --my-jade-2:#3C5C4D; --my-gold:#B08A4F; --my-cinnabar:#B5432F;
+  --my-line:rgba(176,138,79,.30); --my-line-soft:rgba(176,138,79,.16);
+  --my-shadow:0 10px 30px rgba(30,40,32,.08),0 1px 2px rgba(30,40,32,.05);
+  --my-serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --my-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;
+}
+html{background:var(--my-paper)!important}
+html[data-theme="dark"]{background:#0E1310!important}
+body{background:transparent!important;color:var(--my-ink);font-family:var(--my-sans);-webkit-tap-highlight-color:transparent}
+html[data-theme="dark"] body{color:#E8E4D8}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  radial-gradient(60% 38% at 12% -4%,rgba(176,138,79,.14),transparent 62%),
+  radial-gradient(52% 34% at 96% 6%,rgba(47,74,62,.16),transparent 64%),
+  linear-gradient(165deg,#F9F5EC 0%,#F1ECE2 48%,#F6F2E9 100%)}
+html[data-theme="dark"] body::before{background:
+  radial-gradient(58% 36% at 10% -2%,rgba(176,138,79,.16),transparent 62%),
+  radial-gradient(50% 32% at 96% 4%,rgba(125,207,176,.10),transparent 64%),
+  linear-gradient(165deg,#101613 0%,#0C110E 52%,#0E1310 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E")}
+h1,h2,h3,.card-title,.hl-title,.ttl b,.mine-title,.mod-title{font-family:var(--my-serif)!important;letter-spacing:.01em}
+/* 外壳 */
+#pages,.panel{background:transparent!important}
+.ios-navbar{background:rgba(246,242,233,.72)!important;-webkit-backdrop-filter:blur(18px) saturate(150%)!important;backdrop-filter:blur(18px) saturate(150%)!important;border-bottom:.5px solid var(--my-line-soft)!important;box-shadow:0 1px 0 rgba(255,255,255,.4)}
+html[data-theme="dark"] .ios-navbar{background:rgba(14,19,16,.72)!important;box-shadow:none}
+.ios-navbar .nav-title-compact{font-family:var(--my-serif)!important;font-weight:600;letter-spacing:.04em;color:var(--my-ink)}
+html[data-theme="dark"] .ios-navbar .nav-title-compact{color:#E8E4D8}
+.tabbar.ios-tabbar{background:rgba(251,248,241,.66)!important;border:1px solid rgba(176,138,79,.34)!important;box-shadow:0 12px 30px rgba(30,40,32,.12),inset 0 1px 0 rgba(255,255,255,.6)!important}
+html[data-theme="dark"] .tabbar.ios-tabbar{background:rgba(20,26,22,.72)!important;border-color:rgba(176,138,79,.26)!important;box-shadow:0 12px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)!important}
+.tabbar.ios-tabbar .lens{background:linear-gradient(160deg,#3A5A4A,#2F4A3E)!important;box-shadow:0 6px 16px rgba(47,74,62,.28)!important}
+.card,.hl-card,.mine-card,.oracle-card,.profile-row,.mine-sec{background:rgba(251,248,241,.92)!important;border:1px solid var(--my-line-soft)!important;box-shadow:var(--my-shadow)!important;border-radius:16px!important}
+html[data-theme="dark"] .card,html[data-theme="dark"] .hl-card,html[data-theme="dark"] .mine-card,html[data-theme="dark"] .oracle-card,html[data-theme="dark"] .profile-row{background:rgba(26,33,28,.92)!important;border-color:rgba(176,138,79,.20)!important}
+.card-title{font-weight:600!important;font-size:17px!important;color:var(--my-ink)!important}
+html[data-theme="dark"] .card-title{color:#E8E4D8!important}
+#toolCatalog button.tool-card{background:rgba(251,248,241,.93)!important;border:1px solid var(--my-line-soft)!important;box-shadow:var(--my-shadow)!important;border-radius:16px!important}
+html[data-theme="dark"] #toolCatalog button.tool-card{background:rgba(26,33,28,.93)!important;border-color:rgba(176,138,79,.20)!important}
+#toolCatalog button.tool-card h3{font-family:var(--my-serif)!important;font-weight:600!important;color:var(--my-ink)!important}
+html[data-theme="dark"] #toolCatalog button.tool-card h3{color:#E8E4D8!important}
+#toolCatalog .well{background:rgba(47,74,62,.09)!important;color:var(--my-jade)!important;border-radius:10px!important}
+#toolCatalog .tag{color:#8A6A38!important}
+.btn,.ai-btn,.dyn-btn,.send{background:var(--my-jade)!important;color:#F6F2E9!important;border-radius:12px!important}
+.btn.soft,.btn.gold{background:rgba(251,248,241,.9)!important;color:var(--my-jade)!important;border:1px solid var(--my-line)!important}
+input,select,textarea{background:#FFFDF8!important;border:1px solid rgba(176,138,79,.30)!important;border-radius:10px!important;color:var(--my-ink)!important}
+html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{background:#1A211C!important;border-color:rgba(176,138,79,.22)!important;color:#E8E4D8!important}
+/* 模块页通用 */
+.mod,.box,.panel,.result,.card{background:rgba(251,248,241,.92)!important;border:1px solid var(--my-line-soft)!important;box-shadow:var(--my-shadow)}
+html[data-theme="dark"] .mod,html[data-theme="dark"] .box,html[data-theme="dark"] .panel,html[data-theme="dark"] .result,html[data-theme="dark"] .card{background:rgba(26,33,28,.92)!important;border-color:rgba(176,138,79,.20)!important}
+table{border-color:var(--my-line-soft)!important}
+th{color:#6E746E!important}
+button,.card,.tool-card,.tab,.menu-row{transition:transform .12s ease,opacity .12s ease}
+button:active,.card:active,.tool-card:active,.tab:active{transform:scale(.97);opacity:.92}
+
+/* ===== v2：拉开层次，不再只换纸色 ===== */
+/* 首页日期卡 → 墨玉头图 */
+.hl-card{background:linear-gradient(150deg,#33513F 0%,#223A2E 52%,#1A2E24 100%)!important;border:1px solid rgba(176,138,79,.45)!important;border-radius:24px!important;box-shadow:0 18px 44px rgba(20,34,26,.28),inset 0 1px 0 rgba(255,255,255,.10)!important;color:#F6F2E9!important;padding:20px 20px 18px!important}
+.hl-card .hl-k{color:rgba(246,242,233,.62)!important;letter-spacing:.14em;font-size:11px!important}
+.hl-card .hl-time span{color:#E9C98B!important;font-family:var(--my-serif)!important;font-size:15px}
+.hl-card .hl-date{font-family:var(--my-serif)!important;font-size:40px!important;line-height:1.12!important;letter-spacing:.01em;color:#FBF8F1!important;margin:10px 0 6px!important}
+.hl-card .hl-sub{color:rgba(246,242,233,.68)!important;font-size:14px!important}
+.hl-card .hl-gz{font-family:var(--my-serif)!important;font-size:20px!important;color:#E9C98B!important;letter-spacing:.08em;margin-top:10px!important}
+.hl-card .hl-split{background:linear-gradient(90deg,rgba(176,138,79,.75),rgba(176,138,79,.08))!important;height:1px!important}
+.hl-card .hl-v{color:#FBF8F1!important;font-family:var(--my-serif)!important;font-size:19px!important}
+.hl-card .hl-note{color:rgba(246,242,233,.55)!important}
+.hl-card .hl-bar,.hl-card .hl-prog{background:rgba(246,242,233,.16)!important}
+.hl-card .hl-bar i,.hl-card .hl-prog i{background:linear-gradient(90deg,#E9C98B,#B08A4F)!important}
+/* 底栏：鎏金胶囊 + 深色玻璃 */
+.tabbar.ios-tabbar{background:rgba(22,30,25,.82)!important;border:1px solid rgba(176,138,79,.38)!important;box-shadow:0 16px 38px rgba(16,26,20,.35),inset 0 1px 0 rgba(255,255,255,.10)!important}
+.tabbar.ios-tabbar .lens{background:linear-gradient(160deg,#E9C98B,#B08A4F)!important;box-shadow:0 8px 20px rgba(176,138,79,.32)!important}
+.tabbar.ios-tabbar .tab{color:rgba(246,242,233,.56)!important}
+.tabbar.ios-tabbar .tab.on{color:#1C211E!important}
+html[data-theme="dark"] .tabbar.ios-tabbar .tab.on{color:#141A16!important}
+/* 卡片：金线标题 + 更明显的纸面 */
+.card-title,.mod-title{display:flex;align-items:center;gap:8px}
+.card-title::before,.mod-title::before{content:"";width:3px;height:15px;border-radius:2px;background:linear-gradient(180deg,#E9C98B,#B08A4F)}
+.card{border-radius:20px!important;border-color:rgba(176,138,79,.22)!important;box-shadow:0 12px 32px rgba(40,52,40,.10),0 1px 2px rgba(40,52,40,.05)!important}
+/* 模块卡：图标块拉开颜色 */
+#toolCatalog .well{background:linear-gradient(150deg,rgba(233,201,139,.28),rgba(47,74,62,.14))!important;color:#2F4A3E!important;border:1px solid rgba(176,138,79,.28)!important}
+#toolCatalog button.tool-card{border-radius:18px!important;border-color:rgba(176,138,79,.22)!important}
+#toolCatalog button.tool-card h3{font-size:16px!important}
+#toolCatalog .tag{color:#8A6A38!important}
+/* 八字页标题区 */
+body > .page > h1,body > .page > .h1,.page > h1{font-family:var(--my-serif)!important;font-size:34px!important;line-height:1.15!important;font-weight:600!important;letter-spacing:.02em;color:#22352B!important;position:relative;padding-left:14px}
+body > .page > h1::before,.page > h1::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;border-radius:2px;background:linear-gradient(180deg,#B08A4F,#2F4A3E)}
+html[data-theme="dark"] body > .page > h1,html[data-theme="dark"] .page > h1{color:#F1ECDE!important}
+/* 页面底加一层可见的雾光 */
+body::before{background:
+  radial-gradient(46% 30% at 8% 0%,rgba(176,138,79,.22),transparent 60%),
+  radial-gradient(52% 34% at 100% 4%,rgba(47,74,62,.22),transparent 62%),
+  radial-gradient(40% 26% at 50% 108%,rgba(176,138,79,.12),transparent 60%),
+  linear-gradient(165deg,#F7F1E3 0%,#EEE7D8 50%,#F6F2E9 100%)!important}
+html[data-theme="dark"] body::before{background:
+  radial-gradient(46% 30% at 8% 0%,rgba(176,138,79,.24),transparent 60%),
+  radial-gradient(52% 34% at 100% 4%,rgba(125,207,176,.14),transparent 62%),
+  radial-gradient(40% 26% at 50% 108%,rgba(176,138,79,.10),transparent 60%),
+  linear-gradient(165deg,#0F1512 0%,#0A0F0C 52%,#0E1310 100%)!important}
+/* 输入区与按钮更强对比 */
+.btn,.ai-btn{box-shadow:0 8px 20px rgba(47,74,62,.22)!important;font-weight:600!important}
+
+/* v2 修正：头图换行、深色保渐变、模块页标题区 */
+.hl-card .hl-gz{font-size:17px!important;letter-spacing:.04em!important;line-height:1.55!important;white-space:normal!important}
+html[data-theme="dark"] .hl-card{background:linear-gradient(150deg,#33513F 0%,#223A2E 52%,#16261E 100%)!important;border-color:rgba(176,138,79,.42)!important}
+.page > h1{background:linear-gradient(150deg,#33513F 0%,#223A2E 60%,#1A2E24 100%)!important;color:#F6F2E9!important;border:1px solid rgba(176,138,79,.40)!important;border-radius:20px!important;padding:20px 18px!important;margin:0 0 16px!important;font-size:30px!important;line-height:1.2!important;box-shadow:0 14px 34px rgba(20,34,26,.22)!important;letter-spacing:.03em}
+.page > h1::before{display:none!important}
+html[data-theme="dark"] .page > h1{background:linear-gradient(150deg,#33513F 0%,#1A2E24 60%,#12201A 100%)!important}
+
+/* 只作用于可见输入，避免改坏隐藏域、文件域与自绘控件 */
+input[type="hidden"],input[type="file"],input[type="checkbox"],input[type="radio"]{border:0!important;background:transparent!important;padding:0!important;box-shadow:none!important}
+input[type="date"],input[type="time"]{min-height:40px!important;line-height:1.3!important}
+
+/* 输入框可见性兜底：部分页面把 input/select 设成透明，统一拉回纸面控件 */
+html body input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html body select,
+html body textarea{
+  background:#FFFDF8!important;border:1px solid rgba(176,138,79,.30)!important;
+  border-radius:10px!important;min-height:40px!important;padding:0 12px!important;
+  box-sizing:border-box!important;color:var(--my-ink)!important;box-shadow:none!important;
+  -webkit-appearance:none;appearance:none
+}
+html body input[type="date"],html body input[type="time"]{padding:0 10px!important}
+html body select{
+  background-image:linear-gradient(45deg,transparent 50%,#8A6A38 50%),linear-gradient(135deg,#8A6A38 50%,transparent 50%)!important;
+  background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%!important;
+  background-size:5px 5px,5px 5px!important;background-repeat:no-repeat!important;
+  padding-right:30px!important
+}
+html[data-theme="dark"] body input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html[data-theme="dark"] body select,
+html[data-theme="dark"] body textarea{background:#1A211C!important;border-color:rgba(176,138,79,.22)!important;color:#E8E4D8!important}

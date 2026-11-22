@@ -1,0 +1,579 @@
+/* ============================================================
+   ios-skin.css v1.1 —— 「演局推数」iOS 纯白/墨绿试水皮肤
+   适用：bazi.html / ziwei.html / tieban.html（<html class="ios-skin">）
+   依据：《全局通用组件规范文档》V1.0
+   红线（规范六）：
+     - 只动展示层：不动语义色（四化/吉凶/五行/爻象/暗干等）；
+     - 不改布局结构、不改行列跨度、不截断长文本；
+     - 不新增动画：本文件全局禁用 animation/transition；
+     - 不使用第三方图标库：齿轮为页面内联 SVG（.ios-gear-admin）；
+     - 长度单位除安全区 env() 兜底外一律 px。
+
+   v1.1（2026-10-25 打回重改）：
+   - 根因：app.js 嵌入态会在运行时把 embed.css 再 append 到 head 末尾
+     （晚于本文件），同级 !important 平局全判给 embed.css，
+     米色卡片/朱砂红按钮/米色下拉由此复活。
+   - 对策一：与 embed.css 对位的规则全部抬高优先级
+     （.ios-skin 双写、.btn 三写），不再依赖加载顺序取胜；
+   - 对策二：app.js 对 ios-skin 页跳过 embed.css 二次注入（仅早载一次）；
+   - 令牌补充：--bz/--zw/--tie 基础主色与 --bz2/--zw2/--tie2 悬停色收口墨绿。
+   ============================================================ */
+
+/* ── 0. 全局禁动画/过渡；强制浅色（压过 comp-dark 暗色块） ── */
+html.ios-skin *,html.ios-skin *::before,html.ios-skin *::after{animation:none!important;transition:none!important}
+html.ios-skin{color-scheme:light!important}
+
+/* ── 1. 设计令牌（规范一/二；--bz/--zw/--tie 页族同步收口）
+      双写 .ios-skin：(0,2,2) 稳压 embed.css 的 html.embed body (0,2,1)，
+      无论 embed.css 从哪个位置注入 ── */
+html.ios-skin.ios-skin body{
+  --paper:#F2F2F7!important;
+  --paper2:#FFFFFF!important;
+  --card:#FFFFFF!important;
+  --ink:#1A1A1A!important;
+  --ink2:#666666!important;
+  --line:#E5E5EA!important;
+  --gold:#2F6F5B!important;      /* 主色墨绿 */
+  --gold2:#2F6F5B!important;
+  --gold-bg:#E7F0EC!important;   /* 主色软底 */
+  --title:#2F6F5B!important;
+  --red:#FF3B30!important;       /* 凶/忌（语义，保留） */
+  --red2:#D70015!important;
+  --green:#34C759!important;     /* 吉/宜（语义，保留） */
+  --shadow:0 2px 8px rgba(0,0,0,.04)!important;
+  --cal-hover:#E7F0EC!important;
+  --cal-selected:#D8E6E1!important;
+  --cal-zhai:#D8E6E1!important;
+  /* 字号体系（规范二）：卡片标题20 / 正文16 / 辅助14 / 说明12 */
+  --tier1:20px!important;--tier2:16px!important;--tier3:14px!important;--tier4:12px!important;
+  /* 字体（规范五 防污染替换表）：篆/宋 → iOS 无衬线，保留符号字体兜底 */
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Noto Sans Symbols 2','Noto Sans Symbols','Noto Emoji','Microsoft YaHei',sans-serif!important;
+  --font-serif:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Noto Sans Symbols 2','Noto Sans Symbols','Noto Emoji','Microsoft YaHei',sans-serif!important;
+  /* 工具箱令牌 */
+  --tk:#2F6F5B!important;--tk-ink:#1A1A1A!important;--tk-line:#E5E5EA!important;--tk-tint:#E7F0EC!important;
+  /* 页族令牌收口（含各页基础主色与悬停色） */
+  --bz:#2F6F5B!important;--bz2:#245C4B!important;
+  --zw:#2F6F5B!important;--zw2:#245C4B!important;
+  --tie:#2F6F5B!important;--tie2:#245C4B!important;
+  --bz-deep:#2F6F5B!important;--bz-ink:#1A1A1A!important;--bz-ink2:#666666!important;--bz-line:#E5E5EA!important;--bz-tint:#E7F0EC!important;--bz-tint2:#D8E6E1!important;
+  --zw-deep:#2F6F5B!important;--zw-ink:#1A1A1A!important;--zw-ink2:#666666!important;--zw-line:#E5E5EA!important;--zw-tint:#E7F0EC!important;--zw-tint2:#D8E6E1!important;
+  --tie-deep:#2F6F5B!important;--tie-ink:#1A1A1A!important;--tie-ink2:#666666!important;--tie-line:#E5E5EA!important;--tie-tint:#E7F0EC!important;--tie-tint2:#D8E6E1!important;
+  /* 页面本体 */
+  background:#F2F2F7!important;
+  color:#1A1A1A!important;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Noto Sans Symbols 2','Noto Sans Symbols','Noto Emoji','Microsoft YaHei',sans-serif!important;
+}
+/* 嵌入态：删远山/朱日纹理（规范五：纹理彻底删除） */
+html.ios-skin.ios-skin body::before{display:none!important;background:none!important}
+/* 独立态：为固定页头让位 */
+html.ios-skin:not(.embed) body{padding-top:64px!important}
+
+/* ── 2. 页头组件（规范三-3.2：.ios-back / .ios-gear-admin） ──
+   独立态页头；嵌入态整体隐藏——iframe 文档内 env(safe-area-inset-*) 取不到
+   外壳安全区，返回由外壳 .xj-back 提供，齿轮由外壳 app.html 同侧渲染
+   并直连 QZCFG 抽屉（见 app.html openXuanji / iosGearTap）。 */
+.ios-top{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  padding:calc(env(safe-area-inset-top,0px) + 20px) 16px 0 16px;pointer-events:none}
+.ios-back{display:inline-flex;align-items:center;height:34px;padding:0 12px 0 8px;border:0;border-radius:17px;
+  background:rgba(255,255,255,.92);color:#2F6F5B;font-size:15px;font-weight:500;text-decoration:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);pointer-events:auto}
+.ios-gear-admin{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;border:0;border-radius:17px;
+  background:rgba(255,255,255,.92);color:#2F6F5B;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);pointer-events:auto}
+.ios-gear-admin[data-step="1"]{background:#E7F0EC}
+.ios-gear-admin[data-step="2"],.ios-gear-admin[data-step="3"]{background:#E7F0EC;color:#245C4B}
+html.embed .ios-top{display:none!important}
+
+/* ── 3. 模块标题（规范三-3.2 .ios-module-title） ── */
+.ios-module-title{font-size:32px!important;font-weight:700!important;color:#2F6F5B!important;
+  letter-spacing:0!important;border:0!important;margin:4px 0 8px!important;font-family:inherit!important}
+html.ios-skin .page h1::before,html.ios-skin .page h1::after{display:none!important}   /* 去朱砂竖条/装饰 */
+html.ios-skin .page .lead::after{display:none!important}                               /* 去竖排线 */
+
+/* ── 4. 表单区（规范三-3.1：卡片化、浅灰软底输入；全部升权重对位 embed.css） ── */
+html.ios-skin.ios-skin .form-row,html.ios-skin.ios-skin .birth-group,html.ios-skin.ios-skin .ly-time-row{
+  background:#FFFFFF!important;border-color:#E5E5EA!important;border-radius:16px!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.04)!important}
+html.ios-skin.ios-skin .group-label{color:#2F6F5B!important;letter-spacing:0!important}
+html.ios-skin.ios-skin .field label{color:#666666!important;letter-spacing:0!important}
+html.ios-skin.ios-skin .field input:not([type=checkbox]):not([type=radio]),
+html.ios-skin.ios-skin .form-row input:not([type=checkbox]):not([type=radio]),
+html.ios-skin.ios-skin .field select,html.ios-skin.ios-skin .form-row select,html.ios-skin.ios-skin textarea{
+  background-color:#F5F5F5!important;border-color:transparent!important;border-radius:8px!important;
+  color:#1A1A1A!important;font-family:inherit!important;outline:none!important}
+html.ios-skin.ios-skin .field select,html.ios-skin.ios-skin .form-row select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666666' stroke-width='1.6'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 14px center!important}
+html.ios-skin.ios-skin .field input:not([type=checkbox]):not([type=radio]):focus,
+html.ios-skin.ios-skin .field select:focus,html.ios-skin.ios-skin textarea:focus{
+  border-color:#2F6F5B!important;box-shadow:0 0 0 3px rgba(47,111,79,.12)!important;background-color:#FFFFFF!important}
+html.ios-skin.ios-skin input[type=checkbox],html.ios-skin.ios-skin input[type=radio]{accent-color:#2F6F5B!important}
+/* sel-face 自绘下拉（app.js 内联米色 → 压回 iOS 口径） */
+html.ios-skin.ios-skin .sel-face{background-color:#F5F5F5!important;color:#1A1A1A!important;border-color:transparent!important;border-radius:8px!important;letter-spacing:0!important}
+html.ios-skin.ios-skin .sel-list{background:#FFFFFF!important;border-color:#E5E5EA!important;border-radius:12px!important;box-shadow:0 4px 16px rgba(0,0,0,.10)!important}
+html.ios-skin.ios-skin .sel-opt{color:#1A1A1A!important;letter-spacing:0!important}
+html.ios-skin.ios-skin .sel-opt:hover{background:#F5F5F5!important}
+html.ios-skin.ios-skin .sel-opt.on{color:#2F6F5B!important;font-weight:600!important;background:#E7F0EC!important}
+
+/* ── 5. 按钮（规范三-3.2；不动尺寸/顺序，含 8 个附加功能按钮）
+      .btn 三写 (0,5,1)：稳压 embed.css 的 .btn (0,2,1)、.btn.btn-ghost (0,3,1)、
+      .field button.btn:not(.gold) (0,4,2)；次按钮四写 (0,6,1) 再压主按钮 ── */
+html.ios-skin.ios-skin .btn.btn.btn{background:#2F6F5B!important;color:#FFFFFF!important;border:0!important;border-radius:8px!important;
+  box-shadow:none!important;letter-spacing:0!important;font-family:inherit!important;font-weight:500!important}
+html.ios-skin.ios-skin .btn.btn.btn.soft,html.ios-skin.ios-skin .btn.btn.btn.gold,
+html.ios-skin.ios-skin .btn.btn.btn.btn-ghost,html.ios-skin.ios-skin .btn-ghost.btn-ghost{
+  background:#FFFFFF!important;color:#2F6F5B!important;border:1px solid #2F6F5B!important;box-shadow:none!important;font-weight:500!important}
+html.ios-skin .btn:disabled{opacity:.4!important}
+/* 返回输入 / 再测一次 → 次按钮（规范页面骨架；zw-back 为裸类，双选择器兜住） */
+html.ios-skin.ios-skin .btn.btn.btn.bazi-back,html.ios-skin.ios-skin .btn.btn.btn.zw-back,html.ios-skin.ios-skin .btn.btn.btn.shell-again,
+html.ios-skin.ios-skin .zw-back.zw-back,html.ios-skin.ios-skin .shell-again.shell-again{
+  background:#FFFFFF!important;color:#2F6F5B!important;border:1px solid #2F6F5B!important;
+  border-radius:8px!important;box-shadow:none!important;letter-spacing:0!important}
+
+/* ── 6. 结果区卡片/折叠（规范三-3.1：纯白卡、16px 圆角） ── */
+html.ios-skin.ios-skin .mod{border-radius:16px!important;box-shadow:0 2px 8px rgba(0,0,0,.04)!important;padding:16px!important;margin-bottom:12px!important}
+html.ios-skin.ios-skin .mod-head{padding-bottom:8px!important;margin-bottom:8px!important}
+html.ios-skin.ios-skin .mod-title{font-weight:600!important;letter-spacing:0!important}
+html.ios-skin.ios-skin .mod-sub{letter-spacing:0!important}
+/* .info-box 顶边色不覆写：--gold 走墨绿、.info-box.ji 保留凶红（语义） */
+html.ios-skin.ios-skin .info-box{background:#FFFFFF!important;border-radius:16px!important;box-shadow:0 2px 8px rgba(0,0,0,.04)!important;padding:16px!important}
+html.ios-skin.ios-skin .card,html.ios-skin.ios-skin .panel,html.ios-skin.ios-skin .nayin-box,html.ios-skin.ios-skin .life-card{border-radius:16px!important}
+html.ios-skin.ios-skin .rel-title{letter-spacing:0!important;font-family:inherit!important}
+html.ios-skin.ios-skin .mh-ref summary{letter-spacing:0!important;font-family:inherit!important}
+html.ios-skin.ios-skin .duan-fold-head{color:#2F6F5B!important;letter-spacing:0!important}
+
+/* ── 7. 表格（结构/行列跨度/横滑容器不动，仅收口字距与字重） ── */
+html.ios-skin.ios-skin th{font-weight:600!important;letter-spacing:0!important}
+
+/* ── 8. 附加功能面板（规范六-3：8 按钮只换色，不改序/不加大；
+      按钮颜色由第 5 节通用规则承担，不再单列） ── */
+html.ios-skin.ios-skin .ai-block{background:#FFFFFF!important;border:1px solid #E5E5EA!important;border-radius:16px!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.04)!important;padding:4px 0 16px!important}
+html.ios-skin.ios-skin .ai-head h3{color:#2F6F5B!important;letter-spacing:0!important;font-family:inherit!important}
+html.ios-skin.ios-skin .ai-actions{padding:12px 16px 0!important}
+
+/* ── 9. 弹层/遮罩（.dt-modal 米底在 embed.css 带 !important，此处靠权重压回） ── */
+html.ios-skin.ios-skin .modal{background:#FFFFFF!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 8px 32px rgba(0,0,0,.16)!important}
+html.ios-skin.ios-skin .modal-mask{background:rgba(0,0,0,.35)!important}
+
+/* ── 10. 打印（「打印存为PDF」按钮依赖；沿用原打印灰阶口径） ── */
+@media print{
+  html.ios-skin.ios-skin body{background:#FFFFFF!important;
+    --gold:#6b6b6b!important;--gold2:#333333!important;--title:#333333!important;
+    --bz:#333333!important;--zw:#333333!important;--tie:#333333!important;
+    --bz-deep:#333333!important;--zw-deep:#333333!important;--tie-deep:#333333!important;--tk:#333333!important;
+    --bz-tint:#f3f3f3!important;--zw-tint:#f3f3f3!important;--tie-tint:#f3f3f3!important;
+    --bz-tint2:#f3f3f3!important;--zw-tint2:#f3f3f3!important;--tie-tint2:#f3f3f3!important}
+  .ios-top{display:none!important}
+  .ios-module-title{color:#333333!important}
+  html.ios-skin.ios-skin .mod,html.ios-skin.ios-skin .info-box,html.ios-skin.ios-skin .ai-block{border-radius:0!important;box-shadow:none!important}
+}
+
+/* ============================================================
+   ios-skin.css v2.0 追加段（2026-10-25 第 0 批基建）
+   只追加，不改上面 v1.1 的任何规则。
+   锁色口径（与各页后置锁色行一致，供 engine.js 的 colorKey 取用）：
+     --red:#b84a3a  凶/忌    --red2:#9e3d2f  次凶
+     --green:#2e7d32 吉/用神
+   --theme-green:#34C759 只作主题强调，不画吉凶。
+   背景 #F5F5F7 只落在 v2 新组件上，不回写已上线模块的 --paper。
+   ============================================================ */
+
+/* ── 11. v2 令牌（scoped，不进 body，避免带偏已上线页） ── */
+html.ios-skin.ios-skin .xj-v2{
+  --bg:#F5F5F7;
+  --theme-green:#34C759;
+  --card-bg:#FFFFFF;
+  --card-radius:16px;
+  --card-shadow:0 2px 8px rgba(0,0,0,.04);
+  --divider:rgba(60,60,67,.1);
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+  background:var(--bg);
+  color:#1C1C1E;
+}
+
+/* ── 12. 卡片 / 行 ── */
+html.ios-skin.ios-skin .xj-card{
+  background:#FFFFFF;
+  border-radius:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  padding:16px;
+  margin-bottom:16px;
+}
+html.ios-skin.ios-skin .xj-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(60,60,67,.1);
+}
+html.ios-skin.ios-skin .xj-row:last-child{border-bottom:0}
+
+/* ── 13. 胶囊工具栏（外壳用；模块页仍走 .ios-top，不改名） ── */
+html.ios-skin.ios-skin .xj-topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:44px;
+  padding:8px 12px;
+  padding-top:calc(8px + env(safe-area-inset-top, 0px));
+  background:rgba(245,245,247,.86);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+}
+html.ios-skin.ios-skin .xj-topbar .xj-cap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  height:34px;
+  padding:0 10px;
+  border:0;
+  border-radius:999px;
+  background:#FFFFFF;
+  color:#2F6F5B;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  font:inherit;
+  font-size:14px;
+}
+
+/* ── 14. 底部 4-Tab（磨砂；外壳 .tabbar 加 .xj-tabbar 后生效） ── */
+.xj-tabbar{
+  background:rgba(245,245,247,.86);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(60,60,67,.1);
+  padding-bottom:calc(6px + env(safe-area-inset-bottom, 0px));
+}
+.xj-tabbar .tabbar-inner{
+  background:transparent;
+  border:0;
+  border-radius:0;
+  padding:4px 8px;
+}
+.xj-tabbar .tab{
+  color:#8E8E93;
+  letter-spacing:0;
+  font-size:11px;
+  padding:6px 0 4px;
+  border-radius:10px;
+  transition:none;
+}
+.xj-tabbar .tab.on{
+  background:transparent;
+  color:#34C759;
+  font-weight:600;
+  box-shadow:none;
+}
+.xj-tabbar .tab .xj-tab-ico{display:block;margin:0 auto 2px}
+
+/* ── 15. 盘面引擎（engine.js 产出） ── */
+.xj-board{color:#1C1C1E}
+.xj-board .xj-cell{
+  border:1px solid rgba(60,60,67,.1);
+  border-radius:0;
+  padding:6px;
+  min-height:44px;
+  font-size:13px;
+  line-height:1.3;
+}
+.xj-board .xj-cell .sub{display:block;font-size:11px;color:#8E8E93}
+.xj-board .xj-cell.hl{background:rgba(52,199,89,.12)}
+.xj-board .xj-cell.c-red{color:#b84a3a}
+.xj-board .xj-cell.c-red2{color:#9e3d2f}
+.xj-board .xj-cell.c-green{color:#2e7d32}
+.xj-board .xj-cell.c-theme{color:#34C759}
+.xj-board .xj-sec{margin:0 0 8px;font-size:13px;font-weight:600;color:#2F6F5B}
+.xj-board .xj-item{padding:8px 0;border-bottom:1px solid rgba(60,60,67,.1);font-size:14px}
+.xj-board .xj-item .desc{display:block;font-size:12px;color:#8E8E93}
+.xj-board .xj-disk{display:block;margin:0 auto}
+
+/* 测字结果条：吸顶时留出底部空隙，层级低于页头，避免压住正文 */
+html.ios-skin .page-cz .cz-dock{
+  position:static;
+  z-index:auto;
+  height:auto;
+  min-height:40px;
+  margin:12px 0 0;
+  padding:8px 4px 10px;
+  background:transparent;
+}
+html.ios-skin body.cz-result #aiMount{display:block}
+
+/* ============================================================
+   ios-skin.css v3.0 追加段（第 1 批：外壳与容器）
+   只追加。浅色锁色保持 --red:#b84a3a / --red2:#9e3d2f / --green:#2e7d32。
+   深色只微调这三个值。不改上面任何选择器。
+   ============================================================ */
+
+/* ── 16. 外壳令牌。只挂 .app，不回写模块页 body ── */
+html:not(.ios-skin) body{
+  --ios-bg:#F2F2F7;
+  --ios-card:#FFFFFF;
+  --ios-text:#1C1C1E;
+  --ios-sub:#8E8E93;
+  --ios-line:rgba(60,60,67,.12);
+  --ios-green:#34C759;
+  --red:#b84a3a;
+  --red2:#9e3d2f;
+  --green:#2e7d32;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  html:not(.ios-skin) body{
+    --ios-bg:#1C1C1E;
+    --ios-card:#2C2C2E;
+    --ios-text:#F2F2F7;
+    --ios-sub:#8E8E93;
+    --ios-line:rgba(235,235,245,.12);
+    --ios-green:#30D158;
+    --red:#e86050;
+    --red2:#c44d3d;
+    --green:#4caf50;
+  }
+}
+
+/* ── 17. 外壳顶栏、安全区、主按钮、结果容器 ── */
+.app > .ios-top{
+  position:sticky;
+  top:0;
+  z-index:40;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  margin:0 0 8px;
+  padding:calc(8px + var(--safe-top,env(safe-area-inset-top,0px))) 52px 8px;
+  background:rgba(242,242,247,.82);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  pointer-events:auto;
+}
+.app > .ios-top .ios-title{
+  margin:0;
+  font-size:17px;
+  font-weight:600;
+  line-height:22px;
+  color:var(--ios-text,#1C1C1E);
+  text-align:center;
+}
+.app > .ios-top #iosGear{
+  position:absolute;
+  right:12px;
+  top:calc(8px + var(--safe-top,env(safe-area-inset-top,0px)));
+  width:34px;
+  height:34px;
+  padding:0;
+  border:0;
+  border-radius:17px;
+  background:rgba(255,255,255,.92);
+  color:#2F6F5B;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  cursor:pointer;
+}
+.app > .ios-safe{padding-bottom:calc(12px + var(--safe-bottom,env(safe-area-inset-bottom,0px)))}
+.app .ios-btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 16px;
+  border:0;
+  border-radius:12px;
+  background:var(--ios-green,#34C759);
+  color:#fff;
+  font:inherit;
+  font-size:16px;
+  font-weight:600;
+}
+.app .ios-glass{
+  background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--ios-line,rgba(60,60,67,.12));
+  border-radius:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme:dark){
+  .app > .ios-top{background:rgba(28,28,30,.82)}
+  .app > .ios-top #seal{background:rgba(44,44,46,.92);color:#F2F2F7}
+  .app .ios-glass{background:rgba(44,44,46,.72)}
+}
+
+/* 深色跟随外壳 html.embed-dark，不改语义红绿 */
+html.ios-skin.embed-dark,html.ios-skin.embed-dark body{
+  background:#000!important;color:#E8E8ED!important;color-scheme:dark!important;
+  --paper:#000!important;--paper2:#1C1C1E!important;--card:#1C1C1E!important;
+  --ink:#E8E8ED!important;--ink2:#8E8E93!important;--title:#F2F2F7!important;
+  --line:rgba(255,255,255,.12)!important;
+}
+html.ios-skin.embed-dark .form-row,html.ios-skin.embed-dark .info-box,html.ios-skin.embed-dark .mod,
+html.ios-skin.embed-dark .card,html.ios-skin.embed-dark .panel,html.ios-skin.embed-dark .cal-cell,
+html.ios-skin.embed-dark .fs-base,html.ios-skin.embed-dark .cz-form{
+  background:#1C1C1E!important;color:#E8E8ED!important;
+}
+html.ios-skin.embed-dark .field input,html.ios-skin.embed-dark .field select,html.ios-skin.embed-dark textarea,
+html.ios-skin.embed-dark input,html.ios-skin.embed-dark select{
+  background:#2C2C2E!important;color:#E8E8ED!important;
+}
+html.ios-skin.ios-skin.embed-dark .btn.btn.btn{background:#3D8F76!important;color:#fff!important}
+html.ios-skin.embed-dark .ios-module-title,html.ios-skin.embed-dark .page h1{color:#F2F2F7!important}
+
+html.ios-skin.ios-skin .cal-grid{background:transparent!important;border:0!important}
+html.ios-skin.ios-skin .cal-cell{background:#fff!important;border:0!important;border-radius:12px!important;box-shadow:0 1px 2px rgba(0,0,0,.04)!important}
+html.ios-skin.ios-skin .fs-base,html.ios-skin.ios-skin .fs-row,html.ios-skin.ios-skin .cz-form,html.ios-skin.ios-skin .birth-group{
+  background:#fff!important;border-radius:16px!important;box-shadow:0 2px 8px rgba(0,0,0,.04)!important;
+}
+html.ios-skin.ios-skin .page h1,html.ios-skin.ios-skin .mod-title{letter-spacing:0!important;color:#1C1C1E!important}
+html.ios-skin.ios-skin .topbar,html.ios-skin.ios-skin .site-foot,html.ios-skin.ios-skin footer.site-foot{display:none!important}
+
+/* 清掉各页残留米色块。宜忌红绿、五行色不改。 */
+html.ios-skin.ios-skin body,html.ios-skin.ios-skin .page,html.ios-skin.ios-skin .wrap{background:#F2F2F7!important}
+html.ios-skin.ios-skin .skeleton-grid,html.ios-skin.ios-skin .sk-cell,
+html.ios-skin.ios-skin .overview-card,html.ios-skin.ios-skin .detail,html.ios-skin.ios-skin #dayDetail,
+html.ios-skin.ios-skin .mod,html.ios-skin.ios-skin .info-box,html.ios-skin.ios-skin .card,
+html.ios-skin.ios-skin .fs-base,html.ios-skin.ios-skin .cal-cell{
+  background:#fff!important;
+}
+html.ios-skin.ios-skin .sk-cell{background:#E5E5EA!important}
+html.ios-skin.ios-skin .page-xlr .page h1,html.ios-skin.ios-skin .page-xlr .page .lead,html.ios-skin.ios-skin .page-xlr .rel-title{letter-spacing:0!important;text-indent:0!important}
+html.ios-skin.ios-skin .page-xlr .page h1::before,html.ios-skin.ios-skin .page-xlr .page h1::after,html.ios-skin.ios-skin .page-xlr .page .lead::before,html.ios-skin.ios-skin .page-xlr .page .lead::after{display:none!important;content:none!important}
+html.ios-skin.ios-skin .page-xlr .xlr-gong,html.ios-skin.ios-skin .page-xlr .xlr-palm-cell,html.ios-skin.ios-skin .page-xlr .today-card{background:#fff!important;border:1px solid #E5E5EA!important;border-radius:12px!important}
+html.ios-skin.ios-skin #topbar,html.ios-skin.ios-skin #footer,html.ios-skin.ios-skin .topbar{display:none!important}
+html.ios-skin.ios-skin .page-xlr .form-row.r2{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;overflow:visible!important}
+html.ios-skin.ios-skin .page-xlr .form-row.r2 .field,html.ios-skin.ios-skin .page-xlr .form-row.r2 .dt-wrap{min-width:0!important;width:100%!important;max-width:100%!important}
+html.ios-skin.ios-skin .page-xlr .form-row.r2 .dt-wrap input[type="text"].dt-input,html.ios-skin.ios-skin .page-xlr .form-row.r2 input[type="text"].dt-input{width:100%!important;flex:1 1 auto!important;min-width:0!important;text-align:left!important}
+html.ios-skin.ios-skin .page-xlr .form-row.r2 .btn{grid-column:1 / -1!important;height:44px!important}
+html.ios-skin.ios-skin [style*="fbf7f0"],html.ios-skin.ios-skin [style*="FBF7F0"],
+html.ios-skin.ios-skin [style*="f3e7d3"],html.ios-skin.ios-skin [style*="F3EDE3"]{background:#fff!important}
+
+/* ================= v5.0 微交互与对齐（覆盖 v4 全局 animation/transition 关闭） =================
+   本节只在 html.ios-skin 生效。v4 第 23 行把全站 transition/animation 关了，
+   这里用更高特异性 + !important 把要动的四处重新打开，其余仍旧不动，不新增装饰动画。 */
+html.ios-skin.ios-skin .ios-card,
+html.ios-skin.ios-skin .card,
+html.ios-skin.ios-skin .grid button,
+html.ios-skin.ios-skin .capsule{
+  transition:background-color 150ms ease-out, transform 150ms ease-out, box-shadow 150ms ease-out !important;
+  touch-action:manipulation;
+}
+html.ios-skin.ios-skin .ios-card:active,
+html.ios-skin.ios-skin .card:active,
+html.ios-skin.ios-skin .grid button:active{
+  background-color:rgba(47,111,91,.08) !important;
+}
+html.ios-skin.ios-skin .capsule:active,
+html.ios-skin.ios-skin .grid button:active{
+  transform:scale(.96) !important;
+}
+
+/* 结果壳上浮：translateY(20px) -> 0，250ms，cubic-bezier(.32,.72,0,1) */
+html.ios-skin.ios-skin .result-shell,
+html.ios-skin.ios-skin .result-panel,
+html.ios-skin.ios-skin body.shell-result #out,
+html.ios-skin.ios-skin .shell-result #out{
+  transform:none;
+  opacity:1;
+}
+@keyframes xjResultIn{to{transform:translateY(0);opacity:1}}
+html.ios-skin.ios-skin .result-shell.active,
+html.ios-skin.ios-skin .result-panel.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* 输入框聚焦：玉色描边，200ms */
+html.ios-skin.ios-skin input:focus,
+html.ios-skin.ios-skin textarea:focus,
+html.ios-skin.ios-skin select:focus{
+  border-color:#2F6F5B !important;
+  transition:border-color 200ms ease-out, box-shadow 200ms ease-out !important;
+  outline:none;
+}
+
+/* 标题：嵌入态统一 32px（原先 28px） */
+html.ios-skin.ios-skin .shell-embed h1,
+html.ios-skin.ios-skin .shell-embed .page h1,
+html.ios-skin.ios-skin .shell-embed .mod-title{
+  font-size:32px !important;
+  line-height:1.25 !important;
+  letter-spacing:0 !important;
+}
+
+/* 两列对齐：标签与输入框左右对齐、栅格不塌 */
+html.ios-skin.ios-skin .form-row.r2,
+html.ios-skin.ios-skin .form-row.two,
+html.ios-skin.ios-skin .pair,
+html.ios-skin.ios-skin .field-pair{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:12px !important;
+  align-items:end !important;
+  overflow:visible !important;
+}
+html.ios-skin.ios-skin .field,
+html.ios-skin.ios-skin .field-pair > *,
+html.ios-skin.ios-skin .form-row.r2 > *{
+  min-width:0 !important;
+}
+html.ios-skin.ios-skin .field > label,
+html.ios-skin.ios-skin .field > span.lbl{
+  display:block;
+  font-size:13px;
+  line-height:1.4;
+  color:#5C574F;
+  margin:0 0 6px;
+}
+html.ios-skin.ios-skin .field input,
+html.ios-skin.ios-skin .field select,
+html.ios-skin.ios-skin .field textarea{
+  width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box;
+}
+/* 结果页多列数据左缘对齐：同列等宽、数字右缘对齐 */
+html.ios-skin.ios-skin table td,
+html.ios-skin.ios-skin table th{text-align:left}
+html.ios-skin.ios-skin table td.num,
+html.ios-skin.ios-skin table th.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* iOS 应用化：禁选、禁长按菜单、禁图片拖拽；输入框保留选择与编辑 */
+html.ios-skin.ios-skin *{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+html.ios-skin.ios-skin input,
+html.ios-skin.ios-skin textarea,
+html.ios-skin.ios-skin select,
+html.ios-skin.ios-skin [contenteditable="true"]{
+  -webkit-user-select:text;
+  user-select:text;
+  -webkit-touch-callout:default;
+}
+html.ios-skin.ios-skin img{
+  -webkit-user-drag:none;
+  user-drag:none;
+}
+
+/* Tab 切换淡入（与外壳 .panel 一致） */
+html.ios-skin.ios-skin .panel.active{animation:xjPanelIn 200ms ease-out !important}
+@keyframes xjPanelIn{from{opacity:0}to{opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  html.ios-skin.ios-skin .capsule:active,
+  html.ios-skin.ios-skin .grid button:active{transform:none !important}
+  html.ios-skin.ios-skin .result-shell,
+  html.ios-skin.ios-skin .result-panel,
+  html.ios-skin.ios-skin .shell-result #out{transform:none !important;opacity:1 !important;animation:none !important}
+  html.ios-skin.ios-skin .panel.active{animation:none !important}
+}
+/* ================= v5.0 结束 ================= */

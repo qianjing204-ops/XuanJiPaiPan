@@ -16,8 +16,8 @@
 [![仓库体积](https://img.shields.io/github/repo-size/GaoRenYouShu/XuanJiPaiPan?style=flat-square&label=仓库体积)](https://github.com/GaoRenYouShu/XuanJiPaiPan)
 [![代码体积](https://img.shields.io/github/languages/code-size/GaoRenYouShu/XuanJiPaiPan?style=flat-square&label=代码体积)](https://github.com/GaoRenYouShu/XuanJiPaiPan)
 [![提交总数](https://img.shields.io/github/commit-activity/t/GaoRenYouShu/XuanJiPaiPan?style=flat-square&label=提交总数)](https://github.com/GaoRenYouShu/XuanJiPaiPan/commits/main)
-[![排盘工具](https://img.shields.io/badge/排盘工具-43_个-2CA5E0?style=flat-square)](#功能总览)
-[![纯前端](https://img.shields.io/badge/纯前端-构建产物-4c9e4c?style=flat-square)](#技术构成)
+[![排盘工具](https://img.shields.io/badge/排盘工具-35_个-2CA5E0?style=flat-square)](#功能总览)
+[![纯前端](https://img.shields.io/badge/纯前端-零构建-4c9e4c?style=flat-square)](#技术构成)
 [![离线可用](https://img.shields.io/badge/离线可用-PWA-7e57c2?style=flat-square)](#技术构成)
 [![双主题](https://img.shields.io/badge/深浅双主题-跟随系统-8a6d3b?style=flat-square)](#技术构成)
 ![Vibe Coding](https://img.shields.io/badge/Vibe_Coding-100%25-ff69b4?style=flat-square)
@@ -37,17 +37,16 @@
 
 ## 功能总览
 
-涵盖历法、命理、三式、占卜、民俗、运气、养生、相术八大类，共 43 个独立工具。
+涵盖历法、命理、三式、占卜、民俗、运气、相术七大类，共 35 个独立工具。
 
 | 分类 | 工具 |
 |---|---|
 | **历法** | 万年历、老黄历、佛历、道历、藏历、择日、皇极经世 |
 | **命理** | 八字排盘、八字合婚、紫微斗数、河洛理数、铁板神数、姓名学、占星术、七政四余 |
 | **三式** | 奇门遁甲、大六壬、太乙神数 |
-| **占卜** | 大衍筮法、六爻、梅花易数、小六壬、六壬金口诀、灵棋经、灵签、塔罗牌、雷诺曼 |
-| **民俗** | 民俗占法、测字、周公解梦、二十八宿、太岁生肖、祭祀供奉 |
-| **运气** | 五运六气、子午流注 |
-| **养生** | 精油芳疗、食疗、推拿按跷 |
+| **占卜** | 六爻、梅花易数、小六壬、灵签、塔罗牌、雷诺曼 |
+| **民俗** | 民俗占法、测字、周公解梦、二十八宿、太岁生肖 |
+| **运气** | 五运六气 |
 | **相术** | 手相、面相、阳宅风水、阴宅风水、罗经仪 |
 
 ## 界面预览
@@ -62,7 +61,7 @@
 
 ## 主要工具
 
-按站内八卷顺序逐件介绍。
+按站内七卷顺序逐件介绍。
 
 ### 历法（7 件）
 
@@ -91,37 +90,26 @@
 - **大六壬**：自动起天地盘、四课三传，配十二天将与课体格局，断吉凶应期
 - **太乙神数**：太乙积年推算、十六神布局、主客算与大小游
 
-### 占卜（9 件）
+### 占卜（6 件）
 
-- **大衍筮法**：五十蓍策分二、挂一、揲四、归奇，三变一爻、十八变一卦，按变占七条取卦辞爻辞，附揲蓍法、筮仪与六十四卦速查
 - **六爻**：铜钱、数字、时间等七种起卦，自动装卦排六亲六神世应，标注旬空月破与神煞应期，支持真太阳时与连占对比
 - **梅花易数**：时间起卦，自动分体用、排互卦变卦错综，按体用生克与卦气旺衰断吉凶应期
 - **小六壬**：大安、留连、速喜、赤口、小吉、空亡六神掌诀，月日时三数即断
-- **六壬金口诀**：月将加时、地分、贵神、人元四位起课，十二将神与十二贵神表，五动三动、三合六合、三奇、空亡与月破断课
-- **灵棋经**：十二棋分上、中、下三组，各组零至四计数合成一百二十五课，出课名、课象、象辞、诗与又辞
 - **灵签**：黄大仙、观音、月老、关公等签文抽签解签，签诗、古人典故与吉凶释义
 - **塔罗牌**：韦特体系 78 张原版牌图，六种牌阵，逐张正逆位关键词与分域牌义、占星对应
 - **雷诺曼**：36 卡七种牌阵，630 对全组合词典成句，扑克对应、指标牌宫位与马步读法
 
-### 民俗（6 件）
+### 民俗（5 件）
 
 - **民俗占法**：称骨算命、犯月查询、本命佛、手机号八星磁场、三世书
 - **测字**：精编拆字字典，含随问取拆多拆法、六书标注、加笔减笔活拆变象、部件释义、康熙数理、梅花字占卦象、时辰外应与值日冲日应期
 - **周公解梦**：通行本二十七类九百五十一句占辞全文，双底本对照，关键词检索与分类浏览
 - **二十八宿**：本命宿、演禽、值宿宜忌，附十二宫次分野、二十四山配宿与《天官书》占辞
 - **太岁生肖**：流年犯太岁判定（值冲刑害破合），十二生肖年度月度运程，六十甲子太岁星君全传
-- **祭祀供奉**：岁时祭仪、神明圣诞、祭祖供品与仪注禁忌，按日期、对象、事项三路查询，逐条标典籍出处、地域与方位
 
-### 运气（2 件）
+### 运气（1 件）
 
 - **五运六气**：岁运、司天在泉、客主加临、运气同化
-- **子午流注**：十二时辰当令、二十条经脉、三百六十一经穴与经外奇穴、九类特定穴、纳支补泻与飞腾八法
-
-### 养生（3 件）
-
-- **精油芳疗**：按效果、人群、季节与体质配单方复方，含七十二味单方、十八种基础油、十二组经典复方与二十种纯露
-- **食疗**：按食材、食疗方、当令与体质季节人群配膳，含三百五十八味食材、四十首食疗方与药食同源目录
-- **推拿按跷**：按部位、症状与经脉查取穴与手法，含十六法、九部位、三十六症、七十二穴推拿取法与十二类禁忌；另设小儿推拿资料一节，只述体系、源流与就医边界
 
 ### 相术（5 件）
 
@@ -131,11 +119,11 @@
 - **阴宅风水**：峦头觅龙察砂观水点穴、玄空飞星坐向、三合水法与八煞黄泉桃花水、仙命配山与二十八宿分金，安葬择日避重丧复日四离四绝
 - **罗经仪**：集三盘三针、分金、卦运、星宿诸层于一盘的在线罗经，照真实罗经形制可转可读；三盘层制可换，上北下南、盘面角即地理度，黑金白三色底色取用
 
-六爻、梅花易数、小六壬可切换流派与子时算法，结果实时计算。
+各占卜工具均支持流派与算法切换，结果实时计算。
 
 ## 站内导航
 
-顶部导航按九卷编排：历法、命理、三式、占卜、民俗、运气、养生、相术，另有附录三类。
+顶部导航按八卷编排：历法、命理、三式、占卜、民俗、运气、相术，另有附录三类。
 
 - **典籍参考** `dianji.html`：各模块所依典籍、版本与开放获取渠道
 - **说明文档** `shuoming.html`：每个工具的起例口径、流派取舍、源流考据、凡例与术语解说
@@ -143,12 +131,14 @@
 
 ## 技术构成
 
-- 纯 HTML、CSS 与原生 JavaScript；页面由构建产出，静态部署即可运行
+- 纯 HTML、CSS 与原生 JavaScript，无构建步骤，静态部署即可运行
 - 可安装到桌面与主屏幕（PWA），已访问页面断网可用；跟随系统自动切换深浅色主题
 - 安卓装成应用须能访问 Google（由 Play 服务生成），装成后不再依赖；
   不便访问时改用添加到主屏幕建快捷方式，该路无此限制
-- 字体自托管（SIL OFL 1.1），离线可用
-- 开源引擎与数据来源统一列于文末（数据来源与致谢）
+- 历法引擎基于 [lunar-javascript](https://github.com/6tail/lunar-javascript)（MIT）
+- 紫微斗数排盘基于 [iztro](https://github.com/SylarLong/iztro)（MIT）
+- 占星星历基于 [astronomy-engine](https://github.com/cosinekitty/astronomy)（MIT）
+- 字体自托管（SIL OFL 1.1），离线可用；完整清单见 `opensource.html`
 
 ## 本地运行
 
@@ -164,7 +154,7 @@ python -m http.server 8080
 
 ## 在线部署
 
-纯静态，仓库内页面已构建完成；Fork 到自己账号后任选一家托管，任意域名与子路径都无需改动源码：页面内的 canonical、og:url 与分享图链接由 `assets/meta.js` 按实际访问地址自动生成，404 页各平台自动识别。
+纯静态零构建，Fork 到自己账号后任选一家托管，任意域名与子路径都无需改动源码：页面内的 canonical、og:url 与分享图链接由 `assets/meta.js` 按实际访问地址自动生成，404 页各平台自动识别。
 
 - **GitHub Pages**：仓库 Settings → Pages → Source 选 Deploy from a branch，Branch 选 main 与根目录（`(root)`）。
 - **Vercel**：在 vercel.com/new 导入仓库，Framework Preset 选 Other，构建命令留空、输出目录 `./`；其余保持默认即可。
@@ -172,91 +162,11 @@ python -m http.server 8080
 - **Netlify**：在 app.netlify.com 导入仓库，构建命令留空、发布目录 `./`。
 - **其他托管**：任意静态托管或对象存储加 CDN（阿里云 OSS、腾讯云 COS、EdgeOne Pages、Render 等）将仓库文件原样上传即可，无需服务端。
 
-## Docker 部署
+## 仓库数据
 
-纯静态站不依赖后端，容器只承担静态文件服务；部署时直接使用仓库内已构建的页面，无需再构建，也无需环境变量。最简一条命令从零拉仓并启动：
-
-```bash
-git clone --depth 1 https://github.com/GaoRenYouShu/XuanJiPaiPan.git && cd XuanJiPaiPan && docker run -d --name xuanji-paipan -p 8080:80 -v "$PWD:/usr/share/nginx/html:ro" nginx:alpine
-# 打开 http://localhost:8080
-```
-
-仓库已在本地时，以下三种方式任选。
-
-**直接用 nginx 容器挂载仓库**（不改任何文件，适合本机与内网试用）：
-
-```bash
-docker run -d --name xuanji-paipan -p 8080:80 \
-  -v "$PWD:/usr/share/nginx/html:ro" \
-  nginx:alpine
-# 打开 http://localhost:8080
-```
-
-**构建自有镜像**（适合内网分发与固定版本）：
-
-```dockerfile
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-COPY *.html manifest.webmanifest robots.txt sitemap.xml sw.js ./
-COPY assets ./assets
-```
-
-```bash
-docker build -t xuanji-paipan .
-docker run -d --name xuanji-paipan -p 8080:80 xuanji-paipan
-```
-
-**用 docker compose 长期运行**：
-
-```yaml
-services:
-  xuanji-paipan:
-    image: nginx:alpine
-    ports:
-      - "8080:80"
-    volumes:
-      - ./:/usr/share/nginx/html:ro
-    restart: unless-stopped
-```
-
-```bash
-docker compose up -d
-```
-
-- 任意域名、端口与子路径均可直接使用，页面内 canonical、og:url 与分享图链接按实际访问地址生成，无需改源码。
-- PWA 安装与离线缓存须 HTTPS 或 localhost 才生效：经局域网 IP 以 http 访问时页面可用，Service Worker 不注册，对外部署请在容器前加一层 HTTPS 反向代理。
-- 404 页：nginx 默认返回自带错误页，如需本站的 404.html，在 server 段加 `error_page 404 /404.html;`。
-- 容器只读挂载即可，站点无写入需求，数据与计算全在浏览器完成，重建容器不丢任何状态。
-
-**更新已部署实例**：容器不会自动拉取 GitHub 的更新，按部署方式处理。
-
-**挂载运行**（含一行部署）直接拉取仓库，刷新页面即生效，无需重启容器：
-
-```bash
-cd XuanJiPaiPan
-git pull
-```
-
-**自有镜像**须重新构建并换掉旧容器：
-
-```bash
-cd XuanJiPaiPan
-git pull
-docker build -t xuanji-paipan .
-docker rm -f xuanji-paipan
-docker run -d --name xuanji-paipan -p 8080:80 xuanji-paipan
-```
-
-**compose** 用挂载方式，更新同挂载运行；改了 compose 文件才需要重跑 `docker compose up -d`。
-
-需要全自动时，在宿主机加一条定时拉取即可：
-
-```bash
-# 每天 4 点拉一次
-0 4 * * * cd /path/to/XuanJiPaiPan && git pull --ff-only
-```
-
-仓库历史被重写导致 `git pull` 失败时，用 `git fetch --depth 1 origin main && git reset --hard origin/main` 对齐远端。
+| 仓库概览 | 语言构成 |
+|:---:|:---:|
+| [![仓库卡片](https://github-readme-stats.vercel.app/api/pin/?username=GaoRenYouShu&repo=XuanJiPaiPan&show_owner=true)](https://github.com/GaoRenYouShu/XuanJiPaiPan) | ![语言构成](https://github-readme-stats.vercel.app/api/top-langs/?username=GaoRenYouShu&layout=compact&langs_count=6&hide_border=false) |
 
 ### 提交活动
 
@@ -266,7 +176,7 @@ docker run -d --name xuanji-paipan -p 8080:80 xuanji-paipan
 
 ```
 XuanJiPaiPan/
-├── *.html        48 个页面：43 个工具加首页、附录三类与 404 页
+├── *.html        40 个页面：35 个工具加首页、附录三类与 404 页
 ├── assets/       全部脚本、样式、字体与图源
 ├── manifest.webmanifest 与 sw.js   PWA 清单与离线 Service Worker
 ├── .nojekyll     GitHub Pages 免 Jekyll 处理
@@ -288,15 +198,13 @@ XuanJiPaiPan/
 
 ## 数据来源与致谢
 
-| 项目 | 用途 | 许可 |
-|---|---|---|
-| [6tail/lunar-javascript](https://github.com/6tail/lunar-javascript) | 历法数据底座 | MIT |
-| [SylarLong/iztro](https://github.com/SylarLong/iztro) | 紫微斗数排盘 | MIT |
-| [cosinekitty/astronomy-engine](https://github.com/cosinekitty/astronomy) | 占星星历 | MIT |
-| [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Rider-Waite_tarot_deck) | 韦特史密斯塔罗 78 张公有领域牌图（Pamela Colman Smith 绘，1909） | 公有领域 |
-| [Unicode Unihan 数据库](https://www.unicode.org/charts/unihan.html) | 康熙笔画字库数据源 | Unicode Data Files License |
-| CBDB 中国历代人物传记资料库 | 姓名学人物资料 | CC BY-NC-SA 4.0 |
-| 京都大学人文科学研究所汉籍资料库（Kanripo）、维基文库 | 古籍全文底本 | 公有领域与 CC BY-SA |
+- [6tail/lunar-javascript](https://github.com/6tail/lunar-javascript)：历法数据底座（MIT）
+- [SylarLong/iztro](https://github.com/SylarLong/iztro)：紫微斗数引擎（MIT）
+- [cosinekitty/astronomy-engine](https://github.com/cosinekitty/astronomy)：占星星历（MIT）
+- [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Rider-Waite_tarot_deck)：韦特史密斯塔罗 78 张公有领域牌图（Pamela Colman Smith 绘，1909）
+- [Unicode Unihan 数据库](https://www.unicode.org/charts/unihan.html)：康熙笔画字库数据源（Unicode Data Files License）
+- CBDB 中国历代人物传记资料库：姓名学人物资料（CC BY-NC-SA 4.0）
+- 京都大学人文科学研究所汉籍资料库（Kanripo）、维基文库：古籍全文底本（公有领域与 CC BY-SA）
 
 完整清单与逐条许可见 `opensource.html`。
 
