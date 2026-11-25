@@ -64,3 +64,21 @@ body.ds-page .field.chk{display:flex!important;align-items:center!important;gap:
 body.ds-page .field.chk label{display:inline!important;margin:0!important;white-space:normal!important;line-height:1.4}
 body.ds-page .jy-pick-list{min-width:240px;max-height:46vh;overflow:auto}
 body.ds-page .jy-pick-list .field.chk{width:auto!important}
+
+
+/* 六爻/梅花的逐爻数字小框：上面 .form-row 的 100% 宽度规则会把它拉满整行，
+   此处恢复固定小尺寸并保持横排。 */
+body.ds-page .form-row .field .ly-num-inputs,
+body.ds-page .ly-num-inputs{
+  display:flex!important;gap:6px!important;flex-wrap:wrap;width:auto!important;max-width:100%!important;
+}
+body.ds-page .form-row .field .ly-num-inputs input,
+body.ds-page .ly-num-inputs input{
+  width:34px!important;min-width:34px!important;max-width:34px!important;
+  flex:0 0 auto!important;text-align:center!important;padding:0 2px!important;
+  height:34px!important;box-sizing:border-box!important;
+}
+body.ds-page .form-row .field .ly-num-inputs input.ly-name-input,
+body.ds-page .ly-num-inputs input.ly-name-input{
+  width:120px!important;min-width:120px!important;max-width:120px!important;text-align:left!important;padding:0 8px!important;
+}

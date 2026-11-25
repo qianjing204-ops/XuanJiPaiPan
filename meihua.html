@@ -52,6 +52,12 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
 <script defer src="assets/design/interaction.js?v=1"></script>
 <script defer src="assets/design/draft.js?v=1"></script>
 <script defer src="assets/design/feedback.js?v=1"></script>
+<style id="ly-num-fix">
+/* 逐爻数字小框：外部样式会把 dt-input 拉到整行，这里锁定小尺寸 */
+.page-ly .ly-num-inputs,body.ds-page .ly-num-inputs{display:flex!important;gap:6px!important;flex-wrap:wrap;width:auto!important;max-width:100%!important}
+.page-ly .ly-num-inputs input,body.ds-page .ly-num-inputs input{width:34px!important;min-width:34px!important;max-width:34px!important;flex:0 0 auto!important;text-align:center!important;padding:0 2px!important;height:36px!important;box-sizing:border-box!important}
+.page-ly .ly-num-inputs input.ly-name-input,body.ds-page .ly-num-inputs input.ly-name-input{width:130px!important;min-width:130px!important;max-width:130px!important;text-align:left!important;padding:0 8px!important}
+</style>
 </head>
 <body class="ds-page">
 <header class="ios-top">
