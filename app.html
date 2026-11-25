@@ -294,7 +294,8 @@ html[data-theme="dark"] .hl-bar i{background:#F4F7F6}
 #panel-mine .mine-sheet .mine-opt small{color:var(--ink-3);font-size:13px}
 #panel-mine{padding-bottom:110px}
 
-.xj-save-case{position:absolute;left:14px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:45;height:40px;padding:0 16px;border:0;border-radius:20px;background:rgba(47,111,91,.94);color:#fff;font-size:13px;box-shadow:0 8px 20px rgba(47,111,91,.28)}
+.xj-save-case{position:absolute;right:12px;top:calc(56px + env(safe-area-inset-top));z-index:30;height:28px;padding:0 10px;border:0;border-radius:14px;background:rgba(47,111,91,.90);color:#fff;font-size:12px;line-height:28px;box-shadow:0 4px 12px rgba(47,111,91,.22);opacity:.92}
+.xj-save-case:active{opacity:1}
 
 #sp-history .card{padding-bottom:16px}
 #sp-history .history-item{display:block;padding:12px 4px;border-top:1px solid rgba(60,60,67,.1);position:relative}
@@ -7223,9 +7224,13 @@ function watchSaveCase(sp, btn){
   }
   function hasResult(){
     var d = frameDoc(); if (!d) return false;
+    function bad(t){ return !t || /尚未|请先|暂无|还没有|未排盘/.test(t); }
     for (var i = 0; i < SEL.length; i++) {
       var el = d.querySelector(SEL[i]);
-      if (el && !el.hidden && (el.textContent || '').replace(/\s+/g, '').length > 40) return true;
+      if (el && !el.hidden) {
+        var t = (el.textContent || '').replace(/\s+/g, '');
+        if (t.length > 40 && !bad(t)) return true;
+      }
     }
     return false;
   }
