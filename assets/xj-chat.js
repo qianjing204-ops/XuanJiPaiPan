@@ -734,6 +734,10 @@
         : (isMe ? esc(m.text) : (typeof md2html === 'function' ? md2html(m.text) : esc(m.text)));
       if (m.pending && !m.text) body = '<span class="wait">正在解析<span class="dots"></span></span>';
       if (m.err && m.retry) body += '<button type="button" class="retry" data-retry="' + idx + '">重试</button>';
+      if (m.quality) body += "<div style=\"margin-top:10px\">"
+        + "<button type=\"button\" data-q-send=\"1\" style=\"border:0;border-radius:8px;background:#2F6F5B;color:#fff;font-size:13px;padding:8px 12px;margin-right:8px\">仍要发送</button>"
+        + "<button type=\"button\" data-q-retake=\"1\" style=\"border:1px solid #2F6F5B;border-radius:8px;background:transparent;color:#2F6F5B;font-size:13px;padding:8px 12px\">重拍</button>"
+        + "</div>";
       html += '<div class="row ' + (isMe ? 'me' : 'ai') + '">'
         + (isMe ? '' : '<div class="ava" aria-hidden="true">解</div>')
         + '<div class="bub' + (m.err ? ' err' : '') + (m.pending ? ' pending' : '') + '">' + body + '</div>'
@@ -746,6 +750,10 @@
     host.innerHTML = html;
     var drop = $('xjDrop');
     if (drop) drop.onclick = clearPhoto;
+    var qs = host.querySelector("[data-q-send]");
+    if (qs) qs.onclick = function () { sendPhoto(); };
+    var qr = host.querySelector("[data-q-retake]");
+    if (qr) qr.onclick = function () { pickPhoto(); };
     var obBtn = host.querySelector('.ob-b');
     if (obBtn) obBtn.onclick = function () {
       if (typeof openAiConfig === 'function') { openAiConfig(); return; }
@@ -795,6 +803,36 @@
     try { f.click(); }
     catch (err) { tip('这台手机拦了选图'); }
   }
+  function qualityCheck(cv) {
+    try {
+      var w = cv.width, h = cv.height, ctx = cv.getContext("2d");
+      var d = ctx.getImageData(0, 0, w, h).data;
+      var n = w * h, sum = 0, sum2 = 0;
+      var gray = new Float32Array(n);
+      for (var i = 0, j = 0; i < d.length; i += 4, j++) {
+        var g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+        gray[j] = g; sum += g; sum2 += g * g;
+      }
+      var mean = sum / n;
+      var sd = Math.sqrt(Math.max(0, sum2 / n - mean * mean));
+      var lap = 0, cnt = 0;
+      for (var y = 1; y < h - 1; y += 2) {
+        for (var x = 1; x < w - 1; x += 2) {
+          var k = y * w + x;
+          lap += Math.abs(-4 * gray[k] + gray[k - 1] + gray[k + 1] + gray[k - w] + gray[k + w]);
+          cnt++;
+        }
+      }
+      var sharp = cnt ? lap / cnt : 0;
+      var issues = [];
+      if (mean < 45) issues.push("照片偏暗，纹路容易糊成一片");
+      if (mean > 228) issues.push("照片过曝，亮处细节丢了");
+      if (sd < 16) issues.push("对比度偏低，纹路不分明");
+      if (sharp < 6) issues.push("画面偏模糊，可能没对焦或手抖");
+      if (Math.min(w, h) < 320) issues.push("分辨率偏低，细节看不清");
+      return issues;
+    } catch (e) { return []; }
+  }
   function onPhoto(id) {
     var f = $(id || 'xjAlbum');
     var file = f && f.files && f.files[0];
@@ -814,6 +852,15 @@
       PHOTO = canvas.toDataURL('image/jpeg', 0.8);
       try { sessionStorage.setItem('xj-photo-' + pageName(), PHOTO); } catch (e) {}
       URL.revokeObjectURL(url);
+      var issues = qualityCheck(canvas);
+      if (issues.length) {
+        PAGE.msgs.push({
+          role: "assistant", quality: issues, ts: Date.now(),
+          text: "这张照片可能看不清：\n· " + issues.join("\n· ") + "\n\n建议重拍：光线均匀、对焦清楚、离近一点。要用这张也行，但结论会保守些。"
+        });
+        renderMsgs();
+        return;
+      }
       renderMsgs();
       /* 选完即解析：不让用户再点一次发送 */
       setTimeout(function () {
@@ -866,6 +913,7 @@
           { type: 'image_url', image_url: { url: m.image } }
         ] });
       } else {
+        if (m.quality) return;
         msgs.push({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.text });
       }
     });
