@@ -33,6 +33,18 @@
     });
   };
 })();
+function syncMineAiStyle(){
+  try{
+    var sel=document.getElementById("mineAiStyle"); if(!sel) return;
+    sel.value=(localStorage.getItem("xj_ai_style")==="pro")?"pro":"plain";
+    sel.onchange=function(){
+      try{ localStorage.setItem("xj_ai_style", this.value==="pro"?"pro":"plain"); }catch(e){}
+      if(typeof showToast==="function") showToast("解析风格已切换");
+    };
+  }catch(e){}
+}
+document.addEventListener("DOMContentLoaded", function(){ setTimeout(syncMineAiStyle, 0); });
+if(document.readyState!=="loading") setTimeout(syncMineAiStyle, 0);
 </script>
 
 <script>
@@ -2464,6 +2476,16 @@ document.getElementById("q").addEventListener("input", function(){
                     </button>
                 </div>
 
+                <p class="mine-sec">AI 解析</p>
+                <div class="mine-card">
+                    <div class="mine-row">
+                        <span class="mine-label">解析风格</span>
+                        <select id="mineAiStyle" aria-label="AI 解析风格" style="border:0;background:transparent;font-size:14px;color:#2F6F5B;text-align:right;padding:4px 2px;max-width:52%">
+                            <option value="plain">白话分段</option>
+                            <option value="pro">专业分点</option>
+                        </select>
+                    </div>
+                </div>
                 <p class="mine-sec">数据</p>
                 <div class="mine-card">
                     <button class="mine-row mine-tap" type="button" id="mineHistoryBtn">

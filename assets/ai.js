@@ -386,16 +386,6 @@ function ensureAiModal(){
     </header>
 
     <section class="ai-sec">
-      <div class="ai-sec-t"><span class="ai-sec-no">式</span>解析风格</div>
-      <label>提示词风格
-        <select id="aiStyleSel" onchange="setAiStyle(this.value)">
-          <option value="plain">白话分段（术语少，带白话解释）</option>
-          <option value="pro">专业分点（可用术数术语）</option>
-        </select>
-      </label>
-      <p style="font-size:12px;line-height:1.6;color:#8A8A8E;margin:6px 0 0">对「AI 解析」面板与对话同时生效，下一次解析起按新风格输出。</p>
-    </section>
-    <section class="ai-sec">
       <div class="ai-sec-t"><span class="ai-sec-no">壹</span>服务商</div>
       <div class="row">
         <label>已存服务商（快速填入）
