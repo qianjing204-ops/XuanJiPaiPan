@@ -7143,6 +7143,7 @@ var TOOLS=[
  {id:"ziwu",name:"子午流注",desc:"十二时辰 · 经络气血",mark:"子",group:"yunqi",file:"ziwu.html"},
  {id:"jingyou",name:"精油",desc:"单方复方 · 配比浓度",mark:"精",group:"yangsheng",file:"jingyou.html"},
  {id:"shiliao",name:"食疗",desc:"药食同源 · 体质食养",mark:"食",group:"yangsheng",file:"shiliao.html"},
+ {id:"mogu",name:"摸骨",desc:"九骨 · 玉枕十八骨",mark:"骨",group:"xiang",file:"mogu.html"},
  {id:"tuina",name:"推拿",desc:"按跷手法 · 经络调理",mark:"推",group:"yangsheng",file:"tuina.html"},
 ];
 var TOOL_GROUPS=[["ming","命理"],["sanshi","三式"],["zhan","占卜"],["folk","民俗"],["yunqi","运气"],["yangsheng","养生"],["xiang","相术"],["lifa","历法"],["extra","附录"]];
@@ -7182,7 +7183,7 @@ function openTool(id){
   alert(tool.name+"尚未接入，不在此页编造排盘");
 }
 	/* iOS 换肤白名单：已换肤的页才由外壳画齿轮。未换肤页不进名单。江氏小六壬已换肤。 */
-var IOS_XJ={"bazi.html":1,"ziwei.html":1,"tieban.html":1,"meihua.html":1,"liuyao.html":1,"daliuren.html":1,"taiyi.html":1,"lenormand.html":1,"xingming.html":1,"tarot.html":1,"lingqian.html":1,"zhougong.html":1,"cezi.html":1,"xingzhan.html":1,"qizheng.html":1,"qimen.html":1,"wannianli.html":1,"laohuangli.html":1,"foli.html":1,"daoli.html":1,"zangli.html":1,"zeri.html":1,"huangji.html":1,"hehun.html":1,"heluo.html":1,"minsu.html":1,"xingxiu.html":1,"taisui.html":1,"yunqi.html":1,"shouxiang.html":1,"mianxiang.html":1,"fengshui.html":1,"fengshui-yin.html":1,"luopan.html":1,"xiaoliuren.html":1};
+var IOS_XJ={"bazi.html":1,"ziwei.html":1,"tieban.html":1,"meihua.html":1,"liuyao.html":1,"daliuren.html":1,"taiyi.html":1,"lenormand.html":1,"xingming.html":1,"tarot.html":1,"lingqian.html":1,"zhougong.html":1,"cezi.html":1,"xingzhan.html":1,"qizheng.html":1,"qimen.html":1,"wannianli.html":1,"laohuangli.html":1,"foli.html":1,"daoli.html":1,"zangli.html":1,"zeri.html":1,"huangji.html":1,"hehun.html":1,"heluo.html":1,"minsu.html":1,"xingxiu.html":1,"taisui.html":1,"yunqi.html":1,"shouxiang.html":1,"mianxiang.html":1,"fengshui.html":1,"fengshui-yin.html":1,"luopan.html":1,"xiaoliuren.html":1,"mogu.html":1};
 function xjModulePush(id){
   try{
     if(!history.state) history.replaceState({xjRoot:1}, '', location.href);

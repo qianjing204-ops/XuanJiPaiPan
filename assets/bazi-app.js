@@ -1353,10 +1353,20 @@ function showTip(key, extra){
     body=`<h3 class="tip-title">${key}</h3><div class="tip-body">（暂无说明）</div>`;
   }
   if(nayin) body+=`<div class="tip-body tip-nayin">纳音查法：本煞以年柱纳音五行立极而取，与日干主查法属不同体系，两法并见时各具其义。</div>`;
-  document.getElementById('modalBody').innerHTML=gzAllColorSpan(body);
-  document.getElementById('modalMask').classList.add('show');
+  var __body=document.getElementById('modalBody');
+  var __mask=(__body && __body.closest) ? __body.closest('#modalMask') : null;
+  if(!__mask) __mask=document.getElementById('modalMask');
+  if(__body) __body.innerHTML=gzAllColorSpan(body);
+  if(__mask) __mask.classList.add('show');
 }
-function closeTip(){ document.getElementById('modalMask').classList.remove('show'); }
+function closeTip(){
+  try{
+    var __b=document.getElementById('modalBody');
+    var __m=(__b && __b.closest) ? __b.closest('#modalMask') : null;
+    if(!__m) __m=document.getElementById('modalMask');
+    if(__m) __m.classList.remove('show');
+  }catch(e){}
+}
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeTip(); });
 
 /* ---------- 基础信息字段流弹窗：二十八宿、三垣、旬首旬空、命卦、格局 ----------
