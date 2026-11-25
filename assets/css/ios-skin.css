@@ -577,3 +577,19 @@ html.ios-skin.ios-skin .panel.active{animation:xjPanelIn 200ms ease-out !importa
   html.ios-skin.ios-skin .panel.active{animation:none !important}
 }
 /* ================= v5.0 结束 ================= */
+
+
+/* 逐爻数字小框（六爻/梅花）：本文件前面的 .field input{width:100%!important}
+   会把这类并排小框拉满，这里用更高特异性恢复固定尺寸。 */
+html.ios-skin.ios-skin .ly-num-inputs{
+  display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+  gap:6px!important;width:auto!important;max-width:100%!important;
+}
+html.ios-skin.ios-skin .ly-num-inputs input{
+  flex:0 0 34px!important;width:34px!important;min-width:34px!important;max-width:34px!important;
+  height:36px!important;text-align:center!important;padding:0 2px!important;box-sizing:border-box!important;
+}
+html.ios-skin.ios-skin .ly-num-inputs input.ly-name-input{
+  flex:0 0 130px!important;width:130px!important;min-width:130px!important;max-width:130px!important;
+  text-align:left!important;padding:0 8px!important;
+}
