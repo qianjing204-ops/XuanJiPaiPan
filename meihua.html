@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="assets/css/meihua.css">
 
 <script src="assets/embed.js?v=36"></script>
-<link rel="stylesheet" href="assets/css/ios-skin.css?v=7">
+<link rel="stylesheet" href="assets/css/ios-skin.css?v=8">
 <style>html.ios-skin.ios-skin body{--red:#b84a3a!important;--red2:#9e3d2f!important;--green:#2e7d32!important}</style>
 <style>
 html.ios-skin .page-mh{padding-top:calc(70px + env(safe-area-inset-top, 44px))}
@@ -730,5 +730,41 @@ window.addEventListener('load', function () {
 });
 </script>
 <script defer src="assets/native-inputs.js?v=9"></script>
+<script id="ly-num-fix-js">
+(function(){
+  function fix(){
+    var boxes = document.querySelectorAll(".ly-num-inputs");
+    for (var i = 0; i < boxes.length; i++) {
+      var box = boxes[i];
+      box.style.setProperty("display", "flex", "important");
+      box.style.setProperty("flex-direction", "row", "important");
+      box.style.setProperty("flex-wrap", "wrap", "important");
+      box.style.setProperty("gap", "6px", "important");
+      box.style.setProperty("width", "auto", "important");
+      box.style.setProperty("height", "auto", "important");
+      box.style.setProperty("overflow", "visible", "important");
+      var ins = box.querySelectorAll("input");
+      for (var j = 0; j < ins.length; j++) {
+        var inp = ins[j];
+        var isName = inp.classList.contains("ly-name-input");
+        var w = isName ? "130px" : "34px";
+        inp.style.setProperty("width", w, "important");
+        inp.style.setProperty("min-width", w, "important");
+        inp.style.setProperty("max-width", w, "important");
+        inp.style.setProperty("height", "36px", "important");
+        inp.style.setProperty("flex", "0 0 " + w, "important");
+        inp.style.setProperty("position", "static", "important");
+        inp.style.setProperty("float", "none", "important");
+        inp.style.setProperty("text-align", isName ? "left" : "center", "important");
+        inp.style.setProperty("padding", isName ? "0 8px" : "0 2px", "important");
+        inp.style.setProperty("box-sizing", "border-box", "important");
+      }
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix);
+  else fix();
+  window.addEventListener("load", function(){ setTimeout(fix, 60); });
+})();
+</script>
 </body>
 </html>
