@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="assets/css/liuyao.css">
 
 <script src="assets/embed.js?v=36"></script>
-<link rel="stylesheet" href="assets/css/ios-skin.css?v=8">
+<link rel="stylesheet" href="assets/css/ios-skin.css?v=9">
 <style>html.ios-skin.ios-skin body{--red:#b84a3a!important;--red2:#9e3d2f!important;--green:#2e7d32!important}</style>
 <style>
 html.ios-skin .page-ly{padding-top:calc(70px + env(safe-area-inset-top, 44px))}
@@ -128,17 +128,17 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
       </div>
       <div class="field ly-sel-field" id="lyNumField" style="display:none"><label>六爻数字，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"></div>
+          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyBaoShuField" style="display:none"><label>报数，三数定上卦下卦动爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric"><input id="bs2" class="dt-input" value="1" inputmode="numeric"><input id="bs3" class="dt-input" value="1" inputmode="numeric"></div>
+          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="bs2" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="bs3" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lySpecField" style="display:none"><label>指定六爻，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric"><input id="sp2" class="dt-input" value="7" inputmode="numeric"><input id="sp3" class="dt-input" value="7" inputmode="numeric"><input id="sp4" class="dt-input" value="7" inputmode="numeric"><input id="sp5" class="dt-input" value="7" inputmode="numeric"><input id="sp6" class="dt-input" value="7" inputmode="numeric"></div>
+          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp2" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp3" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp4" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp5" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp6" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyStepField" style="display:none"><label>逐爻摇卦，自下而上</label>
@@ -756,10 +756,23 @@ function lyMethodChange(){
 }
 /* 数字起卦输入校验：超出6-9红框提示（起卦时仍按边界截断） */
 function lyNumCheck(inp){
-  const v=parseInt(inp.value,10);
-  const ok=(!isNaN(v))&&v>=6&&v<=9;
+  /* 每格只收一位：先取最后输入的一个数字，再按 6-9 截断，避免连按堆成一串 */
+  var digits=(inp.value||'').replace(/[^0-9]/g,'');
+  if(digits.length>1) digits=digits.slice(-1);
+  var v=digits?parseInt(digits,10):NaN;
+  if(!isNaN(v)&&(v<6||v>9)) v=v<6?6:9;
+  inp.value=isNaN(v)?'':String(v);
+  var ok=!isNaN(v);
   inp.style.borderColor=ok?'':'var(--red)';
   inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳），超范围按 6 或 9 截断';
+  if(ok){
+    var ids=['n1','n2','n3','n4','n5','n6'];
+    var i=ids.indexOf(inp.id);
+    if(i>=0&&i<ids.length-1){
+      var nx=document.getElementById(ids[i+1]);
+      if(nx){ try{ nx.focus(); nx.select&&nx.select(); }catch(e){} }
+    }
+  }
 }
 /* 起卦时间：用当前时刻填入表单 */
 function lyUseNow(){

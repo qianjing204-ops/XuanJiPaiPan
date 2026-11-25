@@ -594,3 +594,9 @@ html.ios-skin.ios-skin .ly-num-inputs input.ly-name-input{
   flex:0 0 130px!important;width:130px!important;min-width:130px!important;max-width:130px!important;
   text-align:left!important;padding:0 8px!important;
 }
+
+/* 梅花报数：允许两三位数，单独放宽，不套 34px 小格 */
+html.ios-skin.ios-skin .ly-num-inputs input.mh-num-input{
+  flex:0 0 64px!important;width:64px!important;min-width:64px!important;max-width:64px!important;
+  text-align:center!important;
+}
