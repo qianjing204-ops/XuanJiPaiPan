@@ -10,6 +10,24 @@ window.XJ_AI_STYLE = [
   "判据：每条结论都要指回盘面哪一处（哪一宫、哪一爻、哪一线、哪一层），盘面没有的不补。"
 ].join("\n");
 window.XJ_AI_TEMP = 0.4;
+window.XJ_AI_STYLE_PLAIN = window.XJ_AI_STYLE;
+window.XJ_AI_STYLE_PRO = [
+  "格式：分条论述，四到六条，每条先点题再展开，条与条之间空一行。",
+  "用词：可直接使用术数术语（十神、神煞、纳音、格局、用神、四化、宫位、爻位等），术语须与盘面对得上，不堆砌无据名目。",
+  "判据：每条结论都要指回盘面哪一处，并说明取用理由；盘面没有的不补。"
+].join("\n");
+window.xjAiStyleKey = function () {
+  try { return localStorage.getItem("xj_ai_style") === "pro" ? "pro" : "plain"; } catch (e) { return "plain"; }
+};
+window.xjAiStyleText = function () {
+  return window.xjAiStyleKey() === "pro" ? (window.XJ_AI_STYLE_PRO || "") : (window.XJ_AI_STYLE_PLAIN || "");
+};
+window.setAiStyle = function (v) {
+  try { localStorage.setItem("xj_ai_style", v === "pro" ? "pro" : "plain"); } catch (e) {}
+  var sel = document.getElementById("aiStyleSel");
+  if (sel) sel.value = window.xjAiStyleKey();
+  try { if (typeof showToast === "function") showToast("解析风格已切换"); } catch (e) {}
+};
 /* 全站 AI 解析模块：多模型对比、MD 渲染、对话、跨页配置同步
    配置存 localStorage + window.name 双通道：localStorage 同源跨页持久，window.name 兜底 file:// 同标签页。
    每页通过 mountAI(getContext, pageTitle) 挂载面板
@@ -368,6 +386,16 @@ function ensureAiModal(){
     </header>
 
     <section class="ai-sec">
+      <div class="ai-sec-t"><span class="ai-sec-no">式</span>解析风格</div>
+      <label>提示词风格
+        <select id="aiStyleSel" onchange="setAiStyle(this.value)">
+          <option value="plain">白话分段（术语少，带白话解释）</option>
+          <option value="pro">专业分点（可用术数术语）</option>
+        </select>
+      </label>
+      <p style="font-size:12px;line-height:1.6;color:#8A8A8E;margin:6px 0 0">对「AI 解析」面板与对话同时生效，下一次解析起按新风格输出。</p>
+    </section>
+    <section class="ai-sec">
       <div class="ai-sec-t"><span class="ai-sec-no">壹</span>服务商</div>
       <div class="row">
         <label>已存服务商（快速填入）
@@ -506,6 +534,7 @@ function openAiConfig(){
     document.getElementById('aiKey').value = last.apiKey || '';
   }
   document.getElementById('aiCfgMsg').textContent = '';
+  try { var __s=document.getElementById('aiStyleSel'); if(__s) __s.value = window.xjAiStyleKey(); } catch(e){}
   refreshQuickProviders();
   renderModelList();
   refreshEncModeTip();
@@ -1384,7 +1413,7 @@ async function runAiAnalyze(question, selectedIdx){
   const btn = document.getElementById('aiRunBtn'), stop = document.getElementById('aiStopBtn');
   if (btn) btn.disabled = true; if (stop) stop.disabled = false;
 
-  const sysBase = ((window.XJ_AI_BASE||'') + '\n' + (window.XJ_AI_STYLE||'')).trim() || '你是一位资深的中国传统命理与术数分析师。请基于给定盘面信息，用简体中文做条理清晰、专业而通俗的解读，分点说明，避免绝对化断语，末尾提示仅供参考。';
+  const sysBase = ((window.XJ_AI_BASE||'') + '\n' + (typeof window.xjAiStyleText==='function' ? window.xjAiStyleText() : (window.XJ_AI_STYLE||''))).trim() || '你是一位资深的中国传统命理与术数分析师。请基于给定盘面信息，用简体中文做条理清晰、专业而通俗的解读，分点说明，避免绝对化断语，末尾提示仅供参考。';
   const sys = sysBase + (__aiSysCustom ? ('\n' + __aiSysCustom) : '') + aiSchoolPrompt();
   const allIdx = allModels.map((_, i) => i);
 

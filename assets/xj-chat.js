@@ -196,9 +196,13 @@
     }
   };
 
-  var SYS = (window.XJ_AI_BASE || 
-  '你在跟一个不懂命理的人说话，只解当前这一盘。盘面里的星曜、宫位、四化、条文、卦名、爻位、十神、神煞、纳音、五格、三才是给你核对的底稿，不是给读者看的。不要重排，也不要否定底稿；底稿没有的数字、年份、人名不编。按这个人怎么过日子来写：性格、做事、钱、感情、家里、身体上要留心的倾向；不下医疗诊断，不给投资建议，避免绝对化。所问超出本盘时，说明这一盘还没含那一层，不要编。末尾写明仅供参考。')
-  + '\n' + (window.XJ_AI_STYLE || '格式：分条讲，四到六段，每段三到五句，段与段之间空一行。用词：术语每段最多出现一个，出现时紧跟一句白话解释。判据：每条结论都要指回盘面哪一处，盘面没有的不补。');
+  var SYS_FALLBACK = '你在跟一个不懂命理的人说话，只解当前这一盘。盘面是给你核对的底稿，不是给读者看的；不要重排，底稿没有的数字、年份、人名不编。按这个人怎么过日子来写：性格、做事、钱、感情、家里、身体上要留心的倾向；不下医疗诊断，不给投资建议，避免绝对化。末尾写明仅供参考。';
+var STYLE_FALLBACK = '格式：分条讲，四到六段，每段三到五句，段与段之间空一行。用词：术语每段最多出现一个，出现时紧跟一句白话解释。判据：每条结论都要指回盘面哪一处，盘面没有的不补。';
+function sysText() {
+  var base = window.XJ_AI_BASE || SYS_FALLBACK;
+  var style = (typeof window.xjAiStyleText === 'function') ? window.xjAiStyleText() : (window.XJ_AI_STYLE || STYLE_FALLBACK);
+  return base + '\n' + style;
+}
   var PLAIN = '即便上面附了流派要求，对读者仍用大白话；派名留在你自己的判断里，每段最多带一个术语并附白话解释，不要铺术语。';
 
   function $(id) { return document.documentElement ? document.getElementById(id) : null; }
@@ -503,8 +507,7 @@
       window.visualViewport.addEventListener('resize', fitViewport);
       window.visualViewport.addEventListener('scroll', fitViewport);
     }
-    var __gestureCfg = cfg();
-    if (__gestureCfg && __gestureCfg.noSwipeDown) bindEdgeBack(); else bindSwipeClose();
+    bindEdgeBack();
   }
 
   function fitViewport() {
@@ -898,7 +901,8 @@
     try { sessionStorage.removeItem('xj-photo-' + pageName()); } catch (e) {}
   }
   function historyFor(question, image) {
-    var sys = SYS + '\n' + (window.__aiSysCustom || '') + schoolExtra() + '\n' + PLAIN;
+    var __pro = (typeof window.xjAiStyleKey === 'function') && window.xjAiStyleKey() === 'pro';
+    var sys = sysText() + '\n' + (window.__aiSysCustom || '') + schoolExtra() + (__pro ? '' : ('\n' + PLAIN));
     var msgs = [{ role: 'system', content: sys + '\n\n【盘面底稿】\n' + contextText() }];
     var recent = PAGE.msgs.filter(function (m) { return m.text && !m.pending && !m.err; }).slice(-8);
     recent.forEach(function (m) {
