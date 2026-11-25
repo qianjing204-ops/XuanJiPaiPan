@@ -1,3 +1,15 @@
+window.XJ_AI_BASE = [
+  "你在跟一个不懂命理的人说话，只解当前这一盘。",
+  "盘面里的星曜、宫位、四化、条文、卦名、爻位、十神、神煞、纳音、五格、三才是给你核对的底稿，不是给读者看的。不要重排，也不要否定底稿；底稿没有的数字、年份、人名不编。",
+  "按这个人怎么过日子来写：性格、做事、钱、感情、家里、身体上要留心的倾向；不下医疗诊断，不给投资建议，避免绝对化。",
+  "所问超出本盘时，说明这一盘还没含那一层，不要编。末尾写明仅供参考。"
+].join("\n");
+window.XJ_AI_STYLE = [
+  "格式：分条讲，四到六段，每段三到五句，段与段之间空一行；每段先给一句结论，再给依据。",
+  "用词：术语每段最多出现一个，出现时紧跟一句白话解释；不要整段堆术语，也不要列盘面表格。",
+  "判据：每条结论都要指回盘面哪一处（哪一宫、哪一爻、哪一线、哪一层），盘面没有的不补。"
+].join("\n");
+window.XJ_AI_TEMP = 0.4;
 /* 全站 AI 解析模块：多模型对比、MD 渲染、对话、跨页配置同步
    配置存 localStorage + window.name 双通道：localStorage 同源跨页持久，window.name 兜底 file:// 同标签页。
    每页通过 mountAI(getContext, pageTitle) 挂载面板
@@ -1080,7 +1092,7 @@ function mountAI(getContext, pageTitle, opts){
   opts = opts || {};
   const schoolSet = opts.schools || (pageTitle === '八字排盘' ? AI_SCHOOLS : null);
   __aiSysCustom = opts.systemPrompt || '';
-  __aiTemperature = typeof opts.temperature === 'number' ? opts.temperature : 0.7;
+  __aiTemperature = typeof opts.temperature === 'number' ? opts.temperature : (typeof window.XJ_AI_TEMP === 'number' ? window.XJ_AI_TEMP : 0.4);
   let host = document.getElementById('aiMount');
   if (!host){ host = document.createElement('div'); host.id = 'aiMount'; (document.querySelector('.page') || document.body).appendChild(host); }
   host.innerHTML = `<details class="ai-block" id="aiBlock">
@@ -1372,7 +1384,7 @@ async function runAiAnalyze(question, selectedIdx){
   const btn = document.getElementById('aiRunBtn'), stop = document.getElementById('aiStopBtn');
   if (btn) btn.disabled = true; if (stop) stop.disabled = false;
 
-  const sysBase = `你是一位资深的中国传统命理与术数分析师，精通八字、紫微斗数、六爻、梅花、奇门、六壬、太乙、择日、塔罗、雷诺曼与灵签解签。请基于给定盘面信息，用简体中文做条理清晰、专业而通俗的解读，分点说明，避免绝对化断语，末尾提示仅供参考。`;
+  const sysBase = ((window.XJ_AI_BASE||'') + '\n' + (window.XJ_AI_STYLE||'')).trim() || '你是一位资深的中国传统命理与术数分析师。请基于给定盘面信息，用简体中文做条理清晰、专业而通俗的解读，分点说明，避免绝对化断语，末尾提示仅供参考。';
   const sys = sysBase + (__aiSysCustom ? ('\n' + __aiSysCustom) : '') + aiSchoolPrompt();
   const allIdx = allModels.map((_, i) => i);
 
