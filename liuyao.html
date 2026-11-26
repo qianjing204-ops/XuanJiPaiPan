@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="assets/css/liuyao.css">
 
 <script src="assets/embed.js?v=36"></script>
-<link rel="stylesheet" href="assets/css/ios-skin.css?v=10">
+<link rel="stylesheet" href="assets/css/ios-skin.css?v=6">
 <style>html.ios-skin.ios-skin body{--red:#b84a3a!important;--red2:#9e3d2f!important;--green:#2e7d32!important}</style>
 <style>
 html.ios-skin .page-ly{padding-top:calc(70px + env(safe-area-inset-top, 44px))}
@@ -71,16 +71,6 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
 <script defer src="assets/design/interaction.js?v=1"></script>
 <script defer src="assets/design/draft.js?v=1"></script>
 <script defer src="assets/design/feedback.js?v=1"></script>
-<style id="ly-num-fix">
-/* 逐爻数字小框：外部样式会把 dt-input 拉到整行，这里锁定小尺寸 */
-.page-ly .ly-num-inputs,body.ds-page .ly-num-inputs{display:flex!important;gap:6px!important;flex-wrap:wrap;width:auto!important;max-width:100%!important}
-.page-ly .ly-num-inputs input,body.ds-page .ly-num-inputs input{width:34px!important;min-width:34px!important;max-width:34px!important;flex:0 0 auto!important;text-align:center!important;padding:0 2px!important;height:36px!important;box-sizing:border-box!important}
-.page-ly .ly-num-inputs input.ly-name-input,body.ds-page .ly-num-inputs input.ly-name-input{width:130px!important;min-width:130px!important;max-width:130px!important;text-align:left!important;padding:0 8px!important}
-</style>
-<style id="ly-bs-width">
-#lyBaoShuField .ly-num-inputs input{flex:0 0 64px!important;width:64px!important;min-width:64px!important;max-width:64px!important;text-align:center!important}
-#lySpecField .ly-num-inputs input{flex:0 0 34px!important;width:34px!important;min-width:34px!important;max-width:34px!important}
-</style>
 </head>
 <body class="ds-page">
 <header class="ios-top">
@@ -132,17 +122,17 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
       </div>
       <div class="field ly-sel-field" id="lyNumField" style="display:none"><label>六爻数字，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
+          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyBaoShuField" style="display:none"><label>报数，三数定上卦下卦动爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="bs2" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="bs3" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
+          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric"><input id="bs2" class="dt-input" value="1" inputmode="numeric"><input id="bs3" class="dt-input" value="1" inputmode="numeric"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lySpecField" style="display:none"><label>指定六爻，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp2" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp3" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp4" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp5" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp6" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
+          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric"><input id="sp2" class="dt-input" value="7" inputmode="numeric"><input id="sp3" class="dt-input" value="7" inputmode="numeric"><input id="sp4" class="dt-input" value="7" inputmode="numeric"><input id="sp5" class="dt-input" value="7" inputmode="numeric"><input id="sp6" class="dt-input" value="7" inputmode="numeric"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyStepField" style="display:none"><label>逐爻摇卦，自下而上</label>
@@ -760,23 +750,10 @@ function lyMethodChange(){
 }
 /* 数字起卦输入校验：超出6-9红框提示（起卦时仍按边界截断） */
 function lyNumCheck(inp){
-  /* 取最后输入的一位；合法（6-9）则保留并跳到下一格，非法只标红不改值 */
-  var raw=inp.value||'';
-  var digits=raw.replace(/[^0-9]/g,'');
-  if(digits.length>1) digits=digits.slice(-1);
-  if(digits!==raw) inp.value=digits;
-  var v=digits?parseInt(digits,10):NaN;
-  var ok=(!isNaN(v))&&v>=6&&v<=9;
+  const v=parseInt(inp.value,10);
+  const ok=(!isNaN(v))&&v>=6&&v<=9;
   inp.style.borderColor=ok?'':'var(--red)';
-  inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳）';
-  if(ok){
-    var ids=['n1','n2','n3','n4','n5','n6'];
-    var i=ids.indexOf(inp.id);
-    if(i>=0&&i<ids.length-1){
-      var nx=document.getElementById(ids[i+1]);
-      if(nx){ try{ nx.focus(); nx.select&&nx.select(); }catch(e){} }
-    }
-  }
+  inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳），超范围按 6 或 9 截断';
 }
 /* 起卦时间：用当前时刻填入表单 */
 function lyUseNow(){
@@ -2016,72 +1993,5 @@ window.addEventListener('load', function () {
 });
 </script>
 <script defer src="assets/native-inputs.js?v=9"></script>
-<script id="ly-num-fix-js">
-(function(){
-  /* 按字段用途决定宽度：报数/梅花报数可多位→64px；逐爻单格→34px */
-  function widthFor(inp){
-    if (inp.classList.contains("mh-num-input")) return "64px";
-    var box = inp.closest ? inp.closest("#lyBaoShuField") : null;
-    if (box) return "64px";
-    var mb = inp.closest ? inp.closest("#mhNumField") : null;
-    if (mb) return "64px";
-    if (inp.classList.contains("ly-name-input")) return "130px";
-    return "34px";
-  }
-  function fix(){
-    var boxes = document.querySelectorAll(".ly-num-inputs");
-    for (var i = 0; i < boxes.length; i++) {
-      var box = boxes[i];
-      box.style.setProperty("display", "flex", "important");
-      box.style.setProperty("flex-direction", "row", "important");
-      box.style.setProperty("flex-wrap", "wrap", "important");
-      box.style.setProperty("gap", "6px", "important");
-      box.style.setProperty("width", "auto", "important");
-      box.style.setProperty("height", "auto", "important");
-      box.style.setProperty("overflow", "visible", "important");
-      var ins = box.querySelectorAll("input");
-      for (var j = 0; j < ins.length; j++) {
-        var inp = ins[j];
-        var w = widthFor(inp);
-        var isName = inp.classList.contains("ly-name-input");
-        inp.style.setProperty("width", w, "important");
-        inp.style.setProperty("min-width", w, "important");
-        inp.style.setProperty("max-width", w, "important");
-        inp.style.setProperty("height", "36px", "important");
-        inp.style.setProperty("flex", "0 0 " + w, "important");
-        inp.style.setProperty("position", "static", "important");
-        inp.style.setProperty("float", "none", "important");
-        inp.style.setProperty("text-align", isName ? "left" : "center", "important");
-        inp.style.setProperty("padding", isName ? "0 8px" : "0 2px", "important");
-        inp.style.setProperty("box-sizing", "border-box", "important");
-      }
-    }
-  }
-  window.__lyNumFix = fix;
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix);
-  else fix();
-  window.addEventListener("load", function(){ setTimeout(fix, 80); });
-})();
-</script>
-<script id="ly-norm-nums">
-(function(){
-  window.__lyNormNums = function(){
-    var ids=["n1","n2","n3","n4","n5","n6"];
-    for (var i=0;i<ids.length;i++){
-      var el=document.getElementById(ids[i]); if(!el) continue;
-      var v=(el.value||"").replace(/[^0-9]/g,"");
-      if(v.length>1) v=v.slice(-1);
-      var n=v?parseInt(v,10):NaN;
-      /* 空值或不在 6-9 的，回落到默认少阳 7 */
-      if(isNaN(n)||n<6||n>9){ el.value="7"; }
-      else { el.value=String(n); }
-    }
-  };
-  function boot(){ setTimeout(window.__lyNormNums, 0); setTimeout(window.__lyNormNums, 300); }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-  window.addEventListener("load", function(){ setTimeout(window.__lyNormNums, 120); });
-})();
-</script>
 </body>
 </html>
