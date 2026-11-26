@@ -600,3 +600,13 @@ html.ios-skin.ios-skin .ly-num-inputs input.mh-num-input{
   flex:0 0 64px!important;width:64px!important;min-width:64px!important;max-width:64px!important;
   text-align:center!important;
 }
+
+/* 报数起卦：允许两三位数，单独放宽（六爻数字仍为 34px 单格） */
+html.ios-skin.ios-skin #lyBaoShuField .ly-num-inputs input{
+  flex:0 0 64px!important;width:64px!important;min-width:64px!important;max-width:64px!important;
+  text-align:center!important;
+}
+/* 指定六爻：每格一位，保持窄格 */
+html.ios-skin.ios-skin #lySpecField .ly-num-inputs input{
+  flex:0 0 34px!important;width:34px!important;min-width:34px!important;max-width:34px!important;
+}
