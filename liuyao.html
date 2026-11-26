@@ -128,17 +128,17 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
       </div>
       <div class="field ly-sel-field" id="lyNumField" style="display:none"><label>六爻数字，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
+          <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyBaoShuField" style="display:none"><label>报数，三数定上卦下卦动爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="bs2" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="bs3" class="dt-input" value="1" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
+          <div class="ly-num-inputs"><input id="bs1" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="bs2" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="bs3" class="dt-input" value="1" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lySpecField" style="display:none"><label>指定六爻，初爻到上爻</label>
         <div class="ly-num-row">
-          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp2" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp3" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp4" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp5" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"><input id="sp6" class="dt-input" value="7" inputmode="numeric" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
+          <div class="ly-num-inputs"><input id="sp1" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp2" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp3" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp4" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp5" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"><input id="sp6" class="dt-input" value="7" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" onfocus="this.select()"></div>
         </div>
       </div>
       <div class="field ly-sel-field" id="lyStepField" style="display:none"><label>逐爻摇卦，自下而上</label>
@@ -756,20 +756,21 @@ function lyMethodChange(){
 }
 /* 数字起卦输入校验：超出6-9红框提示（起卦时仍按边界截断） */
 function lyNumCheck(inp){
-  /* 仅裁剪超长输入，不清空、不改默认值；6-9 以外只标红提示 */
+  /* 取最后输入的一位；合法（6-9）则保留并跳到下一格，非法只标红不改值 */
   var raw=inp.value||'';
   var digits=raw.replace(/[^0-9]/g,'');
-  if(digits.length>1){ digits=digits.slice(-1); inp.value=digits; }
+  if(digits.length>1) digits=digits.slice(-1);
+  if(digits!==raw) inp.value=digits;
   var v=digits?parseInt(digits,10):NaN;
   var ok=(!isNaN(v))&&v>=6&&v<=9;
   inp.style.borderColor=ok?'':'var(--red)';
   inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳）';
-  if(ok&&digits.length===1){
+  if(ok){
     var ids=['n1','n2','n3','n4','n5','n6'];
     var i=ids.indexOf(inp.id);
     if(i>=0&&i<ids.length-1){
       var nx=document.getElementById(ids[i+1]);
-      if(nx&&document.activeElement===inp){ try{ nx.focus(); }catch(e){} }
+      if(nx){ try{ nx.focus(); nx.select&&nx.select(); }catch(e){} }
     }
   }
 }
