@@ -2018,6 +2018,16 @@ window.addEventListener('load', function () {
 <script defer src="assets/native-inputs.js?v=9"></script>
 <script id="ly-num-fix-js">
 (function(){
+  /* 按字段用途决定宽度：报数/梅花报数可多位→64px；逐爻单格→34px */
+  function widthFor(inp){
+    if (inp.classList.contains("mh-num-input")) return "64px";
+    var box = inp.closest ? inp.closest("#lyBaoShuField") : null;
+    if (box) return "64px";
+    var mb = inp.closest ? inp.closest("#mhNumField") : null;
+    if (mb) return "64px";
+    if (inp.classList.contains("ly-name-input")) return "130px";
+    return "34px";
+  }
   function fix(){
     var boxes = document.querySelectorAll(".ly-num-inputs");
     for (var i = 0; i < boxes.length; i++) {
@@ -2032,8 +2042,8 @@ window.addEventListener('load', function () {
       var ins = box.querySelectorAll("input");
       for (var j = 0; j < ins.length; j++) {
         var inp = ins[j];
+        var w = widthFor(inp);
         var isName = inp.classList.contains("ly-name-input");
-        var w = isName ? "130px" : "34px";
         inp.style.setProperty("width", w, "important");
         inp.style.setProperty("min-width", w, "important");
         inp.style.setProperty("max-width", w, "important");
@@ -2047,9 +2057,10 @@ window.addEventListener('load', function () {
       }
     }
   }
+  window.__lyNumFix = fix;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix);
   else fix();
-  window.addEventListener("load", function(){ setTimeout(fix, 60); });
+  window.addEventListener("load", function(){ setTimeout(fix, 80); });
 })();
 </script>
 <script id="ly-norm-nums">
