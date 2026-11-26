@@ -756,21 +756,20 @@ function lyMethodChange(){
 }
 /* 数字起卦输入校验：超出6-9红框提示（起卦时仍按边界截断） */
 function lyNumCheck(inp){
-  /* 每格只收一位：先取最后输入的一个数字，再按 6-9 截断，避免连按堆成一串 */
-  var digits=(inp.value||'').replace(/[^0-9]/g,'');
-  if(digits.length>1) digits=digits.slice(-1);
+  /* 仅裁剪超长输入，不清空、不改默认值；6-9 以外只标红提示 */
+  var raw=inp.value||'';
+  var digits=raw.replace(/[^0-9]/g,'');
+  if(digits.length>1){ digits=digits.slice(-1); inp.value=digits; }
   var v=digits?parseInt(digits,10):NaN;
-  if(!isNaN(v)&&(v<6||v>9)) v=v<6?6:9;
-  inp.value=isNaN(v)?'':String(v);
-  var ok=!isNaN(v);
+  var ok=(!isNaN(v))&&v>=6&&v<=9;
   inp.style.borderColor=ok?'':'var(--red)';
-  inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳），超范围按 6 或 9 截断';
-  if(ok){
+  inp.title=ok?'':'请输入 6 至 9（6老阴 7少阳 8少阴 9老阳）';
+  if(ok&&digits.length===1){
     var ids=['n1','n2','n3','n4','n5','n6'];
     var i=ids.indexOf(inp.id);
     if(i>=0&&i<ids.length-1){
       var nx=document.getElementById(ids[i+1]);
-      if(nx){ try{ nx.focus(); nx.select&&nx.select(); }catch(e){} }
+      if(nx&&document.activeElement===inp){ try{ nx.focus(); }catch(e){} }
     }
   }
 }
@@ -2046,6 +2045,26 @@ window.addEventListener('load', function () {
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fix);
   else fix();
   window.addEventListener("load", function(){ setTimeout(fix, 60); });
+})();
+</script>
+<script id="ly-norm-nums">
+(function(){
+  window.__lyNormNums = function(){
+    var ids=["n1","n2","n3","n4","n5","n6"];
+    for (var i=0;i<ids.length;i++){
+      var el=document.getElementById(ids[i]); if(!el) continue;
+      var v=(el.value||"").replace(/[^0-9]/g,"");
+      if(v.length>1) v=v.slice(-1);
+      var n=v?parseInt(v,10):NaN;
+      /* 空值或不在 6-9 的，回落到默认少阳 7 */
+      if(isNaN(n)||n<6||n>9){ el.value="7"; }
+      else { el.value=String(n); }
+    }
+  };
+  function boot(){ setTimeout(window.__lyNormNums, 0); setTimeout(window.__lyNormNums, 300); }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  window.addEventListener("load", function(){ setTimeout(window.__lyNormNums, 120); });
 })();
 </script>
 </body>
