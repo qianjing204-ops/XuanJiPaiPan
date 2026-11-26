@@ -121,7 +121,9 @@ html.ios-skin.ios-skin.embed .ios-top{display:none!important}
         </div>
       </div>
       <div class="field ly-sel-field" id="lyNumField" style="display:none"><label>六爻数字，初爻到上爻</label>
-        <div class="ly-num-row">
+  <input id="lyNums6" class="dt-input" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="6" placeholder="如 577557" style="width:100%!important;max-width:100%!important;text-align:center!important;letter-spacing:.3em;font-size:18px;height:44px">
+  <p id="lyNums6Note" class="sub-note" style="margin:6px 0 0;font-size:12.5px;line-height:1.6">六个数字依次为初爻到上爻：6 老阴 / 7 少阳 / 8 少阴 / 9 老阳</p>
+        <div class="ly-num-row" id="lyNumRowHidden" hidden>
           <div class="ly-num-inputs"><input id="n1" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n2" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n3" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n4" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n5" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"><input id="n6" class="dt-input" value="7" inputmode="numeric" oninput="lyNumCheck(this)"></div>
         </div>
       </div>
@@ -1993,5 +1995,49 @@ window.addEventListener('load', function () {
 });
 </script>
 <script defer src="assets/native-inputs.js?v=9"></script>
+<script id="ly-nums6-sync">
+(function(){
+  var NAMES=["初爻","二爻","三爻","四爻","五爻","上爻"];
+  var DESC={"6":"老阴","7":"少阳","8":"少阴","9":"老阳"};
+  function sync(){
+    var box=document.getElementById("lyNums6"); if(!box) return;
+    var v=(box.value||"").replace(/[^0-9]/g,"");
+    if(v.length>6) v=v.slice(0,6);
+    if(v!==box.value) box.value=v;
+    for(var i=1;i<=6;i++){
+      var el=document.getElementById("n"+i);
+      if(el) el.value = (v.length>=i) ? v.charAt(i-1) : "7";
+    }
+    var note=document.getElementById("lyNums6Note");
+    if(note){
+      if(!v.length){
+        note.textContent="六个数字依次为初爻到上爻：6 老阴 / 7 少阳 / 8 少阴 / 9 老阳";
+      } else {
+        var parts=[];
+        for(var j=0;j<v.length;j++){
+          var d=v.charAt(j);
+          var ok=(d>="6"&&d<="9");
+          parts.push(NAMES[j]+" "+(ok?DESC[d]:d+"（应为 6-9）"));
+        }
+        var left=6-v.length;
+        note.textContent=parts.join(" · ")+(left>0?("　还差 "+left+" 位"):"　已满六位");
+      }
+    }
+  }
+  window.lyNums6Sync=sync;
+  function boot(){
+    var box=document.getElementById("lyNums6"); if(!box) return;
+    box.addEventListener("input",sync);
+    box.addEventListener("change",sync);
+    sync();
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
+  /* 起卦前兜底同步一次，保证 n1..n6 与新输入框一致 */
+  document.addEventListener("click",function(e){
+    var t=e.target;
+    while(t&&t!==document){ if(t.id==="lyCastBtn"){ try{sync();}catch(err){} break; } t=t.parentNode; }
+  },true);
+})();
+</script>
 </body>
 </html>
